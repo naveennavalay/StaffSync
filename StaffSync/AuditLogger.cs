@@ -1,169 +1,219 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace StaffSync
 {
-    public class AuditLogger
+    /// <summary>
+    /// Common UI audit helper.
+    /// Uses Control.Tag as the audit field name when supplied; otherwise uses Control.Name.
+    /// </summary>
+    public static class AuditLogger
     {
-        // Capture values from controls (using Tag as field name)
+        /// <summary>
+        /// Captures the current values of supported input controls recursively,
+        /// including controls inside TabPages, GroupBoxes, Panels and other containers.
+        /// This method is used both for the original snapshot and the current UI values.
+        /// </summary>
         public static Dictionary<string, object> getOriginalValues(Control parent)
         {
-            var values = new Dictionary<string, object>();
-
-            foreach (Control ctrl in GetAllControls(parent))
-            {
-                if (ctrl.Tag == null) continue;
-
-                string fieldName = ctrl.Tag.ToString();
-
-                if (ctrl is TextBox || ctrl.GetType().Name.Contains("KryptonTextBox"))
-                    values[fieldName] = ctrl.Text?.Trim();
-
-                else if (ctrl is CheckBox)
-                    values[fieldName] = ((CheckBox)ctrl).Checked;
-                
-                else if (ctrl.GetType().Name.Contains("KryptonCheckBox"))
-                    values[fieldName] = ((Krypton.Toolkit.KryptonCheckBox)ctrl).Checked;
-
-                else if (ctrl is ComboBox || ctrl.GetType().Name.Contains("KryptonComboBox"))
-                    values[fieldName] = ctrl.Text;
-
-                else if (ctrl is DateTimePicker || ctrl.GetType().Name.Contains("KryptonDateTimePicker"))
-                {
-                    //var dt = (DateTimePicker)ctrl;
-                    //values[fieldName] = dt.Format == DateTimePickerFormat.Custom ? (DateTime?)null : dt.Value;
-                }
-            }
-
-            return values;
+            return CaptureValues(parent);
         }
 
         public static Dictionary<string, object> getCurrentValues(Control parent)
         {
-            var values = new Dictionary<string, object>();
+            return CaptureValues(parent);
+        }
+
+        private static Dictionary<string, object> CaptureValues(Control parent)
+        {
+            var values = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            if (parent == null)
+                return values;
 
             foreach (Control ctrl in GetAllControls(parent))
             {
-                if (ctrl.Tag == null) continue;
+                string fieldName = GetAuditFieldName(ctrl);
+                if (string.IsNullOrWhiteSpace(fieldName))
+                    continue;
 
-                string fieldName = ctrl.Tag.ToString();
+                object value;
+                if (!TryGetControlValue(ctrl, out value))
+                    continue;
 
-                if (ctrl is TextBox || ctrl.GetType().Name.Contains("KryptonTextBox"))
-                    values[fieldName] = ctrl.Text?.Trim();
-
-                else if (ctrl is CheckBox || ctrl.GetType().Name.Contains("KryptonCheckBox"))
-                    values[fieldName] = ((CheckBox)ctrl).Checked;
-
-                else if (ctrl is ComboBox || ctrl.GetType().Name.Contains("KryptonComboBox"))
-                    values[fieldName] = ctrl.Text;
-
-                else if (ctrl is DateTimePicker || ctrl.GetType().Name.Contains("KryptonDateTimePicker"))
-                {
-                    var dt = (DateTimePicker)ctrl;
-                    values[fieldName] = dt.Format == DateTimePickerFormat.Custom ? (DateTime?)null : dt.Value;
-                }
+                // Preserve the chosen Tag/Name exactly. If duplicate audit field names
+                // exist, keep the first occurrence rather than silently substituting a
+                // different field name. Each control should have a unique Tag when set.
+                if (!values.ContainsKey(fieldName))
+                    values[fieldName] = value;
             }
 
             return values;
         }
 
-        // Compare old vs new values
-        public static List<string> getUpdatedValues1(Dictionary<string, object> original, Dictionary<string, object> current)
+        private static string GetAuditFieldName(Control ctrl)
         {
-            var changes = new List<string>();
+            if (ctrl == null)
+                return string.Empty;
 
-            foreach (var key in current.Keys)
+            // Tag is the preferred audit field name. If it is missing or blank,
+            // use the exact WinForms control Name so the control can be identified.
+            string tagName = Convert.ToString(ctrl.Tag, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(tagName))
+                return tagName.Trim();
+
+            return ctrl.Name ?? string.Empty;
+        }
+
+        private static bool TryGetControlValue(Control ctrl, out object value)
+        {
+            value = null;
+            if (ctrl == null)
+                return false;
+
+            string typeName = ctrl.GetType().Name;
+
+            // Text input controls (WinForms and Krypton).
+            if (ctrl is TextBoxBase || typeName.IndexOf("KryptonTextBox", StringComparison.OrdinalIgnoreCase) >= 0
+                || typeName.IndexOf("RichTextBox", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                string oldValue = original.ContainsKey(key) ? ConvertToString(original[key]) : "";
-                string newValue = ConvertToString(current[key]);
-
-                if (oldValue != newValue)
-                {
-                    changes.Add($"\"{key}\" changed from \"{oldValue}\" to \"{newValue}\"");
-                }
+                value = (ctrl.Text ?? string.Empty).Trim();
+                return true;
             }
 
-            return changes;
+            // Check boxes (read Checked through reflection so both WinForms and Krypton work).
+            if (ctrl is CheckBox || typeName.IndexOf("KryptonCheckBox", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                object checkedValue = ReadProperty(ctrl, "Checked");
+                value = checkedValue ?? false;
+                return true;
+            }
+
+            // Dropdowns: use the displayed selection text for a human-readable audit statement.
+            // SelectedValue is deliberately not used because it is commonly an internal ID.
+            if (ctrl is ComboBox || typeName.IndexOf("KryptonComboBox", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                value = (ctrl.Text ?? string.Empty).Trim();
+                return true;
+            }
+
+            // Date/time picker controls, including Krypton variants.
+            if (ctrl is DateTimePicker || typeName.IndexOf("DateTimePicker", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                object dateValue = ReadProperty(ctrl, "Value");
+                if (dateValue is DateTime)
+                {
+                    value = (DateTime)dateValue;
+                    return true;
+                }
+
+                value = (ctrl.Text ?? string.Empty).Trim();
+                return true;
+            }
+
+            // NumericUpDown and Krypton numeric controls.
+            if (ctrl is NumericUpDown || typeName.IndexOf("NumericUpDown", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                object numericValue = ReadProperty(ctrl, "Value");
+                value = numericValue ?? (object)(ctrl.Text ?? string.Empty).Trim();
+                return true;
+            }
+
+            // Radio buttons.
+            if (ctrl is RadioButton)
+            {
+                value = ((RadioButton)ctrl).Checked;
+                return true;
+            }
+
+            // Other input-like controls can still be audited by their displayed text.
+            // Container controls, labels and buttons are intentionally excluded.
+            return false;
+        }
+
+        private static object ReadProperty(Control ctrl, string propertyName)
+        {
+            try
+            {
+                PropertyInfo property = ctrl.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+                return property != null && property.CanRead ? property.GetValue(ctrl, null) : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public static List<string> getUpdatedValues1(Dictionary<string, object> original, Dictionary<string, object> current)
+        {
+            return getUpdatedValues(original, current, false);
         }
 
         public static List<string> getUpdatedValues111(Control parent, Dictionary<string, object> original, Dictionary<string, object> current)
         {
-            var changes = new List<string>();
-
-            foreach (Control ctrl in GetAllControls(parent))
-            {
-                if (ctrl.Tag == null) continue;
-
-                string key = ctrl.Tag.ToString();
-
-                string oldValue = original.ContainsKey(key) ? ConvertToString(original[key]) : "";
-                string newValue = current.ContainsKey(key) ? ConvertToString(current[key]) : "";
-
-                if (oldValue != newValue)
-                {
-                    changes.Add($"\"{key}\" changed from \"{oldValue}\" to \"{newValue}\"");
-                }
-            }
-
-            return changes;
+            return getUpdatedValues(original, current, false);
         }
 
+        /// <summary>
+        /// Compares the original snapshot with the current UI values.
+        /// Audit text format: "ControlTagOrName" changed from "old" to "new".
+        /// </summary>
         public static List<string> getUpdatedValues(Dictionary<string, object> original, Dictionary<string, object> current, bool isNewRecord)
         {
             var changes = new List<string>();
+            original = original ?? new Dictionary<string, object>();
+            current = current ?? new Dictionary<string, object>();
 
-            foreach (var key in current.Keys)
+            foreach (var item in current)
             {
-                string newValue = ConvertToString(current[key]);
+                string newValue = ConvertToString(item.Value);
 
                 if (isNewRecord)
                 {
-                    // Only log new values (no old value)
                     if (!string.IsNullOrWhiteSpace(newValue))
-                    {
-                        changes.Add($"\"{key}\" set to \"{newValue}\"");
-                    }
+                        changes.Add($"\"{item.Key}\" set to \"{newValue}\"");
+                    continue;
                 }
-                else
-                {
-                    string oldValue = original.ContainsKey(key)
-                        ? ConvertToString(original[key])
-                        : "";
 
-                    if (oldValue != newValue)
-                    {
-                        changes.Add($"\"{key}\" changed from \"{oldValue}\" to \"{newValue}\"");
-                    }
-                }
+                object originalValue;
+                string oldValue = original.TryGetValue(item.Key, out originalValue)
+                    ? ConvertToString(originalValue)
+                    : string.Empty;
+
+                if (!string.Equals(oldValue, newValue, StringComparison.Ordinal))
+                    changes.Add($"\"{item.Key}\" changed from \"{oldValue}\" to \"{newValue}\"");
             }
 
             return changes;
         }
 
-        // Convert safely
         private static string ConvertToString(object value)
         {
-            if (value == null) return "";
+            if (value == null)
+                return string.Empty;
 
-            if (value is DateTime dt)
-                return dt.ToString("dd-MMM-yyyy");
+            if (value is DateTime)
+                return ((DateTime)value).ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture);
 
-            return value.ToString();
+            if (value is bool)
+                return (bool)value ? "True" : "False";
+
+            if (value is IFormattable)
+                return ((IFormattable)value).ToString(null, CultureInfo.InvariantCulture);
+
+            return Convert.ToString(value, CultureInfo.InvariantCulture) ?? string.Empty;
         }
 
-        // Get all controls recursively
         private static IEnumerable<Control> GetAllControls(Control parent)
         {
             foreach (Control ctrl in parent.Controls)
             {
+                yield return ctrl;
                 foreach (Control child in GetAllControls(ctrl))
                     yield return child;
-
-                yield return ctrl;
             }
         }
     }

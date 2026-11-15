@@ -531,7 +531,7 @@
             this.dtApprovalDate.Name = "dtApprovalDate";
             this.dtApprovalDate.Size = new System.Drawing.Size(103, 21);
             this.dtApprovalDate.TabIndex = 89;
-            this.dtApprovalDate.Tag = "Resignation Date";
+            this.dtApprovalDate.Tag = "Resignation Approval Date";
             this.dtApprovalDate.ValidatingType = typeof(System.DateTime);
             // 
             // label8
@@ -558,7 +558,7 @@
             this.cmbResignationStatus.Size = new System.Drawing.Size(188, 22);
             this.cmbResignationStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbResignationStatus.TabIndex = 86;
-            this.cmbResignationStatus.Tag = "Resignation Reason";
+            this.cmbResignationStatus.Tag = "Resignation Status";
             // 
             // label7
             // 
@@ -585,7 +585,7 @@
             this.txtHROwner.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHROwner.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHROwner.TabIndex = 30;
-            this.txtHROwner.Tag = "Name";
+            this.txtHROwner.Tag = "Next Approver";
             this.txtHROwner.WordWrap = false;
             // 
             // label6
@@ -613,7 +613,7 @@
             this.txtReportingManager.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReportingManager.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReportingManager.TabIndex = 28;
-            this.txtReportingManager.Tag = "Name";
+            this.txtReportingManager.Tag = "Reporting Manager";
             this.txtReportingManager.WordWrap = false;
             // 
             // label14
@@ -670,7 +670,7 @@
             this.tabLeaveEncashment,
             this.tabGratuityInformation});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.tabControl1.SelectedIndex = 5;
+            this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1032, 500);
             this.tabControl1.StateNormal.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.tabControl1.StateNormal.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -773,7 +773,7 @@
             this.txtDateOfJoining.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDateOfJoining.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDateOfJoining.TabIndex = 99;
-            this.txtDateOfJoining.Tag = "Employee Code";
+            this.txtDateOfJoining.Tag = "Date Of Joining";
             this.txtDateOfJoining.WordWrap = false;
             // 
             // txtNoticePeriodStatus
@@ -791,7 +791,7 @@
             this.txtNoticePeriodStatus.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoticePeriodStatus.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoticePeriodStatus.TabIndex = 98;
-            this.txtNoticePeriodStatus.Tag = "Employee Code";
+            this.txtNoticePeriodStatus.Tag = "Notice Period Status";
             this.txtNoticePeriodStatus.WordWrap = false;
             // 
             // label9
@@ -814,7 +814,7 @@
             this.dtLastWorkingDay.Name = "dtLastWorkingDay";
             this.dtLastWorkingDay.Size = new System.Drawing.Size(103, 21);
             this.dtLastWorkingDay.TabIndex = 95;
-            this.dtLastWorkingDay.Tag = "Resignation Date";
+            this.dtLastWorkingDay.Tag = "Last Working Day";
             this.dtLastWorkingDay.ValidatingType = typeof(System.DateTime);
             // 
             // label4
@@ -854,7 +854,7 @@
             this.txtServiceTenure.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServiceTenure.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServiceTenure.TabIndex = 92;
-            this.txtServiceTenure.Tag = "Employee Code";
+            this.txtServiceTenure.Tag = "Service Tenure";
             this.txtServiceTenure.WordWrap = false;
             // 
             // label2
@@ -917,6 +917,7 @@
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(118, 15);
             this.label29.TabIndex = 88;
+            this.label29.Tag = "Resignation Date";
             this.label29.Text = "Resignation Date";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1063,7 +1064,7 @@
             this.txtDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.TabIndex = 30;
-            this.txtDepartment.Tag = "Department";
+            this.txtDepartment.Tag = "Employee Department";
             // 
             // txtDesignation
             // 
@@ -1078,7 +1079,7 @@
             this.txtDesignation.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.TabIndex = 29;
-            this.txtDesignation.Tag = "Designation";
+            this.txtDesignation.Tag = "Employee Desigation";
             this.txtDesignation.WordWrap = false;
             // 
             // txtEmpName
@@ -1094,7 +1095,7 @@
             this.txtEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.TabIndex = 28;
-            this.txtEmpName.Tag = "Name";
+            this.txtEmpName.Tag = "Employee Name";
             this.txtEmpName.WordWrap = false;
             // 
             // txtEmpCode
@@ -1248,6 +1249,7 @@
             this.dtgReimbursmentPaymentHistory.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.TabIndex = 68;
+            this.dtgReimbursmentPaymentHistory.Tag = "Reimbursment Payment History";
             this.dtgReimbursmentPaymentHistory.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursmentPaymentHistory_Paint);
             // 
             // tabAdvanceInformation
@@ -1301,6 +1303,7 @@
             this.dtgAdvanceList.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAdvanceList.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAdvanceList.TabIndex = 68;
+            this.dtgAdvanceList.Tag = "Advance List";
             this.dtgAdvanceList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceList_Paint);
             // 
             // tabAssetsInformation
@@ -1358,6 +1361,7 @@
             this.dtgAssetInformation.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetInformation.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetInformation.TabIndex = 68;
+            this.dtgAssetInformation.Tag = "Asset Information";
             this.dtgAssetInformation.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetInformation_Paint);
             // 
             // tabLeaveEncashment
@@ -1479,7 +1483,7 @@
             this.txtLeaveEncashmentMoreDetails.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLeaveEncashmentMoreDetails.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLeaveEncashmentMoreDetails.TabIndex = 124;
-            this.txtLeaveEncashmentMoreDetails.Tag = "Resignation More Details";
+            this.txtLeaveEncashmentMoreDetails.Tag = "Leave Encashment More Details";
             this.txtLeaveEncashmentMoreDetails.WordWrap = false;
             // 
             // label17
@@ -1508,7 +1512,7 @@
             this.txtDailySalaryRate.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDailySalaryRate.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDailySalaryRate.TabIndex = 122;
-            this.txtDailySalaryRate.Tag = "Employee Code";
+            this.txtDailySalaryRate.Tag = "Daily Salary Rate";
             this.txtDailySalaryRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtDailySalaryRate.WordWrap = false;
             this.txtDailySalaryRate.TextChanged += new System.EventHandler(this.txtDailySalaryRate_TextChanged);
@@ -1546,6 +1550,7 @@
             this.optEncashmentDays.Name = "optEncashmentDays";
             this.optEncashmentDays.Size = new System.Drawing.Size(103, 22);
             this.optEncashmentDays.TabIndex = 120;
+            this.optEncashmentDays.Tag = "Days to Encash";
             this.optEncashmentDays.Value = new decimal(new int[] {
             12,
             0,
@@ -1566,7 +1571,7 @@
             this.txtNetEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNetEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNetEncashmentAmount.TabIndex = 119;
-            this.txtNetEncashmentAmount.Tag = "Employee Code";
+            this.txtNetEncashmentAmount.Tag = "Net Encashment Amount";
             this.txtNetEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtNetEncashmentAmount.WordWrap = false;
             // 
@@ -1596,7 +1601,7 @@
             this.txtTaxDeductionOnEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTaxDeductionOnEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTaxDeductionOnEncashmentAmount.TabIndex = 117;
-            this.txtTaxDeductionOnEncashmentAmount.Tag = "Employee Code";
+            this.txtTaxDeductionOnEncashmentAmount.Tag = "Tax / Deduction";
             this.txtTaxDeductionOnEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTaxDeductionOnEncashmentAmount.WordWrap = false;
             this.txtTaxDeductionOnEncashmentAmount.TextChanged += new System.EventHandler(this.txtTaxDeductionOnEncashmentAmount_TextChanged);
@@ -1605,12 +1610,12 @@
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(88, 113);
+            this.label32.Location = new System.Drawing.Point(80, 113);
             this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(99, 15);
+            this.label32.Size = new System.Drawing.Size(107, 15);
             this.label32.TabIndex = 116;
-            this.label32.Text = "Tax/Deduction";
+            this.label32.Text = "Tax / Deduction";
             this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtEncashmentAmount
@@ -1627,7 +1632,7 @@
             this.txtEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEncashmentAmount.TabIndex = 115;
-            this.txtEncashmentAmount.Tag = "Employee Code";
+            this.txtEncashmentAmount.Tag = "Encashment Amount";
             this.txtEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtEncashmentAmount.WordWrap = false;
             this.txtEncashmentAmount.TextChanged += new System.EventHandler(this.txtEncashmentAmount_TextChanged);
@@ -1658,7 +1663,7 @@
             this.txtMonthlyBasicSalary.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMonthlyBasicSalary.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMonthlyBasicSalary.TabIndex = 113;
-            this.txtMonthlyBasicSalary.Tag = "Employee Code";
+            this.txtMonthlyBasicSalary.Tag = "Eligible Salary";
             this.txtMonthlyBasicSalary.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtMonthlyBasicSalary.WordWrap = false;
             this.txtMonthlyBasicSalary.TextChanged += new System.EventHandler(this.txtMonthlyBasicSalary_TextChanged);
@@ -1696,7 +1701,7 @@
             this.dtEncashmentDate.Name = "dtEncashmentDate";
             this.dtEncashmentDate.Size = new System.Drawing.Size(103, 21);
             this.dtEncashmentDate.TabIndex = 108;
-            this.dtEncashmentDate.Tag = "Resignation Date";
+            this.dtEncashmentDate.Tag = "Encashment Date";
             this.dtEncashmentDate.ValidatingType = typeof(System.DateTime);
             // 
             // label26
@@ -1769,7 +1774,7 @@
             this.txtEncashableLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEncashableLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEncashableLeaveBalance.TabIndex = 117;
-            this.txtEncashableLeaveBalance.Tag = "Employee Code";
+            this.txtEncashableLeaveBalance.Tag = "Encashable Leave Balance";
             this.txtEncashableLeaveBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtEncashableLeaveBalance.WordWrap = false;
             // 
@@ -1788,7 +1793,7 @@
             this.txtLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLeaveBalance.TabIndex = 116;
-            this.txtLeaveBalance.Tag = "Employee Code";
+            this.txtLeaveBalance.Tag = "Leave Balance";
             this.txtLeaveBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtLeaveBalance.WordWrap = false;
             // 
@@ -1807,7 +1812,7 @@
             this.txtTotalLeaveUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveUtilised.TabIndex = 115;
-            this.txtTotalLeaveUtilised.Tag = "Employee Code";
+            this.txtTotalLeaveUtilised.Tag = "Total Leaves Utilised";
             this.txtTotalLeaveUtilised.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotalLeaveUtilised.WordWrap = false;
             // 
@@ -1826,7 +1831,7 @@
             this.txtTotalLeaveAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveAlloted.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveAlloted.TabIndex = 114;
-            this.txtTotalLeaveAlloted.Tag = "Employee Code";
+            this.txtTotalLeaveAlloted.Tag = "Total Leaves Allotted";
             this.txtTotalLeaveAlloted.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtTotalLeaveAlloted.WordWrap = false;
             // 
@@ -1984,7 +1989,7 @@
             this.txtGRTPaymentRefNo.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTPaymentRefNo.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTPaymentRefNo.TabIndex = 120;
-            this.txtGRTPaymentRefNo.Tag = "Employee Code";
+            this.txtGRTPaymentRefNo.Tag = "Payment Reference Number";
             this.txtGRTPaymentRefNo.WordWrap = false;
             // 
             // cmbGRTPaymentStatus
@@ -1998,7 +2003,7 @@
             this.cmbGRTPaymentStatus.Size = new System.Drawing.Size(188, 22);
             this.cmbGRTPaymentStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTPaymentStatus.TabIndex = 118;
-            this.cmbGRTPaymentStatus.Tag = "Resignation Reason";
+            this.cmbGRTPaymentStatus.Tag = "Payment Status";
             // 
             // label61
             // 
@@ -2033,7 +2038,7 @@
             this.dtGRTPaymentDate.Name = "dtGRTPaymentDate";
             this.dtGRTPaymentDate.Size = new System.Drawing.Size(103, 20);
             this.dtGRTPaymentDate.TabIndex = 114;
-            this.dtGRTPaymentDate.Tag = "Resignation Date";
+            this.dtGRTPaymentDate.Tag = "Payment Date";
             this.dtGRTPaymentDate.ValidatingType = typeof(System.DateTime);
             // 
             // label63
@@ -2073,7 +2078,7 @@
             this.txtGRTPaymentRemarks.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTPaymentRemarks.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTPaymentRemarks.TabIndex = 112;
-            this.txtGRTPaymentRemarks.Tag = "Resignation More Details";
+            this.txtGRTPaymentRemarks.Tag = "Payment Remarks";
             this.txtGRTPaymentRemarks.WordWrap = false;
             // 
             // grpFinanceApproval
@@ -2113,7 +2118,7 @@
             this.cmbGRTFINApprovalBy.Size = new System.Drawing.Size(188, 22);
             this.cmbGRTFINApprovalBy.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTFINApprovalBy.TabIndex = 118;
-            this.cmbGRTFINApprovalBy.Tag = "Resignation Reason";
+            this.cmbGRTFINApprovalBy.Tag = "Finance Approval Verification By";
             // 
             // label57
             // 
@@ -2138,7 +2143,7 @@
             this.cmbGRTFINApprovalStatus.Size = new System.Drawing.Size(188, 22);
             this.cmbGRTFINApprovalStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTFINApprovalStatus.TabIndex = 116;
-            this.cmbGRTFINApprovalStatus.Tag = "Resignation Reason";
+            this.cmbGRTFINApprovalStatus.Tag = "Finance Verification Status";
             // 
             // label58
             // 
@@ -2161,7 +2166,7 @@
             this.dtGRTFINApprovalDate.Name = "dtGRTFINApprovalDate";
             this.dtGRTFINApprovalDate.Size = new System.Drawing.Size(103, 20);
             this.dtGRTFINApprovalDate.TabIndex = 114;
-            this.dtGRTFINApprovalDate.Tag = "Resignation Date";
+            this.dtGRTFINApprovalDate.Tag = "Finance Approval Verification Date";
             this.dtGRTFINApprovalDate.ValidatingType = typeof(System.DateTime);
             // 
             // label59
@@ -2201,7 +2206,7 @@
             this.txtGRTFINRemarks.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTFINRemarks.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTFINRemarks.TabIndex = 112;
-            this.txtGRTFINRemarks.Tag = "Resignation More Details";
+            this.txtGRTFINRemarks.Tag = "Finance Approval Remarks";
             this.txtGRTFINRemarks.WordWrap = false;
             // 
             // grpHRApproval
@@ -2241,7 +2246,7 @@
             this.cmbGRTHRApprovalBy.Size = new System.Drawing.Size(188, 22);
             this.cmbGRTHRApprovalBy.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTHRApprovalBy.TabIndex = 110;
-            this.cmbGRTHRApprovalBy.Tag = "Resignation Reason";
+            this.cmbGRTHRApprovalBy.Tag = "HR Approval Verification By";
             // 
             // label50
             // 
@@ -2252,6 +2257,7 @@
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(75, 15);
             this.label50.TabIndex = 111;
+            this.label50.Tag = "HR Approval";
             this.label50.Text = "Verified By";
             this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -2266,7 +2272,7 @@
             this.cmbGRTHRApprovalStatus.Size = new System.Drawing.Size(188, 22);
             this.cmbGRTHRApprovalStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTHRApprovalStatus.TabIndex = 108;
-            this.cmbGRTHRApprovalStatus.Tag = "Resignation Reason";
+            this.cmbGRTHRApprovalStatus.Tag = "HR Verification Status";
             // 
             // label49
             // 
@@ -2289,7 +2295,7 @@
             this.dtGRTHRApprovalDate.Name = "dtGRTHRApprovalDate";
             this.dtGRTHRApprovalDate.Size = new System.Drawing.Size(103, 20);
             this.dtGRTHRApprovalDate.TabIndex = 97;
-            this.dtGRTHRApprovalDate.Tag = "Resignation Date";
+            this.dtGRTHRApprovalDate.Tag = "HR Approval Verification Date";
             this.dtGRTHRApprovalDate.ValidatingType = typeof(System.DateTime);
             // 
             // label48
@@ -2329,7 +2335,7 @@
             this.txtGRTHRRemarks.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTHRRemarks.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTHRRemarks.TabIndex = 91;
-            this.txtGRTHRRemarks.Tag = "Resignation More Details";
+            this.txtGRTHRRemarks.Tag = "HR Approval Remarks";
             this.txtGRTHRRemarks.WordWrap = false;
             // 
             // grpGratuityCalculation
@@ -2491,7 +2497,7 @@
             this.txtGRTGratuitySalaryBasis.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTGratuitySalaryBasis.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTGratuitySalaryBasis.TabIndex = 111;
-            this.txtGRTGratuitySalaryBasis.Tag = "Employee Code";
+            this.txtGRTGratuitySalaryBasis.Tag = "Gratuity Salary Basis";
             this.txtGRTGratuitySalaryBasis.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTGratuitySalaryBasis.WordWrap = false;
             // 
@@ -2521,7 +2527,7 @@
             this.txtGRTEligibleAllowance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTEligibleAllowance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTEligibleAllowance.TabIndex = 109;
-            this.txtGRTEligibleAllowance.Tag = "Employee Code";
+            this.txtGRTEligibleAllowance.Tag = "Eligible Allowances";
             this.txtGRTEligibleAllowance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTEligibleAllowance.WordWrap = false;
             // 
@@ -2551,7 +2557,7 @@
             this.txtGRTLastDrawnBasic.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTLastDrawnBasic.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTLastDrawnBasic.TabIndex = 107;
-            this.txtGRTLastDrawnBasic.Tag = "Employee Code";
+            this.txtGRTLastDrawnBasic.Tag = "Last Basic Salary";
             this.txtGRTLastDrawnBasic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTLastDrawnBasic.WordWrap = false;
             // 
@@ -2604,7 +2610,7 @@
             this.txtGRTNetGratuityAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTNetGratuityAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTNetGratuityAmount.TabIndex = 119;
-            this.txtGRTNetGratuityAmount.Tag = "Employee Code";
+            this.txtGRTNetGratuityAmount.Tag = "Net Gratuity Amount";
             this.txtGRTNetGratuityAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTNetGratuityAmount.WordWrap = false;
             // 
@@ -2634,7 +2640,7 @@
             this.txtGRTTaxOrDeduction.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTTaxOrDeduction.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTTaxOrDeduction.TabIndex = 117;
-            this.txtGRTTaxOrDeduction.Tag = "Employee Code";
+            this.txtGRTTaxOrDeduction.Tag = "Tax / Deductions";
             this.txtGRTTaxOrDeduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTTaxOrDeduction.WordWrap = false;
             // 
@@ -2664,7 +2670,7 @@
             this.txtGRTGorssGratuityAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTGorssGratuityAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTGorssGratuityAmount.TabIndex = 115;
-            this.txtGRTGorssGratuityAmount.Tag = "Employee Code";
+            this.txtGRTGorssGratuityAmount.Tag = "Gross Gratuity Amount";
             this.txtGRTGorssGratuityAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtGRTGorssGratuityAmount.WordWrap = false;
             // 
@@ -2990,7 +2996,7 @@
             this.txtResignationCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtResignationCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtResignationCode.TabIndex = 30;
-            this.txtResignationCode.Tag = "Employee Code";
+            this.txtResignationCode.Tag = "Resignation Code";
             this.txtResignationCode.WordWrap = false;
             // 
             // label1

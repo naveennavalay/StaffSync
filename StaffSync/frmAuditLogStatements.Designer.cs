@@ -39,7 +39,6 @@
             this.lblEventGroup = new System.Windows.Forms.Label();
             this.lblSourceID = new System.Windows.Forms.Label();
             this.lblClientID = new System.Windows.Forms.Label();
-            this.dtgAuditLogStatements = new System.Windows.Forms.DataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -59,6 +58,7 @@
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
+            this.dtgAuditLogStatements = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,7 +67,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).BeginInit();
@@ -79,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.countryMasAddressMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -102,6 +102,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.dtgAuditLogStatements);
             this.panel1.Controls.Add(this.lblFileName);
             this.panel1.Controls.Add(this.picDownloadDocumentsList);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -109,7 +110,6 @@
             this.panel1.Controls.Add(this.lblEventGroup);
             this.panel1.Controls.Add(this.lblSourceID);
             this.panel1.Controls.Add(this.lblClientID);
-            this.panel1.Controls.Add(this.dtgAuditLogStatements);
             this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -206,22 +206,6 @@
             this.lblClientID.TabIndex = 8;
             this.lblClientID.Text = " ";
             this.lblClientID.Visible = false;
-            // 
-            // dtgAuditLogStatements
-            // 
-            this.dtgAuditLogStatements.AllowUserToAddRows = false;
-            this.dtgAuditLogStatements.AllowUserToDeleteRows = false;
-            this.dtgAuditLogStatements.AllowUserToOrderColumns = true;
-            this.dtgAuditLogStatements.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAuditLogStatements.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgAuditLogStatements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAuditLogStatements.Location = new System.Drawing.Point(18, 63);
-            this.dtgAuditLogStatements.Name = "dtgAuditLogStatements";
-            this.dtgAuditLogStatements.ReadOnly = true;
-            this.dtgAuditLogStatements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAuditLogStatements.Size = new System.Drawing.Size(1021, 326);
-            this.dtgAuditLogStatements.TabIndex = 7;
-            this.dtgAuditLogStatements.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch
             // 
@@ -337,6 +321,31 @@
             // 
             this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
+            // dtgAuditLogStatements
+            // 
+            this.dtgAuditLogStatements.AllowUserToAddRows = false;
+            this.dtgAuditLogStatements.AllowUserToDeleteRows = false;
+            this.dtgAuditLogStatements.AllowUserToResizeRows = false;
+            this.dtgAuditLogStatements.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgAuditLogStatements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgAuditLogStatements.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgAuditLogStatements.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgAuditLogStatements.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgAuditLogStatements.Location = new System.Drawing.Point(18, 61);
+            this.dtgAuditLogStatements.Name = "dtgAuditLogStatements";
+            this.dtgAuditLogStatements.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgAuditLogStatements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAuditLogStatements.Size = new System.Drawing.Size(1021, 333);
+            this.dtgAuditLogStatements.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgAuditLogStatements.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAuditLogStatements.TabIndex = 69;
+            this.dtgAuditLogStatements.Tag = "Reimbursment Payment History";
+            // 
             // frmAuditLogStatements
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,7 +372,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).EndInit();
@@ -375,6 +383,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.countryMasAddressMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -389,7 +398,6 @@
         private StaffsyncDBDTSet staffsyncDBDTSet;
         private System.Windows.Forms.BindingSource empMasInfoBindingSource;
         private StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter empMasInfoTableAdapter;
-        private System.Windows.Forms.DataGridView dtgAuditLogStatements;
         private dsDepartmentList dsDepartmentList;
         private System.Windows.Forms.BindingSource qryDepartmentListBindingSource;
         private dsDepartmentListTableAdapters.qryDepartmentListTableAdapter qryDepartmentListTableAdapter;
@@ -410,5 +418,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox picRefreshDocumentsList;
         private System.Windows.Forms.Label lblFileName;
+        private Krypton.Toolkit.KryptonDataGridView dtgAuditLogStatements;
     }
 }

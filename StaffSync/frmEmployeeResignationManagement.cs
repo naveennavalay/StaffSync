@@ -447,8 +447,13 @@ namespace StaffSync
 
             CalculateGratuityEligibilityAndAmounts();
 
+            // Capture the current UI values and compare them with the snapshot taken
+            // after the resignation details were loaded.
             var updatedValues = AuditLogger.getOriginalValues(this);
-            var onlyChangedValues = (dynamic)null;
+            var onlyChangedValues = AuditLogger.getUpdatedValues(
+                _originalValues ?? new Dictionary<string, object>(),
+                updatedValues,
+                false);
 
             strActionStatement = "EmployeeResignationStatusUpdate";
 
@@ -458,7 +463,6 @@ namespace StaffSync
                 if (affectedRows > 0)
                     affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
 
-                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
             else if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "True")
             {
@@ -466,7 +470,6 @@ namespace StaffSync
                 if (affectedRows > 0)
                     affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
 
-                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
                 if (lblLeaveEncashmentID.Text.ToString() == "")
                 {
@@ -537,8 +540,24 @@ namespace StaffSync
                 }
             }
 
-            if (affectedRows > 0)
+            // Write audit entries only for values that changed on the UI and only
+            // when the resignation approval/update operation succeeded.
+            if (affectedRows > 0 && onlyChangedValues != null)
+            {
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    objAuditLog.InsertAuditLog(
+                        Convert.ToInt32(lblEmpID.Text.ToString()),
+                        Convert.ToInt32(lblEmpResignID.Text.ToString()),
+                        changedValues.ToString().Trim(),
+                        "Update",
+                        ModelStaffSync.CurrentUser.EmpName,
+                        strActionStatement,
+                        Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                }
+
                 MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
@@ -1026,6 +1045,9 @@ namespace StaffSync
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
+
+                // Keep the baseline after every resignation-related section is loaded.
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
             {
