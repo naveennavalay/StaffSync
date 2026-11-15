@@ -455,6 +455,7 @@
             this.lblNextApproverMailID.Size = new System.Drawing.Size(11, 15);
             this.lblNextApproverMailID.TabIndex = 96;
             this.lblNextApproverMailID.Text = " ";
+            this.lblNextApproverMailID.Visible = false;
             // 
             // btnSearchReportingManager
             // 
@@ -493,6 +494,7 @@
             this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
             this.lblHROwnerID.TabIndex = 93;
             this.lblHROwnerID.Text = " ";
+            this.lblHROwnerID.Visible = false;
             // 
             // lblRepManagerApprovalStatus
             // 
@@ -505,6 +507,7 @@
             this.lblRepManagerApprovalStatus.Size = new System.Drawing.Size(11, 15);
             this.lblRepManagerApprovalStatus.TabIndex = 92;
             this.lblRepManagerApprovalStatus.Text = " ";
+            this.lblRepManagerApprovalStatus.Visible = false;
             // 
             // lblRepManID
             // 
@@ -1398,6 +1401,7 @@
             this.lblLeaveEncashmentID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveEncashmentID.TabIndex = 93;
             this.lblLeaveEncashmentID.Text = " ";
+            this.lblLeaveEncashmentID.Visible = false;
             // 
             // kryptonGroupBox2
             // 
@@ -1924,6 +1928,7 @@
             this.lblEmpResignGratuityID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpResignGratuityID.TabIndex = 97;
             this.lblEmpResignGratuityID.Text = " ";
+            this.lblEmpResignGratuityID.Visible = false;
             // 
             // groupBox7
             // 
@@ -2968,6 +2973,7 @@
             this.lblEmpResignID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpResignID.TabIndex = 82;
             this.lblEmpResignID.Text = " ";
+            this.lblEmpResignID.Visible = false;
             // 
             // txtResignationCode
             // 

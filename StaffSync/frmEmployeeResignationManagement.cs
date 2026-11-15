@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Bibliography;
 using Krypton.Toolkit;
 using ModelStaffSync;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -856,7 +857,7 @@ namespace StaffSync
                 }
             }
 
-            if (boolMaxLeaveToBeConsidered == false)
+            if (lblLeaveEncashmentID.Text.ToString().Trim() == "")
             {
                 if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
@@ -1012,6 +1013,7 @@ namespace StaffSync
                 txtGRTResignationDate.Text = Convert.ToDateTime(dtResignationDate.Text).ToString("dd-MMM-yyyy");
                 txtGRTServiceTenure.Text = txtServiceTenure.Text;
 
+                LoadGratuityVerificationStatus();
                 LoadReimbursementInfo();
                 LoadEmployeeSpecificAdvanceInfo();
                 LoadEmployeeSpecificAssetInfo();
@@ -1024,7 +1026,6 @@ namespace StaffSync
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
-                LoadGratuityVerificationStatus();
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
             {
@@ -1637,14 +1638,14 @@ namespace StaffSync
                 txtGRTTaxOrDeduction.Text = tmpEmpResignGratuityInfo.TaxOrDeductionAmount.ToString("0.00");
                 txtGRTNetGratuityAmount.Text = tmpEmpResignGratuityInfo.NetGratuityAmount.ToString("0.00");
 
-                cmbGRTHRApprovalBy.SelectedIndex = tmpEmpResignGratuityInfo.HRVerifiedBy - 1;
+                cmbGRTHRApprovalBy.SelectedValue = Convert.ToInt32(tmpEmpResignGratuityInfo.HRVerifiedBy);
                 dtGRTHRApprovalDate.Text = tmpEmpResignGratuityInfo.HRVerificationDate.Date.ToString("dd-MM-yyyy");
                 cmbGRTHRApprovalStatus.SelectedIndex = tmpEmpResignGratuityInfo.HRVerificationStatus;
                 txtGRTHRRemarks.Text = tmpEmpResignGratuityInfo.HRRemarks.ToString();
 
-                cmbGRTFINApprovalBy.SelectedIndex = tmpEmpResignGratuityInfo.FinanceVerifiedBy - 1;
+                cmbGRTFINApprovalBy.SelectedValue = Convert.ToInt32(tmpEmpResignGratuityInfo.FinanceVerifiedBy);
                 dtGRTFINApprovalDate.Text = tmpEmpResignGratuityInfo.FinanceVerificationDate.Date.ToString("dd-MM-yyyy");
-                cmbGRTHRApprovalStatus.SelectedIndex = tmpEmpResignGratuityInfo.FinanceVerificationStatus;
+                cmbGRTFINApprovalStatus.SelectedIndex = tmpEmpResignGratuityInfo.FinanceVerificationStatus;
                 txtGRTFINRemarks.Text = tmpEmpResignGratuityInfo.FinanceRemarks.ToString();
 
                 cmbGRTPaymentStatus.SelectedIndex = tmpEmpResignGratuityInfo.PaymentStatus;
@@ -1890,11 +1891,14 @@ namespace StaffSync
                         }
                     }
                 }
-                if (boolMaxLeaveToBeConsidered == false)
+                if (lblLeaveEncashmentID.Text.ToString().Trim() == "")
                 {
-                    if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (boolMaxLeaveToBeConsidered == false)
                     {
-                        boolMaxLeaveToBeConsidered = true;
+                        if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            boolMaxLeaveToBeConsidered = true;
+                        }
                     }
                 }
 
