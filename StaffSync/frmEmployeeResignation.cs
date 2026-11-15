@@ -8,6 +8,7 @@ using System.Data.SqlTypes;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +21,7 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsResignationInfo objResignationInfo = new DALStaffSync.clsResignationInfo();
-        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster(); 
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
 
         clsImpageOperation objImpageOperation = new clsImpageOperation();
@@ -324,6 +325,9 @@ namespace StaffSync
                 Convert.ToDateTime(dtResignationDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false,
                 Convert.ToDateTime(dtResignationDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false,
                 1, Convert.ToDateTime(dtResignationDate.Text.ToString()), 0, Convert.ToDateTime(dtResignationDate.Text.ToString()), "Need to serve");
+
+                SendResignationSubmissionEmail();
+                SendResignationAcknowledgementEmail();
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -333,6 +337,240 @@ namespace StaffSync
             clearControls();
             errValidator.Clear();
             this.Cursor = Cursors.Default;
+        }
+
+        private string BuildResignationSubmissionEmailTemplate()
+        {
+            StringBuilder html = new StringBuilder();
+
+            html.AppendLine("<!DOCTYPE html>");
+            html.AppendLine("<html>");
+            html.AppendLine("<head>");
+            html.AppendLine("<meta charset=\"utf-8\" />");
+            html.AppendLine("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />");
+            html.AppendLine("<title>Resignation Submission</title>");
+            html.AppendLine("<style>");
+            html.AppendLine("body{font-family:Segoe UI,Arial,sans-serif;background:#edf1f7;margin:0;padding:24px;color:#202124;}");
+            html.AppendLine(".mail-container{max-width:700px;margin:0 auto;background:#ffffff;border:1px solid #d9dee7;border-radius:10px;overflow:hidden;}");
+            html.AppendLine(".mail-header{background:#245b85;color:#ffffff;padding:20px 26px;font-size:21px;font-weight:600;}");
+            html.AppendLine(".mail-body{padding:26px;line-height:1.6;font-size:14px;}");
+            html.AppendLine(".details{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}");
+            html.AppendLine(".details td{border:1px solid #e1e5eb;padding:10px 12px;vertical-align:top;}");
+            html.AppendLine(".details td:first-child{width:34%;background:#f6f8fb;font-weight:600;color:#344054;}");
+            html.AppendLine(".employee-name{font-weight:600;color:#245b85;white-space:nowrap;}");
+            html.AppendLine(".mail-footer{background:#f8fafc;border-top:1px solid #e3e7ed;padding:14px 26px;color:#667085;font-size:11px;text-align:center;}");
+            html.AppendLine("</style>");
+            html.AppendLine("</head>");
+            html.AppendLine("<body>");
+            html.AppendLine("<div class=\"mail-container\">");
+            html.AppendLine("<div class=\"mail-header\">Resignation Submission</div>");
+            html.AppendLine("<div class=\"mail-body\">");
+            html.AppendLine("<p>Dear {{ManagerFirstName}},</p>");
+            html.AppendLine("<p>I hope you are doing well.</p>");
+            html.AppendLine("<p>I would like to formally submit my resignation from my position as {{Designation}} in the {{Department}} Department, with the details provided below.</p>");
+            html.AppendLine("<table class=\"details\">");
+            html.AppendLine("<tr><td>Employee Name</td><td class=\"employee-name\">{{EmployeeName}} [{{EmployeeCode}}]</td></tr>");
+            html.AppendLine("<tr><td>Designation / Department</td><td>{{Designation}} / {{Department}}</td></tr>");
+            html.AppendLine("<tr><td>Resignation Date</td><td>{{ResignationDate}}</td></tr>");
+            html.AppendLine("<tr><td>Reason for Resignation</td><td>{{ResignationReason}}</td></tr>");
+            html.AppendLine("<tr><td>More Details</td><td>{{MoreDetails}}</td></tr>");
+            html.AppendLine("</table>");
+            html.AppendLine("<p>This decision has been made after careful consideration. I am grateful for the guidance and opportunities provided during my time with the organisation.</p>");
+            html.AppendLine("<p>I will extend my full cooperation to complete the necessary handover activities and ensure a smooth transition. I would appreciate your acknowledgement of this submission and guidance on the next steps and applicable formalities.</p>");
+            html.AppendLine("<p>Thank you for your understanding and support.</p>");
+            html.AppendLine("<p>Warm regards,<br />{{EmployeeName}}<br />{{Designation}}<br />{{Department}} Department</p>");
+            html.AppendLine("</div>");
+            html.AppendLine("<div class=\"mail-footer\">&copy; {{Year}} StaffSync | Payroll Management</div>");
+            html.AppendLine("</div>");
+            html.AppendLine("</body>");
+            html.AppendLine("</html>");
+
+            return html.ToString();
+        }
+
+        private void SendResignationSubmissionEmail()
+        {
+            string recipientEmail = lblRequestToMailID.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(recipientEmail))
+            {
+                MessageBox.Show(
+                    "Resignation details were saved, but the reporting manager's email address is not available. The notification was not sent.",
+                    "StaffSync - Email Notification",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string managerName = txtRepName.Text.Trim();
+                string managerFirstName = managerName;
+
+                if (!string.IsNullOrWhiteSpace(managerName))
+                {
+                    string[] nameParts = managerName.Split(
+                        new[] { ' ' },
+                        StringSplitOptions.RemoveEmptyEntries);
+
+                    if (nameParts.Length > 0)
+                        managerFirstName = nameParts[0];
+                }
+
+                // Encode dynamic values because they are inserted into an HTML template.
+                Dictionary<string, string> templateData = new Dictionary<string, string>
+                {
+                    { "ManagerFirstName", System.Net.WebUtility.HtmlEncode(managerFirstName) },
+                    { "EmployeeName", System.Net.WebUtility.HtmlEncode(txtEmpName.Text.Trim()) },
+                    { "EmployeeCode", System.Net.WebUtility.HtmlEncode(txtEmpCode.Text.Trim()) },
+                    { "Designation", System.Net.WebUtility.HtmlEncode(txtDesignation.Text.Trim()) },
+                    { "Department", System.Net.WebUtility.HtmlEncode(txtDepartment.Text.Trim()) },
+                    { "ResignationDate", System.Net.WebUtility.HtmlEncode(dos.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)) },
+                    { "ResignationReason", System.Net.WebUtility.HtmlEncode(cmbResignationReason.Text.Trim()) },
+                    { "MoreDetails", System.Net.WebUtility.HtmlEncode(txtResignationMoreDetails.Text.Trim()).Replace("\r\n", "<br />").Replace("\n", "<br />") },
+                    { "Year", DateTime.Now.Year.ToString(CultureInfo.InvariantCulture) }
+                };
+
+                string mailSubject = "Resignation Submission - " + txtEmpName.Text.Trim();
+                string mailTemplate = BuildResignationSubmissionEmailTemplate();
+
+                myMailService objMailService = new myMailService();
+                objMailService.SendMail(
+                    recipientEmail,
+                    mailSubject,
+                    mailTemplate,
+                    templateData);
+
+            }
+            catch (Exception ex)
+            {
+                // Email failure must not undo or interrupt the resignation record save.
+                MessageBox.Show(
+                    "Resignation details were saved successfully, but the email could not be sent."
+                    + Environment.NewLine + Environment.NewLine
+                    + ex.Message,
+                    "StaffSync - Email Notification",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        }
+
+        private string BuildResignationAcknowledgementEmailTemplate()
+        {
+            StringBuilder html = new StringBuilder();
+
+            html.AppendLine("<!DOCTYPE html>");
+            html.AppendLine("<html>");
+            html.AppendLine("<head>");
+            html.AppendLine("<meta charset=\"utf-8\" />");
+            html.AppendLine("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />");
+            html.AppendLine("<title>Resignation Acknowledgement</title>");
+            html.AppendLine("<style>");
+            html.AppendLine("body{font-family:Segoe UI,Arial,sans-serif;background:#edf1f7;margin:0;padding:24px;color:#202124;}");
+            html.AppendLine(".mail-container{max-width:700px;margin:0 auto;background:#ffffff;border:1px solid #d9dee7;border-radius:10px;overflow:hidden;}");
+            html.AppendLine(".mail-header{background:#245b85;color:#ffffff;padding:20px 26px;font-size:21px;font-weight:600;}");
+            html.AppendLine(".mail-body{padding:26px;line-height:1.6;font-size:14px;}");
+            html.AppendLine(".details{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px;}");
+            html.AppendLine(".details td{border:1px solid #e1e5eb;padding:10px 12px;vertical-align:top;}");
+            html.AppendLine(".details td:first-child{width:34%;background:#f6f8fb;font-weight:600;color:#344054;}");
+            html.AppendLine(".employee-name{font-weight:600;color:#245b85;white-space:nowrap;}");
+            html.AppendLine(".status{display:inline-block;background:#eaf4ff;color:#245b85;border:1px solid #c9def2;border-radius:4px;padding:5px 10px;font-weight:600;}");
+            html.AppendLine(".mail-footer{background:#f8fafc;border-top:1px solid #e3e7ed;padding:14px 26px;color:#667085;font-size:11px;text-align:center;}");
+            html.AppendLine("</style>");
+            html.AppendLine("</head>");
+            html.AppendLine("<body>");
+            html.AppendLine("<div class=\"mail-container\">");
+            html.AppendLine("<div class=\"mail-header\">Resignation Acknowledgement</div>");
+            html.AppendLine("<div class=\"mail-body\">");
+            html.AppendLine("<p>Dear {{EmployeeFirstName}},</p>");
+            html.AppendLine("<p>Thank you for your email and for formally communicating your decision to resign from your position as {{Designation}} in the {{Department}} Department.</p>");
+            html.AppendLine("<p>This is to acknowledge that we have received your resignation dated <strong>{{ResignationDate}}</strong>, citing <em>{{ResignationReason}}</em> as the reason.</p>");
+            html.AppendLine("<table class=\"details\">");
+            html.AppendLine("<tr><td>Employee Name</td><td class=\"employee-name\">{{EmployeeName}} [{{EmployeeCode}}]</td></tr>");
+            html.AppendLine("<tr><td>Designation / Department</td><td>{{Designation}} / {{Department}}</td></tr>");
+            html.AppendLine("<tr><td>Resignation Date</td><td>{{ResignationDate}}</td></tr>");
+            html.AppendLine("<tr><td>Reason for Resignation</td><td>{{ResignationReason}}</td></tr>");
+            html.AppendLine("<tr><td>Acknowledgement Status</td><td><span class=\"status\">Received</span></td></tr>");
+            html.AppendLine("</table>");
+            html.AppendLine("<p>We appreciate your contributions, commitment and efforts during your association with the organisation. We respect your decision and understand that this is an important step in your professional journey.</p>");
+            html.AppendLine("<p>Your resignation request has been received and will be taken forward through the organisation's resignation management process. The concerned teams will review the necessary formalities, including the applicable notice period, handover arrangements and clearance requirements.</p>");
+            html.AppendLine("<p>We will keep you informed about the progress and any further steps required from your side. In the meantime, please continue with your regular responsibilities and coordinate with your reporting team to ensure a smooth transition.</p>");
+            html.AppendLine("<p>Thank you once again for your contributions. We wish you continued success and all the very best in your future endeavours.</p>");
+            html.AppendLine("<p>Warm regards,<br />{{ManagerName}}<br />Reporting Manager</p>");
+            html.AppendLine("</div>");
+            html.AppendLine("<div class=\"mail-footer\">&copy; {{Year}} StaffSync | Payroll Management</div>");
+            html.AppendLine("</div>");
+            html.AppendLine("</body>");
+            html.AppendLine("</html>");
+
+            return html.ToString();
+        }
+
+        private void SendResignationAcknowledgementEmail()
+        {
+            string recipientEmail = lblRequestFromMailID.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(recipientEmail))
+            {
+                MessageBox.Show(
+                    "Resignation details were saved, but the employee's email address is not available. The acknowledgement was not sent.",
+                    "StaffSync - Email Notification",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                string employeeName = txtEmpName.Text.Trim();
+                string employeeFirstName = employeeName;
+                if (!string.IsNullOrWhiteSpace(employeeName))
+                {
+                    string[] nameParts = employeeName.Split(
+                        new[] { ' ' },
+                        StringSplitOptions.RemoveEmptyEntries);
+
+                    if (nameParts.Length > 0)
+                        employeeFirstName = nameParts[0];
+                }
+
+                Dictionary<string, string> templateData = new Dictionary<string, string>
+                {
+                    { "EmployeeFirstName", System.Net.WebUtility.HtmlEncode(employeeFirstName) },
+                    { "EmployeeName", System.Net.WebUtility.HtmlEncode(employeeName) },
+                    { "EmployeeCode", System.Net.WebUtility.HtmlEncode(txtEmpCode.Text.Trim()) },
+                    { "Designation", System.Net.WebUtility.HtmlEncode(txtDesignation.Text.Trim()) },
+                    { "Department", System.Net.WebUtility.HtmlEncode(txtDepartment.Text.Trim()) },
+                    { "ResignationDate", System.Net.WebUtility.HtmlEncode(dos.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)) },
+                    { "ResignationReason", System.Net.WebUtility.HtmlEncode(cmbResignationReason.Text.Trim()) },
+                    { "ManagerName", System.Net.WebUtility.HtmlEncode(txtRepName.Text.Trim()) },
+                    { "Year", DateTime.Now.Year.ToString(CultureInfo.InvariantCulture) }
+                };
+
+                // Prefixing the original subject with Re: makes this a reply-style
+                // notification. The current shared SendMail method does not expose
+                // the original message's Message-ID/In-Reply-To headers.
+                string mailSubject = "Re: Resignation Submission - " + employeeName;
+                string mailTemplate = BuildResignationAcknowledgementEmailTemplate();
+
+                myMailService objMailService = new myMailService();
+                objMailService.SendMail(
+                    recipientEmail,
+                    mailSubject,
+                    mailTemplate,
+                    templateData);
+            }
+            catch (Exception ex)
+            {
+                // Email failure must not undo or interrupt the resignation record save.
+                MessageBox.Show(
+                    "Resignation details were saved successfully, but the acknowledgement email could not be sent."
+                    + Environment.NewLine + Environment.NewLine
+                    + ex.Message,
+                    "StaffSync - Email Notification",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
         }
 
         private bool ValidateValuesOnUI()

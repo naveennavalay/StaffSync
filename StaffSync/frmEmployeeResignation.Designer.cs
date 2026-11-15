@@ -60,16 +60,6 @@
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtResignationCode = new Krypton.Toolkit.KryptonTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtResignationMoreDetails = new Krypton.Toolkit.KryptonTextBox();
-            this.dtResignationDate = new System.Windows.Forms.MaskedTextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.cmbResignationReason = new Krypton.Toolkit.KryptonComboBox();
-            this.label42 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblRequestToMailID = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -84,21 +74,31 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lblEmpResignID = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lblResignationReasonID = new System.Windows.Forms.Label();
+            this.lblEmpResignID = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtResignationMoreDetails = new Krypton.Toolkit.KryptonTextBox();
+            this.dtResignationDate = new System.Windows.Forms.MaskedTextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.cmbResignationReason = new Krypton.Toolkit.KryptonComboBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.txtResignationCode = new Krypton.Toolkit.KryptonTextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationReason)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationReason)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox8
@@ -185,13 +185,14 @@
             // lblRequestFromMailID
             // 
             this.lblRequestFromMailID.AutoSize = true;
+            this.lblRequestFromMailID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblRequestFromMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRequestFromMailID.Location = new System.Drawing.Point(547, 10);
             this.lblRequestFromMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRequestFromMailID.Name = "lblRequestFromMailID";
-            this.lblRequestFromMailID.Size = new System.Drawing.Size(82, 15);
+            this.lblRequestFromMailID.Size = new System.Drawing.Size(11, 15);
             this.lblRequestFromMailID.TabIndex = 44;
-            this.lblRequestFromMailID.Text = "Department";
+            this.lblRequestFromMailID.Text = " ";
             this.lblRequestFromMailID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblRequestFromMailID.Visible = false;
             // 
@@ -504,155 +505,6 @@
             this.panel1.Size = new System.Drawing.Size(1056, 643);
             this.panel1.TabIndex = 1;
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1056, 719);
-            this.splitContainer1.SplitterDistance = 643;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 2;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox3.Controls.Add(this.lblResignationReasonID);
-            this.groupBox3.Controls.Add(this.lblEmpResignID);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtResignationMoreDetails);
-            this.groupBox3.Controls.Add(this.dtResignationDate);
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Controls.Add(this.cmbResignationReason);
-            this.groupBox3.Controls.Add(this.label42);
-            this.groupBox3.Controls.Add(this.txtResignationCode);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(12, 14);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(1032, 189);
-            this.groupBox3.TabIndex = 35;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Resignation Details";
-            // 
-            // txtResignationCode
-            // 
-            this.txtResignationCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtResignationCode.Location = new System.Drawing.Point(154, 22);
-            this.txtResignationCode.Margin = new System.Windows.Forms.Padding(4);
-            this.txtResignationCode.Multiline = true;
-            this.txtResignationCode.Name = "txtResignationCode";
-            this.txtResignationCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtResignationCode.ReadOnly = true;
-            this.txtResignationCode.Size = new System.Drawing.Size(168, 28);
-            this.txtResignationCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtResignationCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationCode.TabIndex = 30;
-            this.txtResignationCode.Tag = "Employee Code";
-            this.txtResignationCode.WordWrap = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(31, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 15);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Resignation Code";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(63, 124);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 15);
-            this.label5.TabIndex = 75;
-            this.label5.Text = "More Details";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtResignationMoreDetails
-            // 
-            this.txtResignationMoreDetails.Location = new System.Drawing.Point(154, 124);
-            this.txtResignationMoreDetails.Margin = new System.Windows.Forms.Padding(4);
-            this.txtResignationMoreDetails.Multiline = true;
-            this.txtResignationMoreDetails.Name = "txtResignationMoreDetails";
-            this.txtResignationMoreDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtResignationMoreDetails.Size = new System.Drawing.Size(587, 56);
-            this.txtResignationMoreDetails.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationMoreDetails.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtResignationMoreDetails.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationMoreDetails.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResignationMoreDetails.TabIndex = 72;
-            this.txtResignationMoreDetails.Tag = "Resignation More Details";
-            this.txtResignationMoreDetails.WordWrap = false;
-            // 
-            // dtResignationDate
-            // 
-            this.dtResignationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtResignationDate.Location = new System.Drawing.Point(154, 92);
-            this.dtResignationDate.Margin = new System.Windows.Forms.Padding(4);
-            this.dtResignationDate.Mask = "##-##-####";
-            this.dtResignationDate.Name = "dtResignationDate";
-            this.dtResignationDate.Size = new System.Drawing.Size(103, 21);
-            this.dtResignationDate.TabIndex = 71;
-            this.dtResignationDate.Tag = "Resignation Date";
-            this.dtResignationDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(34, 95);
-            this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(118, 15);
-            this.label29.TabIndex = 74;
-            this.label29.Text = "Resignation Date";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbResignationReason
-            // 
-            this.cmbResignationReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbResignationReason.DropDownWidth = 440;
-            this.cmbResignationReason.Location = new System.Drawing.Point(154, 60);
-            this.cmbResignationReason.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbResignationReason.Name = "cmbResignationReason";
-            this.cmbResignationReason.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbResignationReason.Size = new System.Drawing.Size(588, 22);
-            this.cmbResignationReason.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbResignationReason.TabIndex = 70;
-            this.cmbResignationReason.Tag = "Resignation Reason";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(15, 63);
-            this.label42.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(137, 15);
-            this.label42.TabIndex = 73;
-            this.label42.Text = "Resignation Reason";
-            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lblRequestToMailID);
@@ -849,18 +701,28 @@
             this.label9.TabIndex = 31;
             this.label9.Text = "Employee Code";
             // 
-            // lblEmpResignID
+            // groupBox3
             // 
-            this.lblEmpResignID.AutoSize = true;
-            this.lblEmpResignID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblEmpResignID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpResignID.Location = new System.Drawing.Point(341, 28);
-            this.lblEmpResignID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblEmpResignID.Name = "lblEmpResignID";
-            this.lblEmpResignID.Size = new System.Drawing.Size(11, 15);
-            this.lblEmpResignID.TabIndex = 82;
-            this.lblEmpResignID.Text = " ";
-            this.lblEmpResignID.Visible = false;
+            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox3.Controls.Add(this.lblResignationReasonID);
+            this.groupBox3.Controls.Add(this.lblEmpResignID);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtResignationMoreDetails);
+            this.groupBox3.Controls.Add(this.dtResignationDate);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.cmbResignationReason);
+            this.groupBox3.Controls.Add(this.label42);
+            this.groupBox3.Controls.Add(this.txtResignationCode);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox3.Location = new System.Drawing.Point(12, 14);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(1032, 189);
+            this.groupBox3.TabIndex = 35;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Resignation Details";
             // 
             // lblResignationReasonID
             // 
@@ -874,6 +736,145 @@
             this.lblResignationReasonID.TabIndex = 83;
             this.lblResignationReasonID.Text = " ";
             this.lblResignationReasonID.Visible = false;
+            // 
+            // lblEmpResignID
+            // 
+            this.lblEmpResignID.AutoSize = true;
+            this.lblEmpResignID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmpResignID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpResignID.Location = new System.Drawing.Point(341, 28);
+            this.lblEmpResignID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblEmpResignID.Name = "lblEmpResignID";
+            this.lblEmpResignID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmpResignID.TabIndex = 82;
+            this.lblEmpResignID.Text = " ";
+            this.lblEmpResignID.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(63, 124);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(89, 15);
+            this.label5.TabIndex = 75;
+            this.label5.Text = "More Details";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtResignationMoreDetails
+            // 
+            this.txtResignationMoreDetails.Location = new System.Drawing.Point(154, 124);
+            this.txtResignationMoreDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.txtResignationMoreDetails.Multiline = true;
+            this.txtResignationMoreDetails.Name = "txtResignationMoreDetails";
+            this.txtResignationMoreDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtResignationMoreDetails.Size = new System.Drawing.Size(587, 56);
+            this.txtResignationMoreDetails.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationMoreDetails.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtResignationMoreDetails.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationMoreDetails.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationMoreDetails.TabIndex = 72;
+            this.txtResignationMoreDetails.Tag = "Resignation More Details";
+            this.txtResignationMoreDetails.WordWrap = false;
+            // 
+            // dtResignationDate
+            // 
+            this.dtResignationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.dtResignationDate.Location = new System.Drawing.Point(154, 92);
+            this.dtResignationDate.Margin = new System.Windows.Forms.Padding(4);
+            this.dtResignationDate.Mask = "##-##-####";
+            this.dtResignationDate.Name = "dtResignationDate";
+            this.dtResignationDate.Size = new System.Drawing.Size(103, 21);
+            this.dtResignationDate.TabIndex = 71;
+            this.dtResignationDate.Tag = "Resignation Date";
+            this.dtResignationDate.ValidatingType = typeof(System.DateTime);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(34, 95);
+            this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(118, 15);
+            this.label29.TabIndex = 74;
+            this.label29.Text = "Resignation Date";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbResignationReason
+            // 
+            this.cmbResignationReason.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbResignationReason.DropDownWidth = 440;
+            this.cmbResignationReason.Location = new System.Drawing.Point(154, 60);
+            this.cmbResignationReason.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbResignationReason.Name = "cmbResignationReason";
+            this.cmbResignationReason.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbResignationReason.Size = new System.Drawing.Size(588, 22);
+            this.cmbResignationReason.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbResignationReason.TabIndex = 70;
+            this.cmbResignationReason.Tag = "Resignation Reason";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(15, 63);
+            this.label42.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(137, 15);
+            this.label42.TabIndex = 73;
+            this.label42.Text = "Resignation Reason";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtResignationCode
+            // 
+            this.txtResignationCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtResignationCode.Location = new System.Drawing.Point(154, 22);
+            this.txtResignationCode.Margin = new System.Windows.Forms.Padding(4);
+            this.txtResignationCode.Multiline = true;
+            this.txtResignationCode.Name = "txtResignationCode";
+            this.txtResignationCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtResignationCode.ReadOnly = true;
+            this.txtResignationCode.Size = new System.Drawing.Size(168, 28);
+            this.txtResignationCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtResignationCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResignationCode.TabIndex = 30;
+            this.txtResignationCode.Tag = "Employee Code";
+            this.txtResignationCode.WordWrap = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(31, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(121, 15);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Resignation Code";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel2);
+            this.splitContainer1.Size = new System.Drawing.Size(1056, 719);
+            this.splitContainer1.SplitterDistance = 643;
+            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.TabIndex = 2;
             // 
             // frmEmployeeResignation
             // 
@@ -894,16 +895,16 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationReason)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationReason)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
             this.ResumeLayout(false);
 
         }
