@@ -162,7 +162,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmEmpLeaveEntitlement = frmEmpLeaveEntitlment;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
-            lblClientID.Text = frmLeavesApproval.lblClientID.Text.ToString();
+            //lblClientID.Text = frmLeavesApproval.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmLeaveStatements frmLeaveStatments, string SearchOptionClickedFor)
@@ -282,6 +282,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listSSEmployees")
             {
@@ -306,6 +308,9 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveApprovalRequestList")
             {
@@ -360,8 +365,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["LeaveComments"].Width = 250;
                 dtgEmployeeList.Columns["OrderID"].Visible = false;
                 dtgEmployeeList.Columns["ClientID"].Visible = false;
-                dtgEmployeeList.Columns["StateID"].Visible = false;
-                dtgEmployeeList.Columns["SexID"].Visible = false;
+                //dtgEmployeeList.Columns["StateID"].Visible = false;
+                //dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
@@ -584,6 +589,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceRequestingUsers" || lblSearchOptionClickedFor.Text.Trim() == "listAdvanceRequestToUsers")
             {
@@ -610,6 +617,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovalPendingRequestList")
             {
@@ -999,6 +1008,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listResignedEmployeesList")
             {
@@ -1057,6 +1068,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetAllotmentPendingList")
             {

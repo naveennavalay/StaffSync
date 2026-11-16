@@ -522,6 +522,19 @@ namespace StaffSync
             dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
             dtgLeaveEntitlement.Columns["OrderID"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsCarryForwardAllowed"].Visible = false;
+            dtgLeaveEntitlement.Columns["MaxCarryForwardAllowed"].Visible = false;
+            dtgLeaveEntitlement.Columns["CarryForwardExpiryMonths"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsCarryForwardExpiryApplicable"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsEncashmentAllowed"].Visible = false;
+            dtgLeaveEntitlement.Columns["MaxLeaveDaysAllowedToEncash"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsEncashmentDuringEmploymentAllowed"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsEncashmentAtResignationAllowed"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsLeaveAccrualApplicable"].Visible = false;
+            dtgLeaveEntitlement.Columns["AccrualFrequency"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsApplicableDuringProbation"].Visible = false;
+            dtgLeaveEntitlement.Columns["IsApplicableDuringNoticePeriod"].Visible = false;
+
 
             decimal totalLeavesAllotted = 0;
             decimal totalBalanceLeaves = 0;

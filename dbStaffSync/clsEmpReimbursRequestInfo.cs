@@ -97,6 +97,8 @@ namespace dbStaffSync
                                     AND ((ReimbRequestMas.IsActive) = True)
                                     AND ((ReimbRequestMas.IsDeleted) = False)
                                     AND ((EmpMas.EmpID) = " + txtEmpID + @")
+                                    AND ((EmpMas.ResignedStatus) = False)
+                                    AND ((PersonalInfoMas.ProfileCategoryMasID) = False)
                                     AND ((ReimbursRequestInfo.IncludeInNextPayslipProcess) = False))
                             ORDER BY
                                 ReimbursementHeaderMas.ReimbID,
@@ -309,6 +311,8 @@ namespace dbStaffSync
                                     AND ((EmpMas.IsDeleted) = False)
                                     AND ((ReimbRequestMas.IsActive) = True)
                                     AND ((ReimbRequestMas.IsDeleted) = False)
+                                    AND ((EmpMas.ResignedStatus) = False)
+                                    AND ((PersonalInfoMas.GoldProfile) = False)
                                     AND ((EmpMas.EmpID) > 1)
                                     AND ((ClientMas.ClientID) = " + txtClientID + @")
                                     AND ((ReimbursRequestInfo.IncludeInNextPayslipProcess) = False))

@@ -636,6 +636,8 @@ namespace dbStaffSync
                                             " AND ((AssetCategoryMas.IsDeleted) = False) " +
                                             " AND ((AssetMas.IsActive) = True) " +
                                             " AND ((AssetMas.IsDeleted) = False) " +
+                                            " AND ((PersonalInfoMas.GoldProfile) = False) " +
+                                            " AND ((EmpMas.ResignedStatus) = False) " + 
                                             " AND ((ClientMas.ClientID) = " + txtClientID + ")" +
                                         " ) " +
                                     " ORDER BY " +

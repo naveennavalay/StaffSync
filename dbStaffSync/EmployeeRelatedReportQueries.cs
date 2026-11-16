@@ -88,6 +88,8 @@ namespace dbStaffSync
                                             " AND ((EmpMas.EmpId) > 1) " +
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((EmpMas.ResignedStatus) = False) " + 
+                                            " AND ((PersonalInfoMas.GoldProfile) = False) " + 
                                             Filter +
                                         " ) " +
                                     " ORDER BY " +

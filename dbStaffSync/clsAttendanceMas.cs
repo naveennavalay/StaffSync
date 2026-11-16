@@ -741,7 +741,6 @@ namespace dbStaffSync
                     "    AND EmpMas.EmpID > 1 " +
                     "    AND EmpMas.IsActive = True " +
                     "    AND EmpMas.IsDeleted = False " +
-
                     "ORDER BY " +
                     "    EmpMas.EmpID, " +
                     "    EmpMas.EmpName;";
@@ -799,6 +798,63 @@ namespace dbStaffSync
                                 EmpMas.EmpID,
                                 EmpMas.EmpName;";
 
+                strQuery = @"SELECT
+                                    ClientMas.ClientID,
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpCode,
+                                    EmpMas.EmpName,
+                                    DesigMas.DesignationTitle,
+                                    DepMas.DepartmentTitle,
+                                    CLng (
+                                        IIf(
+                                            IsNull(
+                                                DMax (
+                                                    'SlNo',
+                                                    'qryMnthlyAttdInfo',
+                                                    'EmpID=' & EmpMas.EmpID & ' AND ClientID=' & 1 & ' AND AttdMonth=#01-Nov-2026#'
+                                                )
+                                            ),
+                                            0,
+                                            DMax (
+                                                'SlNo',
+                                                'qryMnthlyAttdInfo',
+                                                'EmpID=' & EmpMas.EmpID & ' AND ClientID=' & 1 & ' AND AttdMonth=#01-Nov-2026#'
+                                            )
+                                        )
+                                    ) AS SlNo,
+                                    'Present' AS Day16,
+                                    ShiftMas.ShiftStart,
+                                    ShiftMas.ShiftEnd
+                                FROM
+                                    (
+                                        ShiftMas
+                                        INNER JOIN (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
+                                        ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                                    )
+                                    INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                WHERE
+                                    (
+                                        ((ClientMas.ClientID) = " + txtCompanyID + @")
+                                        AND ((EmpMas.EmpID) > 1)
+                                        AND ((EmpMas.IsActive) = True)
+                                        AND ((EmpMas.IsDeleted) = False)
+                                        AND ((EmpMas.ResignedStatus) = False)
+                                        AND ((PersonalInfoMas.GoldProfile) = False)
+                                    )
+                                ORDER BY
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpName;";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;

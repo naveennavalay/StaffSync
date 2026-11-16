@@ -54,6 +54,50 @@ namespace dbStaffSync
                                     " ORDER BY " + 
                                         " Year(EmpLeaveTransMas.ActualLeaveDateFrom), " + 
                                         " Month(EmpLeaveTransMas.ActualLeaveDateFrom);";
+                strQuery = @"SELECT
+                                Format(EmpLeaveTransMas.ActualLeaveDateFrom, 'mmm-yyyy') AS MonthName,
+                                Year(EmpLeaveTransMas.ActualLeaveDateFrom) AS LeaveYear,
+                                Month(EmpLeaveTransMas.ActualLeaveDateFrom) AS LeaveMonth,
+                                Count(EmpLeaveTransMas.OrderID) AS TotalApplication,
+                                Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved :%', 1, 0)) AS TotalApproved,
+                                Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Rejected :%' AND EmpLeaveTransMas.LeaveRejectionComments LIKE 'Rejected :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalRejected,
+                                Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalPending,
+                                Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS TotalCancelled,
+                                Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved :%' AND EmpLeaveTransMas.Canceled = False, IIf( IsNull(EmpLeaveTransMas.LeaveDuration), 0, EmpLeaveTransMas.LeaveDuration), 0)) AS TotalLeaveDays
+                            FROM
+                                (
+                                    (
+                                        ClientMas
+                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                    )
+                                    INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID
+                                )
+                                INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                            WHERE
+                                (
+                                    ((ClientMas.ClientID) = " + txtClientID + @")
+                                    AND ((EmpMas.IsActive) = True)
+                                    AND ((EmpMas.IsDeleted) = False)
+                                    AND (
+                                        (EmpLeaveTransMas.ActualLeaveDateFrom) >= #" + dtFrom.Date.ToString("dd-MMM-yyyy") + @"#
+                                        AND (EmpLeaveTransMas.ActualLeaveDateFrom) < #" + dtTo.Date.ToString("dd-MMM-yyyy") + @"#
+                                    )
+                                )
+                            GROUP BY
+                                Format(EmpLeaveTransMas.ActualLeaveDateFrom, 'mmm-yyyy'),
+                                Year(EmpLeaveTransMas.ActualLeaveDateFrom),
+                                Month(EmpLeaveTransMas.ActualLeaveDateFrom),
+                                EmpMas.ResignedStatus,
+                                PersonalInfoMas.GoldProfile
+                            HAVING
+                                (
+                                    ((EmpMas.ResignedStatus) = False)
+                                    AND ((PersonalInfoMas.GoldProfile) = False)
+                                )
+                            ORDER BY
+                                Year(EmpLeaveTransMas.ActualLeaveDateFrom),
+                                Month(EmpLeaveTransMas.ActualLeaveDateFrom);";
+
                 //" EmpLeaveTransMas.LeaveApprovalComments, " +
                 //" EmpLeaveTransMas.Canceled, " +
                 OleDbCommand cmd = conn.CreateCommand();
@@ -101,7 +145,9 @@ namespace dbStaffSync
                                         EmpLeaveTransMas.ActualLeaveDateFrom AS LeaveDate,
                                         EmpLeaveTransMas.LeaveApprovalComments,
                                         ClientMas.ClientID,
-                                        EmpDailyAttendanceInfo.LeaveTRID
+                                        EmpDailyAttendanceInfo.LeaveTRID,
+                                        EmpMas.ResignedStatus,
+                                        PersonalInfoMas.GoldProfile
                                     FROM
                                         (
                                             LeaveTypeMas
@@ -116,22 +162,25 @@ namespace dbStaffSync
                                                         ) ON DepMas.DepartmentID = EmpMas.DepartmentID
                                                     ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
                                                 )
-                                                INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID
+                                                INNER JOIN (
+                                                    EmpLeaveTransMas
+                                                    INNER JOIN EmpDailyAttendanceInfo ON EmpLeaveTransMas.LeaveTRID = EmpDailyAttendanceInfo.LeaveTRID
+                                                ) ON (EmpMas.EmpID = EmpLeaveTransMas.EmpID)
+                                                AND (EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID)
                                             ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID
                                         )
-                                        INNER JOIN EmpDailyAttendanceInfo ON (
-                                            EmpLeaveTransMas.LeaveTRID = EmpDailyAttendanceInfo.LeaveTRID
-                                        )
-                                        AND (EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID)
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
                                     WHERE
                                         (
                                             ((EmpMas.EmpID) > 1)
                                             AND ((EmpLeaveTransMas.ActualLeaveDateFrom) = Date())
-                                            AND ((ClientMas.ClientID) = " + txtClientID + ") " + @"
+                                            AND ((ClientMas.ClientID) = " + txtClientID + @")
+                                            AND ((EmpDailyAttendanceInfo.LeaveTRID) > 0)
                                             AND ((EmpMas.IsActive) = True)
                                             AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
                                             AND ((EmpLeaveTransMas.Canceled) = False)
-                                            AND ((EmpDailyAttendanceInfo.LeaveTRID) > 0)
                                         )
                                     ORDER BY
                                         EmpMas.EmpID,
@@ -171,31 +220,47 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT " + 
-                                        " DepMas.DepartmentTitle AS Department, " + 
-                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalApproved, " + 
-                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalPending, " + 
-                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Rejected :%' AND EmpLeaveTransMas.LeaveRejectionComments LIKE 'Rejected :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalRejected, " + 
-                                        " Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS TotalCancelled " + 
-                                    " FROM " + 
-                                        " ClientMas " + 
-                                        " INNER JOIN ( " + 
-                                            " DepMas " + 
-                                            " INNER JOIN ( " + 
-                                                " EmpMas " + 
-                                                " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
-                                            " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
-                                        " ) ON ClientMas.ClientID = EmpMas.ClientID " + 
-                                    " WHERE " + 
-                                        " ClientMas.ClientID = " + txtClientID +
-                                        " AND EmpMas.IsActive = True  " +
-                                        " AND EmpMas.IsDeleted = False " + 
-                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
-                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom< #" + dtTo.ToString("dd-MMM-yyyy") + "# " +
-                                    " GROUP BY " + 
-                                        " DepMas.DepartmentTitle " + 
-                                    " ORDER BY " + 
-                                        " DepMas.DepartmentTitle";
+                string strQuery = @"SELECT
+                                        DepMas.DepartmentTitle AS Department,
+                                        Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalApproved,
+                                        Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalPending,
+                                        Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Rejected :%' AND EmpLeaveTransMas.LeaveRejectionComments LIKE 'Rejected :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalRejected,
+                                        Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS TotalCancelled,
+                                        EmpMas.ResignedStatus,
+                                        PersonalInfoMas.GoldProfile
+                                    FROM
+                                        (
+                                            (
+                                                DepMas
+                                                INNER JOIN (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                            )
+                                            INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID
+                                        )
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    WHERE
+                                        (
+                                            ((ClientMas.ClientID) = " + txtClientID + @")
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND (
+                                                (EmpLeaveTransMas.ActualLeaveDateFrom) >= #" + dtFrom.Date.ToString("dd-MMM-yyyy") + @"#
+                                                AND (EmpLeaveTransMas.ActualLeaveDateFrom) < #" + dtTo.Date.ToString("dd-MMM-yyyy") + @"#
+                                            )
+                                        )
+                                    GROUP BY
+                                        DepMas.DepartmentTitle,
+                                        EmpMas.ResignedStatus,
+                                        PersonalInfoMas.GoldProfile
+                                    HAVING
+                                        (
+                                            ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
+                                        )
+                                    ORDER BY
+                                        DepMas.DepartmentTitle;";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -1249,42 +1314,46 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = @"SELECT
-                                    EmpMas.EmpID,
-                                    EmpMas.EmpCode,
-                                    EmpMas.EmpName,
-                                    DesigMas.DesignationTitle,
-                                    DepMas.DepartmentTitle,
-                                    PersonalInfoMas.DOB,
-                                    Photos.PhotoID,
-                                    Photos.EmpPhoto,
-                                    EmpMas.IsActive,
-                                    EmpMas.IsDeleted,
-                                    ClientMas.ClientID
-                                FROM
-                                    (
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.DOB,
+                                        Photos.PhotoID,
+                                        Photos.EmpPhoto,
+                                        EmpMas.IsActive,
+                                        EmpMas.IsDeleted,
+                                        ClientMas.ClientID
+                                    FROM
                                         (
-                                            DesigMas
-                                            INNER JOIN (
-                                                DepMas
+                                            (
+                                                DesigMas
                                                 INNER JOIN (
-                                                    ClientMas
-                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
-                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
-                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
                                         )
-                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
-                                    )
-                                    LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
-                                WHERE
-                                    EmpMas.EmpID > 1
-                                    AND Month(PersonalInfoMas.DOB) = Month(Date())
-                                    AND Day(PersonalInfoMas.DOB) = Day(Date())
-                                    AND EmpMas.IsActive = True
-                                    AND EmpMas.IsDeleted = False
-                                    AND ClientMas.ClientID = " + clientID + @"
-                                ORDER BY
-                                    EmpMas.EmpID,
-                                    EmpMas.EmpName;";
+                                        LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) > 1)
+                                            AND ((Month([PersonalInfoMas].[DOB])) = Month(Date()))
+                                            AND ((Day([PersonalInfoMas].[DOB])) = Day(Date()))
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
+                                            AND ((ClientMas.ClientID) = " + clientID + @")
+                                        )
+                                    ORDER BY
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpName;";
 
                 DataTable dt = new DataTable();
 
@@ -1329,42 +1398,48 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = @"SELECT
-                                    EmpMas.EmpID,
-                                    EmpMas.EmpCode,
-                                    EmpMas.EmpName,
-                                    DesigMas.DesignationTitle,
-                                    DepMas.DepartmentTitle,
-                                    PersonalInfoMas.DOJ,
-                                    Photos.PhotoID,
-                                    Photos.EmpPhoto,
-                                    EmpMas.IsActive,
-                                    EmpMas.IsDeleted,
-                                    ClientMas.ClientID
-                                FROM
-                                    (
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.DOJ,
+                                        Photos.PhotoID,
+                                        Photos.EmpPhoto,
+                                        EmpMas.IsActive,
+                                        EmpMas.IsDeleted,
+                                        EmpMas.ResignedStatus,
+                                        PersonalInfoMas.GoldProfile,
+                                        ClientMas.ClientID
+                                    FROM
                                         (
-                                            DesigMas
-                                            INNER JOIN (
-                                                DepMas
+                                            (
+                                                DesigMas
                                                 INNER JOIN (
-                                                    ClientMas
-                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
-                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
-                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
                                         )
-                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
-                                    )
-                                    LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
-                                WHERE
-                                    EmpMas.EmpID > 1
-                                    AND Month(PersonalInfoMas.DOJ) = Month(Date())
-                                    AND Day(PersonalInfoMas.DOJ) = Day(Date())
-                                    AND EmpMas.IsActive = True
-                                    AND EmpMas.IsDeleted = False
-                                    AND ClientMas.ClientID = " + clientID + @"
-                                ORDER BY
-                                    EmpMas.EmpID,
-                                    EmpMas.EmpName;";
+                                        LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) > 1)
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
+                                            AND ((ClientMas.ClientID) = " + clientID + @")
+                                            AND ((Month([PersonalInfoMas].[DOJ])) = Month(Date()))
+                                            AND ((Day([PersonalInfoMas].[DOJ])) = Day(Date()))
+                                        )
+                                    ORDER BY
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpName;";
 
                 DataTable dt = new DataTable();
 
@@ -1441,6 +1516,8 @@ namespace dbStaffSync
                                             ((EmpMas.EmpID) > 1)
                                             AND ((EmpMas.IsActive) = True)
                                             AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
                                             AND ((ClientMas.ClientID) = " + clientID + @")
                                             AND (
                                                 (Month([PersonalInfoMas].[DateOfConfirmation])) = Month(Date())
@@ -2094,6 +2171,8 @@ namespace dbStaffSync
                                             AND ((AssetMas.IsDeleted) = False)
                                             AND ((EmpMas.IsActive) = True)
                                             AND ((EmpMas.IsDeleted) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
                                         )
                                     ORDER BY
                                         AssetCategoryMas.AssetCatMasID,

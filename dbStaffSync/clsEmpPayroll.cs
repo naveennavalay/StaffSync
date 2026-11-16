@@ -113,6 +113,9 @@ namespace dbStaffSync
                                         "((EmpSalMas.EmpSalMonthYear) <> 'Jan - 1900') " +
                                         "AND ((EmpMas.IsActive) = True) " +
                                         "AND ((EmpMas.IsDeleted) = False) " +
+                                        "AND ((EmpMas.ResignedStatus) = False) " +
+                                        "AND ((PersonalInfoMas.GoldProfile) = False) " +
+
                                     ");";
 
                 OleDbCommand cmd = conn.CreateCommand();

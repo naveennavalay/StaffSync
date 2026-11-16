@@ -117,6 +117,8 @@ namespace dbStaffSync
                                             AND ((EmpMas.IsDeleted) = False)
                                             AND ((DBChartInfo.IsActive) = True)
                                             AND ((DBChartInfo.IsDeleted) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False) 
+                                            AND ((EmpMas.ResignedStatus) = False) 
                                             AND ((ClientMas.ClientID) = " + ClientID + ") " + @"
                                         )
                                     ORDER BY

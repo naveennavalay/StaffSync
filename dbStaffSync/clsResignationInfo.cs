@@ -140,6 +140,7 @@ namespace dbStaffSync
                                         AND EmpMas.IsActive = True
                                         AND EmpMas.IsDeleted = False
                                         AND EmpMas.ResignedStatus = False
+                                        AND PersonalInfoMas.GoldProfile = False
                                         AND ClientMas.ClientID = " + ClientID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -262,6 +263,8 @@ namespace dbStaffSync
                                             AND ((EmpMas.IsActive) = True)
                                             AND ((EmpMas.IsDeleted) = False)
                                             AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((PersonalInfoMas.GoldProfile) = False)
                                         );";
 
                 OleDbCommand cmd = conn.CreateCommand();

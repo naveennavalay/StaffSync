@@ -64,6 +64,8 @@ namespace dbStaffSync
                                         ((EmpMas.EmpID) > 1)
                                         AND ((EmpMas.IsActive) = True)
                                         AND ((EmpMas.IsDeleted) = False)
+                                        AND ((EmpMas.ResignedStatus) = False)
+                                        AND ((PersonalInfoMas.GoldProfile) = False)
                                         AND ((ClientMas.ClientID) = " + CurrentUser.ClientID + @")
                                     )
                                 ORDER BY
