@@ -47,6 +47,17 @@ namespace StaffSync
         private Dictionary<string, object> _originalValues;
         private bool _isUpdatingGratuityValues = false;
 
+        // Email notification baseline: captures the assigned reviewer and status when a record is loaded.
+        private string _reviewEmailOriginalStatus = string.Empty;
+        private string _reviewEmailOriginalApprover = string.Empty;
+        private string _reviewEmailOriginalApproverID = string.Empty;
+
+        // Workflow UI: access is based on the status saved in the database when the
+        // resignation is loaded. Changing the dropdown does not unlock tabs for the
+        // current reviewer; the newly assigned reviewer receives access on next load.
+        private int _loadedResignationWorkflowStatus = 0;
+        private Panel _resignationWorkflowProgressPanel;
+
         bool boolMaxLeaveToBeConsidered = false;
 
         DateTime dos;
@@ -57,12 +68,14 @@ namespace StaffSync
         {
             InitializeComponent();
             RegisterGratuityCalculationEvents();
+            InitializeResignationWorkflowUI();
         }
 
         public frmEmployeeResignationManagement(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
         {
             InitializeComponent();
             RegisterGratuityCalculationEvents();
+            InitializeResignationWorkflowUI();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
@@ -70,6 +83,7 @@ namespace StaffSync
         {
             InitializeComponent();
             RegisterGratuityCalculationEvents();
+            InitializeResignationWorkflowUI();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
@@ -124,6 +138,9 @@ namespace StaffSync
 
         public void clearControls()
         {
+            _reviewEmailOriginalStatus = string.Empty;
+            _reviewEmailOriginalApprover = string.Empty;
+            _reviewEmailOriginalApproverID = string.Empty;
             lblMaxLeaveConsidered.Visible = false;
             lnkViewAuditLog.Visible = false;
             lblEmpID.Text = "";
@@ -425,6 +442,157 @@ namespace StaffSync
             dtLastWorkingDay.Enabled = true;
             txtNoticePeriodStatus.Enabled = true;
             LoadResignationFinalStatus();
+            _loadedResignationWorkflowStatus = 0;
+            ApplyResignationWorkflowTabAccess();
+            UpdateResignationWorkflowProgress();
+        }
+
+        /// <summary>
+        /// Adds the workflow progress indicator without changing the Windows Forms designer
+        /// or moving/replacing any existing controls.
+        /// </summary>
+        private void InitializeResignationWorkflowUI()
+        {
+            if (_resignationWorkflowProgressPanel != null || panel1 == null || tabControl1 == null)
+                return;
+
+            // Keep the existing layout positions and use the available gap above the tab strip.
+            // The timeline must not push the tab strip or Approval & Status group downward.
+            // Retain these layout statements with zero offset to avoid changing other controls.
+            tabControl1.Top += 0;
+            if (groupBox2 != null)
+                groupBox2.Top += 0;
+
+            _resignationWorkflowProgressPanel = new Panel();
+            _resignationWorkflowProgressPanel.Name = "pnlResignationWorkflowProgress";
+            _resignationWorkflowProgressPanel.BackColor = panel1.BackColor;
+            _resignationWorkflowProgressPanel.Location = new Point(tabControl1.Left, tabControl1.Top - 27);
+            _resignationWorkflowProgressPanel.Size = new Size(tabControl1.Width, 27);
+            _resignationWorkflowProgressPanel.Anchor = tabControl1.Anchor;
+            _resignationWorkflowProgressPanel.Paint += ResignationWorkflowProgressPanel_Paint;
+            _resignationWorkflowProgressPanel.Visible = true;
+            panel1.Controls.Add(_resignationWorkflowProgressPanel);
+            _resignationWorkflowProgressPanel.BringToFront();
+
+            // Keep the indicator aligned if the form or its content area is resized.
+            tabControl1.LocationChanged += (sender, args) =>
+            {
+                if (_resignationWorkflowProgressPanel != null)
+                    _resignationWorkflowProgressPanel.Location = new Point(tabControl1.Left, tabControl1.Top - 27);
+            };
+            tabControl1.SizeChanged += (sender, args) =>
+            {
+                if (_resignationWorkflowProgressPanel != null)
+                    _resignationWorkflowProgressPanel.Width = tabControl1.Width;
+            };
+
+            ApplyResignationWorkflowTabAccess();
+            UpdateResignationWorkflowProgress();
+        }
+
+        /// <summary>
+        /// Always enables Resignation Information. Only the tab associated with the
+        /// currently saved review stage is enabled for the assigned reviewer.
+        /// </summary>
+        private void ApplyResignationWorkflowTabAccess()
+        {
+            if (tabResignationInfo == null || tabControl1 == null)
+                return;
+
+            // First tab is the common information tab available at every stage.
+            tabResignationInfo.Enabled = true;
+            tabReimbursementInformation.Enabled = (_loadedResignationWorkflowStatus == 3);
+            tabAdvanceInformation.Enabled = (_loadedResignationWorkflowStatus == 4);
+            tabLeaveEncashment.Enabled = (_loadedResignationWorkflowStatus == 5);
+            tabGratuityInformation.Enabled = (_loadedResignationWorkflowStatus == 6);
+            tabAssetsInformation.Enabled = (_loadedResignationWorkflowStatus == 7);
+
+            // HR review (status 2) is performed through Resignation Information.
+            // Completed and Withdrawn/Cancelled are terminal; only the common tab remains accessible.
+            if (_loadedResignationWorkflowStatus < 1 || _loadedResignationWorkflowStatus >= 8)
+            {
+                tabReimbursementInformation.Enabled = false;
+                tabAdvanceInformation.Enabled = false;
+                tabLeaveEncashment.Enabled = false;
+                tabGratuityInformation.Enabled = false;
+                tabAssetsInformation.Enabled = false;
+            }
+
+            if (!tabResignationInfo.Enabled || tabControl1.SelectedPage != tabResignationInfo)
+                tabControl1.SelectedPage = tabResignationInfo;
+        }
+
+        private void UpdateResignationWorkflowProgress()
+        {
+            if (_resignationWorkflowProgressPanel != null)
+                _resignationWorkflowProgressPanel.Invalidate();
+        }
+
+        private void ResignationWorkflowProgressPanel_Paint(object sender, PaintEventArgs e)
+        {
+            // Status order mirrors cmbResignationStatus: 1..7 are review stages,
+            // 8 is Completed, and 9 is Withdrawn/Cancelled.
+            string[] stageNames = { "Start", "HR", "Reimbursements", "Advances", "Leave Encashment", "Gratuity", "Assets", "Completed" };
+            int stageCount = stageNames.Length;
+            int currentStatus = _loadedResignationWorkflowStatus;
+            int width = _resignationWorkflowProgressPanel.ClientSize.Width;
+            // Compact timeline: place stage labels ABOVE the markers so they do not
+            // consume the vertical gap between the timeline and the tab strip.
+            int centerY = 19;
+            int left = 16;
+            int right = Math.Max(left + 1, width - 16);
+            float spacing = stageCount > 1 ? (right - left) / (float)(stageCount - 1) : 0;
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            using (Pen basePen = new Pen(Color.FromArgb(190, 205, 30), 4))
+                e.Graphics.DrawLine(basePen, left, centerY, right, centerY);
+
+            int completedThrough = currentStatus == 8 ? 8 : Math.Max(0, currentStatus - 1);
+            if (currentStatus == 9)
+                completedThrough = 0;
+
+            if (completedThrough > 0)
+            {
+                float completedX = left + (completedThrough - 1) * spacing;
+                using (Pen completedPen = new Pen(Color.FromArgb(150, 205, 30), 5))
+                    e.Graphics.DrawLine(completedPen, left, centerY, Math.Min(right, completedX), centerY);
+            }
+
+            using (Font labelFont = new Font("Segoe UI", 7.5f, FontStyle.Bold))
+            using (Brush labelBrush = new SolidBrush(Color.FromArgb(45, 55, 70)))
+            {
+                for (int i = 0; i < stageCount; i++)
+                {
+                    float x = left + i * spacing;
+                    bool completed = currentStatus == 8 || (currentStatus > 0 && currentStatus < 8 && i < currentStatus - 1);
+                    bool current = currentStatus >= 1 && currentStatus <= 7 && i == currentStatus - 1;
+                    if (currentStatus == 9 && i == 0)
+                        current = true;
+
+                    Color dotColor = completed ? Color.FromArgb(220, 55, 65) :
+                                     current ? Color.FromArgb(135, 75, 190) : Color.FromArgb(190, 190, 190);
+
+                    using (Brush dotBrush = new SolidBrush(dotColor))
+                    using (Pen ringPen = new Pen(dotColor, 2))
+                    {
+                        e.Graphics.FillEllipse(dotBrush, x - 4, centerY - 4, 8, 8);
+                        e.Graphics.DrawEllipse(ringPen, x - 7, centerY - 7, 14, 14);
+                    }
+
+                    SizeF labelSize = e.Graphics.MeasureString(stageNames[i], labelFont);
+                    float labelX = Math.Max(0, Math.Min(width - labelSize.Width, x - labelSize.Width / 2));
+                    // Labels are centred above their corresponding dots.
+                    e.Graphics.DrawString(stageNames[i], labelFont, labelBrush, labelX, 0);
+                }
+            }
+
+            if (currentStatus == 9)
+            {
+                using (Font cancelledFont = new Font("Segoe UI", 8f, FontStyle.Bold))
+                using (Brush cancelledBrush = new SolidBrush(Color.FromArgb(180, 45, 55)))
+                    e.Graphics.DrawString("Withdrawn / Cancelled", cancelledFont, cancelledBrush, Math.Max(0, width - 115), 0);
+            }
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -457,6 +625,15 @@ namespace StaffSync
 
             strActionStatement = "EmployeeResignationStatusUpdate";
 
+            // Tab-specific database persistence must always be guarded by the matching
+            // tab's Enabled property. Existing persistence in this handler is currently
+            // implemented for Leave Encashment and Gratuity (guarded below).
+            // Reimbursement, Advance and Assets save routines can use these same guards
+            // when their respective persistence operations are added to this handler:
+            // if (tabReimbursementInformation.Enabled) { ... }
+            // if (tabAdvanceInformation.Enabled) { ... }
+            // if (tabAssetsInformation.Enabled) { ... }
+
             if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "False")
             {
                 affectedRows = objResignationInfo.ApprovalResignationByReportingManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
@@ -471,67 +648,78 @@ namespace StaffSync
                     affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
 
 
-                if (lblLeaveEncashmentID.Text.ToString() == "")
+                // Persist Leave Encashment details only when its workflow tab is enabled
+                // for the currently assigned reviewer. The existing insert/update logic is retained.
+                if (tabLeaveEncashment.Enabled)
                 {
-                    lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.InsertEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
-                        Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
-                        Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
-                }
-                else
-                {
-                    lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.UpdateEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblLeaveEncashmentID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
-                        Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
-                        Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
-                }
-
-                // Calculate actual service duration using Date Of Joining and Last Working Date.
-                DateTime gratuityDateOfJoining = Convert.ToDateTime(txtGRTDateOfJoining.Text.ToString());
-                DateTime gratuityLastWorkingDate = Convert.ToDateTime(txtGRTLastWorkingDate.Text.ToString());
-
-                int actualServiceYears = gratuityLastWorkingDate.Year - gratuityDateOfJoining.Year;
-                if (gratuityDateOfJoining.AddYears(actualServiceYears) > gratuityLastWorkingDate)
-                    actualServiceYears--;
-
-                DateTime serviceDateCursor = gratuityDateOfJoining.AddYears(actualServiceYears);
-                int actualServiceMonths = 0;
-
-                while (serviceDateCursor.AddMonths(1) <= gratuityLastWorkingDate)
-                {
-                    serviceDateCursor = serviceDateCursor.AddMonths(1);
-                    actualServiceMonths++;
+                    if (lblLeaveEncashmentID.Text.ToString() == "")
+                    {
+                        lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.InsertEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
+                            Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
+                            Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
+                    }
+                    else
+                    {
+                        lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.UpdateEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblLeaveEncashmentID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
+                            Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
+                            Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
+                    }
                 }
 
-                int actualServiceDays = (gratuityLastWorkingDate - serviceDateCursor).Days;
-                decimal gratuityServiceYears = Convert.ToDecimal(txtGRTEligibleYears.Text.ToString());
+                // Persist Gratuity details only when its workflow tab is enabled
+                // for the currently assigned reviewer. The existing calculation and insert/update logic is retained.
+                if (tabGratuityInformation.Enabled)
+                {
+                    // Calculate actual service duration using Date Of Joining and Last Working Date.
+                    DateTime gratuityDateOfJoining = Convert.ToDateTime(txtGRTDateOfJoining.Text.ToString());
+                    DateTime gratuityLastWorkingDate = Convert.ToDateTime(txtGRTLastWorkingDate.Text.ToString());
 
-                if (lblEmpResignGratuityID.Text.ToString() == "")
-                {
-                    lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.InsertEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()),
-                        gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
-                        actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
-                        Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
-                        Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
-                        Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
-                        Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
-                        cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
-                }
-                else
-                {
-                    // Keep the update parameter order identical to the insert method.
-                    lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.UpdateEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignGratuityID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()),
-                        gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
-                        actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
-                        Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
-                        Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
-                        Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
-                        Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
-                        cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
+                    int actualServiceYears = gratuityLastWorkingDate.Year - gratuityDateOfJoining.Year;
+                    if (gratuityDateOfJoining.AddYears(actualServiceYears) > gratuityLastWorkingDate)
+                        actualServiceYears--;
+
+                    DateTime serviceDateCursor = gratuityDateOfJoining.AddYears(actualServiceYears);
+                    int actualServiceMonths = 0;
+
+                    while (serviceDateCursor.AddMonths(1) <= gratuityLastWorkingDate)
+                    {
+                        serviceDateCursor = serviceDateCursor.AddMonths(1);
+                        actualServiceMonths++;
+                    }
+
+                    int actualServiceDays = (gratuityLastWorkingDate - serviceDateCursor).Days;
+                    decimal gratuityServiceYears = Convert.ToDecimal(txtGRTEligibleYears.Text.ToString());
+
+                    if (lblEmpResignGratuityID.Text.ToString() == "")
+                    {
+                        lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.InsertEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()),
+                            gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
+                            actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
+                            Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
+                            Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
+                            Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
+                            Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
+                            cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
+                    }
+                    else
+                    {
+                        // Keep the update parameter order identical to the insert method.
+                        lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.UpdateEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignGratuityID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()),
+                            gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
+                            actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
+                            Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
+                            Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
+                            Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
+                            Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
+                            cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
+                    }
                 }
 
                 if (cmbResignationStatus.SelectedIndex == 8)
                 {
                     if (chkLeaveEncashmentVerifiedAndConfirmed.Checked == false && Convert.ToDecimal(txtNetEncashmentAmount.Text) > 0)
                     {
+                        this.Cursor = Cursors.Default;
                         errValidator.SetError(chkLeaveEncashmentVerifiedAndConfirmed, "Before marking as \"Closed\", complete the Leave Encashment.");
                         return;
                     }
@@ -559,6 +747,13 @@ namespace StaffSync
                 MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            // Send a status-specific review assignment only after the database update succeeds.
+            // This is additive; the existing save, gratuity, leave encashment and audit logic remains unchanged.
+            if (affectedRows > 0)
+            {
+                SendResignationReviewAssignmentEmailIfChanged();
+            }
+
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
             onSaveButtonClick();
@@ -566,6 +761,130 @@ namespace StaffSync
             clearControls();
             errValidator.Clear();
             this.Cursor = Cursors.Default;
+        }
+
+        private void SendResignationReviewAssignmentEmailIfChanged()
+        {
+            string currentStatus = cmbResignationStatus.SelectedIndex.ToString();
+            string currentApproverEmail = (lblNextApproverMailID.Text ?? string.Empty).Trim();
+
+            bool statusChanged = !string.Equals(_reviewEmailOriginalStatus, currentStatus, StringComparison.Ordinal);
+            bool approverChanged = !string.Equals(_reviewEmailOriginalApprover, currentApproverEmail, StringComparison.OrdinalIgnoreCase)
+                || !string.Equals(_reviewEmailOriginalApproverID, (lblHROwnerID.Text ?? string.Empty).Trim(), StringComparison.Ordinal);
+
+            // No notification when neither the status nor the assigned approver changed.
+            if (!statusChanged && !approverChanged)
+                return;
+
+            // Status indexes 2-7 represent active review/verification stages.
+            string reviewTitle;
+            string reviewInstruction;
+            switch (cmbResignationStatus.SelectedIndex)
+            {
+                case 2:
+                    reviewTitle = "HR Formalities and Clearance Review";
+                    reviewInstruction = "Please review the resignation request and coordinate the applicable HR formalities, employee clearances and required documentation.";
+                    break;
+                case 3:
+                    reviewTitle = "Reimbursement Review";
+                    reviewInstruction = "Please review the employee's reimbursement claims, including pending, approved and unsettled claims, and verify the relevant settlement details.";
+                    break;
+                case 4:
+                    reviewTitle = "Advance Review";
+                    reviewInstruction = "Please review the employee's advance transactions, outstanding balances and applicable recovery details.";
+                    break;
+                case 5:
+                    reviewTitle = "Leave Encashment Review";
+                    reviewInstruction = "Please review the employee's leave entitlement, leave balance, eligible encashment days and leave encashment calculation.";
+                    break;
+                case 6:
+                    reviewTitle = "Gratuity Review";
+                    reviewInstruction = "Please review the employee's gratuity eligibility, service duration, calculation basis, applicable deductions and net gratuity amount.";
+                    break;
+                case 7:
+                    reviewTitle = "Asset Return and Clearance Review";
+                    reviewInstruction = "Please review the assets allocated to the employee, confirm returned assets and identify any pending asset clearance.";
+                    break;
+                default:
+                    // In Progress, Completed, Withdrawn/Cancelled and blank are not review assignments.
+                    return;
+            }
+
+            if (string.IsNullOrWhiteSpace(currentApproverEmail) || !currentApproverEmail.Contains("@"))
+                return;
+
+            string employeeName = (txtEmpName.Text ?? string.Empty).Trim();
+            string employeeCode = (txtEmpCode.Text ?? string.Empty).Trim();
+            string employeeReference = string.IsNullOrWhiteSpace(employeeCode)
+                ? employeeName
+                : employeeName + " [" + employeeCode + "]";
+
+            string subject = "Action Required – Resignation " + reviewTitle + " – " + employeeReference;
+            string html = BuildResignationReviewAssignmentEmailTemplate();
+
+            var templateData = new Dictionary<string, string>
+            {
+                { "NextApproverName", txtHROwner.Text ?? string.Empty },
+                { "EmployeeName", employeeName },
+                { "EmployeeCode", employeeCode },
+                { "Designation", txtDesignation.Text ?? string.Empty },
+                { "Department", txtDepartment.Text ?? string.Empty },
+                { "ResignationDate", dtResignationDate.Text ?? string.Empty },
+                { "LastWorkingDay", dtLastWorkingDay.Text ?? string.Empty },
+                { "ReviewTitle", reviewTitle },
+                { "CurrentStatus", cmbResignationStatus.Text ?? string.Empty },
+                { "ReviewInstruction", reviewInstruction }
+            };
+
+            try
+            {
+                myMailService mailService = new myMailService();
+                mailService.SendMail(currentApproverEmail, subject, html, templateData);
+            }
+            catch (Exception ex)
+            {
+                // Email failure must not undo or interrupt the successfully saved resignation update.
+                MessageBox.Show("The resignation details were saved successfully, but the review assignment email could not be sent.\n\n" + ex.Message,
+                    "StaffSync – Email Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private string BuildResignationReviewAssignmentEmailTemplate()
+        {
+            StringBuilder html = new StringBuilder();
+            html.AppendLine("<!DOCTYPE html>");
+            html.AppendLine("<html><head><meta charset=\"utf-8\" />");
+            html.AppendLine("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />");
+            html.AppendLine("<title>Resignation Review Assignment</title>");
+            html.AppendLine("<style>");
+            html.AppendLine("body{font-family:Segoe UI,Arial,sans-serif;background:#edf1f7;margin:0;padding:24px;color:#202124;}");
+            html.AppendLine(".mail-container{max-width:700px;margin:0 auto;background:#fff;border:1px solid #d9dee7;border-radius:10px;overflow:hidden;}");
+            html.AppendLine(".mail-header{background:#245b85;color:#fff;padding:20px 26px;font-size:21px;font-weight:600;}");
+            html.AppendLine(".mail-body{padding:24px 26px;font-size:14px;line-height:1.65;}");
+            html.AppendLine(".details{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;}");
+            html.AppendLine(".details th{background:#f0f4f8;color:#34495e;text-align:left;width:34%;}");
+            html.AppendLine(".details th,.details td{border:1px solid #d9e1ea;padding:9px 11px;vertical-align:top;}");
+            html.AppendLine(".action{margin:18px 0;padding:13px 16px;background:#fff7e6;border-left:4px solid #e0a12b;color:#7a4b00;font-weight:700;}");
+            html.AppendLine(".mail-footer{background:#f8fafc;border-top:1px solid #e3e7ed;padding:14px 26px;color:#667085;font-size:11px;}");
+            html.AppendLine("</style></head><body>");
+            html.AppendLine("<div class=\"mail-container\"><div class=\"mail-header\">StaffSync – Resignation Management</div>");
+            html.AppendLine("<div class=\"mail-body\">Dear {{NextApproverName}},<br/><br/>");
+            html.AppendLine("I hope you are doing well.<br/><br/>");
+            html.AppendLine("A resignation request has been assigned to you for review and verification. Please refer to the details below and take the appropriate action in StaffSync.");
+            html.AppendLine("<table class=\"details\"><tr><th colspan=\"2\">Resignation Reference</th></tr>");
+            html.AppendLine("<tr><th>Employee Name</th><td>{{EmployeeName}} [{{EmployeeCode}}]</td></tr>");
+            html.AppendLine("<tr><th>Designation</th><td>{{Designation}}</td></tr>");
+            html.AppendLine("<tr><th>Department</th><td>{{Department}}</td></tr>");
+            html.AppendLine("<tr><th>Resignation Date</th><td>{{ResignationDate}}</td></tr>");
+            html.AppendLine("<tr><th>Last Working Day</th><td>{{LastWorkingDay}}</td></tr></table>");
+            html.AppendLine("<div class=\"action\">ACTION REQUIRED: TO REVIEW – {{ReviewTitle}}</div>");
+            html.AppendLine("<p><strong>Current Status:</strong> {{CurrentStatus}}</p>");
+            html.AppendLine("<p>{{ReviewInstruction}}</p>");
+            html.AppendLine("<p>Please record your review/confirmation in StaffSync. Once your part is completed, update the resignation status and assign it to the next appropriate reviewer, where applicable.</p>");
+            html.AppendLine("Your timely attention will help ensure a smooth and coordinated Full &amp; Final Settlement process.");
+            html.AppendLine("<br/><br/>Thank you for your support and cooperation.<br/><br/>Warm regards,<br/><strong>StaffSync – Resignation Management</strong>");
+            html.AppendLine("</div><div class=\"mail-footer\">This is an automatically generated notification from StaffSync.</div></div></body></html>");
+            return html.ToString();
         }
 
         private bool TryGetDecimal(string value, out decimal result)
@@ -1006,7 +1325,7 @@ namespace StaffSync
 
                 lnkViewAuditLog.Visible = true;
 
-                lblLeaveEncashmentID.Text = "0";
+                lblLeaveEncashmentID.Text = "";
 
                 cmbGRTHRApprovalBy.DataSource = objDepartmentInfo.qryHREmployeeList(Convert.ToInt32(lblClientID.Text));
                 cmbGRTHRApprovalBy.DisplayMember = "EmpName";
@@ -1046,8 +1365,18 @@ namespace StaffSync
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
 
+                // Apply tab access from the persisted workflow status for this reviewer.
+                _loadedResignationWorkflowStatus = objEmployeeSpecificResignationInfo.EmpResignStatus;
+                ApplyResignationWorkflowTabAccess();
+                UpdateResignationWorkflowProgress();
+
                 // Keep the baseline after every resignation-related section is loaded.
                 _originalValues = AuditLogger.getOriginalValues(this);
+
+                // Preserve the initially loaded review assignment for change detection on Save.
+                _reviewEmailOriginalStatus = cmbResignationStatus.SelectedIndex.ToString();
+                _reviewEmailOriginalApprover = (lblNextApproverMailID.Text ?? string.Empty).Trim();
+                _reviewEmailOriginalApproverID = (lblHROwnerID.Text ?? string.Empty).Trim();
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
             {
@@ -1635,7 +1964,7 @@ namespace StaffSync
             }
             else
             {
-                lblLeaveEncashmentID.Text = "0";
+                lblLeaveEncashmentID.Text = "";
             }
         }
 

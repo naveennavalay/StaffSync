@@ -69,7 +69,7 @@ namespace dbStaffSync
                 return new IsResignationAppliedInfo();
         }
 
-        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID)
+        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID, int EmpID)
         {
             List<ResignedEmployeesList> objResignedEmployeesList = new List<ResignedEmployeesList>();
             DataTable dt = new DataTable();
@@ -99,16 +99,20 @@ namespace dbStaffSync
                                             EmpResignationInfo.EmpResignStatus = 1,
                                             'In Progress',
                                             EmpResignationInfo.EmpResignStatus = 2,
-                                            'Approved',
+                                            'Approved and Transfered to HR',
                                             EmpResignationInfo.EmpResignStatus = 3,
                                             'With Finance (Reimbursements)',
                                             EmpResignationInfo.EmpResignStatus = 4,
                                             'With Finance (Advances)',
                                             EmpResignationInfo.EmpResignStatus = 5,
-                                            'With IT (Assets)',
+                                            'With Finance (Leave Encashments)',
                                             EmpResignationInfo.EmpResignStatus = 6,
-                                            'Completed',
+                                            'With Finance (Gratuity)',
                                             EmpResignationInfo.EmpResignStatus = 7,
+                                            'With IT (Assets)',
+                                            EmpResignationInfo.EmpResignStatus = 8,
+                                            'Completed',
+                                            EmpResignationInfo.EmpResignStatus = 9,
                                             'Withdrawn/Cancelled',
                                             True,
                                             'Unknown'
@@ -141,6 +145,7 @@ namespace dbStaffSync
                                         AND EmpMas.IsDeleted = False
                                         AND EmpMas.ResignedStatus = False
                                         AND PersonalInfoMas.GoldProfile = False
+                                        AND EmpResignationInfo.EmpResignApprovedBy2 = " + EmpID + @"
                                         AND ClientMas.ClientID = " + ClientID;
 
                 OleDbCommand cmd = conn.CreateCommand();

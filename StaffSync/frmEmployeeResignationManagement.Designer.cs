@@ -98,9 +98,6 @@
             this.tabAdvanceInformation = new Krypton.Navigator.KryptonPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dtgAdvanceList = new Krypton.Toolkit.KryptonDataGridView();
-            this.tabAssetsInformation = new Krypton.Navigator.KryptonPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.dtgAssetInformation = new Krypton.Toolkit.KryptonDataGridView();
             this.tabLeaveEncashment = new Krypton.Navigator.KryptonPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.lblLeaveEncashmentID = new System.Windows.Forms.Label();
@@ -202,6 +199,9 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtGRTDateOfJoining = new Krypton.Toolkit.KryptonTextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.tabAssetsInformation = new Krypton.Navigator.KryptonPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.dtgAssetInformation = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnResignedRequestSearch = new Krypton.Toolkit.KryptonButton();
@@ -230,10 +230,6 @@
             this.tabAdvanceInformation.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabAssetsInformation)).BeginInit();
-            this.tabAssetsInformation.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).BeginInit();
             this.tabLeaveEncashment.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -287,6 +283,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).BeginInit();
             this.kryptonGroupBox3.Panel.SuspendLayout();
             this.kryptonGroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabAssetsInformation)).BeginInit();
+            this.tabAssetsInformation.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -312,7 +312,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1056, 64);
+            this.panel2.Size = new System.Drawing.Size(1056, 105);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -414,7 +414,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1056, 730);
+            this.panel1.Size = new System.Drawing.Size(1056, 739);
             this.panel1.TabIndex = 1;
             // 
             // groupBox2
@@ -435,11 +435,11 @@
             this.groupBox2.Controls.Add(this.txtReportingManager);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(13, 588);
+            this.groupBox2.Location = new System.Drawing.Point(13, 611);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1030, 136);
+            this.groupBox2.Size = new System.Drawing.Size(1030, 93);
             this.groupBox2.TabIndex = 38;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Approval && Status";
@@ -459,7 +459,7 @@
             // 
             // btnSearchReportingManager
             // 
-            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 21);
+            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 22);
             this.btnSearchReportingManager.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchReportingManager.Name = "btnSearchReportingManager";
             this.btnSearchReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -472,7 +472,7 @@
             // 
             // btnSearchHRManager
             // 
-            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 84);
+            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 56);
             this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchHRManager.Name = "btnSearchHRManager";
             this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -525,7 +525,7 @@
             // dtApprovalDate
             // 
             this.dtApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtApprovalDate.Location = new System.Drawing.Point(693, 89);
+            this.dtApprovalDate.Location = new System.Drawing.Point(693, 60);
             this.dtApprovalDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtApprovalDate.Mask = "##-##-####";
             this.dtApprovalDate.Name = "dtApprovalDate";
@@ -538,7 +538,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(595, 92);
+            this.label8.Location = new System.Drawing.Point(595, 63);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 15);
@@ -551,11 +551,11 @@
             // 
             this.cmbResignationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbResignationStatus.DropDownWidth = 440;
-            this.cmbResignationStatus.Location = new System.Drawing.Point(150, 57);
+            this.cmbResignationStatus.Location = new System.Drawing.Point(693, 25);
             this.cmbResignationStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cmbResignationStatus.Name = "cmbResignationStatus";
             this.cmbResignationStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbResignationStatus.Size = new System.Drawing.Size(188, 22);
+            this.cmbResignationStatus.Size = new System.Drawing.Size(281, 22);
             this.cmbResignationStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbResignationStatus.TabIndex = 86;
             this.cmbResignationStatus.Tag = "Resignation Status";
@@ -564,7 +564,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(100, 61);
+            this.label7.Location = new System.Drawing.Point(643, 29);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 15);
@@ -574,7 +574,7 @@
             // 
             // txtHROwner
             // 
-            this.txtHROwner.Location = new System.Drawing.Point(150, 87);
+            this.txtHROwner.Location = new System.Drawing.Point(150, 58);
             this.txtHROwner.Margin = new System.Windows.Forms.Padding(4);
             this.txtHROwner.Multiline = true;
             this.txtHROwner.Name = "txtHROwner";
@@ -592,7 +592,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(51, 92);
+            this.label6.Location = new System.Drawing.Point(51, 63);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 15);
@@ -658,7 +658,7 @@
             this.tabControl1.ControlKryptonFormFeatures = false;
             this.tabControl1.Group.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuHeading;
             this.tabControl1.Group.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ControlClient;
-            this.tabControl1.Location = new System.Drawing.Point(12, 82);
+            this.tabControl1.Location = new System.Drawing.Point(12, 105);
             this.tabControl1.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
             this.tabControl1.Owner = null;
             this.tabControl1.PageBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonStandalone;
@@ -666,9 +666,9 @@
             this.tabResignationInfo,
             this.tabReimbursementInformation,
             this.tabAdvanceInformation,
-            this.tabAssetsInformation,
             this.tabLeaveEncashment,
-            this.tabGratuityInformation});
+            this.tabGratuityInformation,
+            this.tabAssetsInformation});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1032, 500);
@@ -1305,64 +1305,6 @@
             this.dtgAdvanceList.TabIndex = 68;
             this.dtgAdvanceList.Tag = "Advance List";
             this.dtgAdvanceList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceList_Paint);
-            // 
-            // tabAssetsInformation
-            // 
-            this.tabAssetsInformation.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabAssetsInformation.Controls.Add(this.groupBox6);
-            this.tabAssetsInformation.Flags = 65534;
-            this.tabAssetsInformation.LastVisibleSet = true;
-            this.tabAssetsInformation.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabAssetsInformation.Name = "tabAssetsInformation";
-            this.tabAssetsInformation.Size = new System.Drawing.Size(1030, 473);
-            this.tabAssetsInformation.StateNormal.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.tabAssetsInformation.StateNormal.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.tabAssetsInformation.StateNormal.Panel.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.tabAssetsInformation.StateNormal.Panel.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.tabAssetsInformation.Tag = "tabAssetsInformation";
-            this.tabAssetsInformation.Text = "Assets Information";
-            this.tabAssetsInformation.ToolTipTitle = "Assets Information";
-            this.tabAssetsInformation.UniqueName = "cc53dc217c7c4b2ebf55c32b66c45cb7";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox6.Controls.Add(this.dtgAssetInformation);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox6.Location = new System.Drawing.Point(0, 0);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(1030, 473);
-            this.groupBox6.TabIndex = 39;
-            this.groupBox6.TabStop = false;
-            // 
-            // dtgAssetInformation
-            // 
-            this.dtgAssetInformation.AllowUserToAddRows = false;
-            this.dtgAssetInformation.AllowUserToDeleteRows = false;
-            this.dtgAssetInformation.AllowUserToResizeRows = false;
-            this.dtgAssetInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgAssetInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAssetInformation.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgAssetInformation.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgAssetInformation.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgAssetInformation.Location = new System.Drawing.Point(13, 28);
-            this.dtgAssetInformation.Name = "dtgAssetInformation";
-            this.dtgAssetInformation.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgAssetInformation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAssetInformation.Size = new System.Drawing.Size(1005, 302);
-            this.dtgAssetInformation.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgAssetInformation.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.dtgAssetInformation.TabIndex = 68;
-            this.dtgAssetInformation.Tag = "Asset Information";
-            this.dtgAssetInformation.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetInformation_Paint);
             // 
             // tabLeaveEncashment
             // 
@@ -2927,6 +2869,64 @@
             this.label19.Text = "Date Of Joining";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tabAssetsInformation
+            // 
+            this.tabAssetsInformation.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabAssetsInformation.Controls.Add(this.groupBox6);
+            this.tabAssetsInformation.Flags = 65534;
+            this.tabAssetsInformation.LastVisibleSet = true;
+            this.tabAssetsInformation.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabAssetsInformation.Name = "tabAssetsInformation";
+            this.tabAssetsInformation.Size = new System.Drawing.Size(1030, 473);
+            this.tabAssetsInformation.StateNormal.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabAssetsInformation.StateNormal.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabAssetsInformation.StateNormal.Panel.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabAssetsInformation.StateNormal.Panel.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabAssetsInformation.Tag = "tabAssetsInformation";
+            this.tabAssetsInformation.Text = "Assets Information";
+            this.tabAssetsInformation.ToolTipTitle = "Assets Information";
+            this.tabAssetsInformation.UniqueName = "cc53dc217c7c4b2ebf55c32b66c45cb7";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox6.Controls.Add(this.dtgAssetInformation);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox6.Location = new System.Drawing.Point(0, 0);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Size = new System.Drawing.Size(1030, 473);
+            this.groupBox6.TabIndex = 39;
+            this.groupBox6.TabStop = false;
+            // 
+            // dtgAssetInformation
+            // 
+            this.dtgAssetInformation.AllowUserToAddRows = false;
+            this.dtgAssetInformation.AllowUserToDeleteRows = false;
+            this.dtgAssetInformation.AllowUserToResizeRows = false;
+            this.dtgAssetInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgAssetInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgAssetInformation.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgAssetInformation.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgAssetInformation.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgAssetInformation.Location = new System.Drawing.Point(13, 28);
+            this.dtgAssetInformation.Name = "dtgAssetInformation";
+            this.dtgAssetInformation.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgAssetInformation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAssetInformation.Size = new System.Drawing.Size(1005, 302);
+            this.dtgAssetInformation.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgAssetInformation.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgAssetInformation.TabIndex = 68;
+            this.dtgAssetInformation.Tag = "Asset Information";
+            this.dtgAssetInformation.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetInformation_Paint);
+            // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -3025,8 +3025,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1056, 799);
-            this.splitContainer1.SplitterDistance = 730;
+            this.splitContainer1.Size = new System.Drawing.Size(1056, 849);
+            this.splitContainer1.SplitterDistance = 739;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -3034,7 +3034,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1056, 799);
+            this.ClientSize = new System.Drawing.Size(1056, 849);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
@@ -3067,10 +3067,6 @@
             this.tabAdvanceInformation.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabAssetsInformation)).EndInit();
-            this.tabAssetsInformation.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).EndInit();
             this.tabLeaveEncashment.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
@@ -3136,6 +3132,10 @@
             this.kryptonGroupBox3.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).EndInit();
             this.kryptonGroupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabAssetsInformation)).EndInit();
+            this.tabAssetsInformation.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

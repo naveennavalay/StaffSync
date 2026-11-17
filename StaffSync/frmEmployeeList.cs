@@ -1014,7 +1014,7 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listResignedEmployeesList")
             {
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objResignationInfo.getResignedEmployeeList(Convert.ToInt32(lblClientID.Text.ToString()));
+                dtgEmployeeList.DataSource = objResignationInfo.getResignedEmployeeList(Convert.ToInt32(lblClientID.Text.ToString()), CurrentUser.EmpID);
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].HeaderText = "Employee Code";
                 dtgEmployeeList.Columns["EmpCode"].Width = 125;

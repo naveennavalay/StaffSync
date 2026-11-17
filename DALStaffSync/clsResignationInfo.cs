@@ -13,9 +13,9 @@ namespace DALStaffSync
     {
         dbStaffSync.clsResignationInfo objResignationInfo = new dbStaffSync.clsResignationInfo();
 
-        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID)
+        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID, int EmpID)
         {
-            return objResignationInfo.getResignedEmployeeList(ClientID);
+            return objResignationInfo.getResignedEmployeeList(ClientID, EmpID);
         }
 
         public List<ResignationInfo> getResignationInfotatements()
