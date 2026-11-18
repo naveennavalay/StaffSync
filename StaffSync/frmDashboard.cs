@@ -74,6 +74,9 @@ namespace StaffSync
 
         private Image _toDateOriginalImage;
 
+        // Prevent pending asynchronous dashboard work from accessing WebView2 during shutdown.
+        private bool _isClosing;
+
         private async void InitializeScheduler()
         {
             //scheduler = await new StdSchedulerFactory().GetScheduler();
@@ -116,6 +119,7 @@ namespace StaffSync
         public frmDashboard(int EmpID)
         {
             InitializeComponent();
+            this.FormClosing += frmDashboard_FormClosing;
             InitializeScheduler();
 
             TrustedTimeLockCoordinator.Attach(this);
@@ -1759,7 +1763,13 @@ namespace StaffSync
             // To Date should initially be disabled
             txtDTTo.Enabled = false;
 
+            if (_isClosing || IsDisposed || Disposing)
+                return;
+
             await myWebView.EnsureCoreWebView2Async();
+
+            if (_isClosing || IsDisposed || Disposing || myWebView == null || myWebView.IsDisposed)
+                return;
 
             // Register WebView2 events once the CoreWebView2 instance is ready.
             myWebView.NavigationCompleted -= myWebView_NavigationCompleted;
@@ -1827,7 +1837,7 @@ namespace StaffSync
             // Reload the persisted attendance state after the active client is known.
             if (myWebView != null && myWebView.CoreWebView2 != null)
             {
-                await myWebView.CoreWebView2.ExecuteScriptAsync(
+                await ExecuteDashboardScriptAsync(
                     "if (window.staffSyncReloadAttendanceState) window.staffSyncReloadAttendanceState();");
             }
 
@@ -2365,12 +2375,43 @@ namespace StaffSync
             {
                 return;
             }
-            Application.Exit();
+            // Return to the existing login form instead of terminating StaffSync.
+            this.Close();
+        }
+
+        private void frmDashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Mark closing before child controls begin disposing.
+            _isClosing = true;
+
+            if (_toDateEditTimer != null)
+            {
+                _toDateEditTimer.Stop();
+                _toDateEditTimer.Tick -= ToDateEditTimer_Tick;
+                _toDateEditTimer.Dispose();
+                _toDateEditTimer = null;
+            }
+
+            if (myWebView != null && !myWebView.IsDisposed)
+            {
+                myWebView.NavigationCompleted -= myWebView_NavigationCompleted;
+
+                if (myWebView.CoreWebView2 != null)
+                    myWebView.CoreWebView2.WebMessageReceived -= myWebView_WebMessageReceived;
+            }
         }
 
         private void frmDashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            // The login form is the owner of this dashboard and remains alive
+            // while the dashboard is open. Show it again when the dashboard closes.
+            if (this.Owner is frmLogin loginForm && !loginForm.IsDisposed)
+            {
+                loginForm.Show();
+                loginForm.WindowState = FormWindowState.Normal;
+                loginForm.BringToFront();
+                loginForm.Activate();
+            }
         }
 
         private void tlbManageEmployeeInfoButton_Click(object sender, EventArgs e)
@@ -5721,7 +5762,8 @@ namespace StaffSync
                 {
                     return;
                 }
-                Application.Exit();
+                // Return to the existing login form instead of terminating StaffSync.
+                this.Close();
             }
         }
 
@@ -7411,7 +7453,7 @@ namespace StaffSync
                 string trustedDateTimeJson =
                     JsonConvert.SerializeObject(trustedDateTimeText);
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(
+                await ExecuteDashboardScriptAsync(
                     "if (typeof window.setStaffSyncTrustedDateTime === 'function') {" +
                     "window.setStaffSyncTrustedDateTime(" + trustedDateTimeJson + ");" +
                     "}");
@@ -7438,7 +7480,7 @@ namespace StaffSync
 
             string script = $"displayLeaveStatusSummaryChartData({json});";
 
-            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            await ExecuteDashboardScriptAsync(script);
         }
 
         private async Task displayEmployeesOnLeaveTodayChartData()
@@ -7450,7 +7492,7 @@ namespace StaffSync
 
             string script = $"displayEmployeesOnLeaveTodayChartData({json});";
 
-            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            await ExecuteDashboardScriptAsync(script);
         }
 
         private async Task displayAssetRegisterChartData()
@@ -7463,7 +7505,7 @@ namespace StaffSync
 
             string script = $"displayAssetRegisterChartData({json});";
 
-            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            await ExecuteDashboardScriptAsync(script);
         }
 
         // Asset analytics drilldown: Month -> Category -> Asset -> Employee allocation.
@@ -7479,7 +7521,7 @@ namespace StaffSync
 
                 string json = JsonConvert.SerializeObject(data ?? new List<AssetAnalyticsInformation>());
                 string script = $"displayAssetAnalyticsInformationChartData({json});";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7512,7 +7554,7 @@ namespace StaffSync
                 string script =
                     $"displayLeaveMatrixChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(
+                await ExecuteDashboardScriptAsync(
                     script
                 );
             }
@@ -7537,7 +7579,7 @@ namespace StaffSync
 
                 string script = $"displayUpcomingHolidayChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7559,7 +7601,7 @@ namespace StaffSync
 
                 string script = $"displayAttendanceSummaryChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7581,7 +7623,7 @@ namespace StaffSync
 
                 string script = $"displayUpcomingPlannedLeavesChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7603,7 +7645,7 @@ namespace StaffSync
 
                 string script = $"displayPendingApprovalLeaveChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7626,7 +7668,7 @@ namespace StaffSync
 
                 string script = $"displayBirthdayEmployeesChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7648,7 +7690,7 @@ namespace StaffSync
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayWorkAnniversaryEmployeesChartData({json});";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7671,7 +7713,7 @@ namespace StaffSync
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayEmployeeConfirmationTodayChartData({json});";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7693,7 +7735,7 @@ namespace StaffSync
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayYearlyHolidaySummaryData({json});";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7737,7 +7779,7 @@ namespace StaffSync
 
                 string script = $"displayLeaveOutstandingSummary({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7759,7 +7801,7 @@ namespace StaffSync
 
                 string script = $"displayEmployeeWiseLeaveOutstandingSummary({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7781,7 +7823,7 @@ namespace StaffSync
 
                 string script = $"displayAttendanceCalendarChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -7794,16 +7836,77 @@ namespace StaffSync
             }
         }
 
+        //private async Task displayMonthlyAttendanceRegisterData()
+        //{
+        //    try
+        //    {
+        //        List<MonthlyAttendanceRegisterRow> data = await objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
+        //        string json = JsonConvert.SerializeObject(data);
+
+        //        string script = $"displayMonthlyAttendanceRegisterData({json});";
+
+        //        await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(
+        //            ex.Message,
+        //            "StaffSync",
+        //            MessageBoxButtons.OK,
+        //            MessageBoxIcon.Error
+        //        );
+        //    }
+        //}
+
+        // Executes dashboard JavaScript only while the dashboard and WebView2 are alive.
+        // Pending refresh operations may finish after the user returns to the Login screen.
+        private async Task ExecuteDashboardScriptAsync(string script)
+        {
+            if (_isClosing || IsDisposed || Disposing ||
+                myWebView == null || myWebView.IsDisposed ||
+                myWebView.CoreWebView2 == null)
+                return;
+
+            try
+            {
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception) when (_isClosing || IsDisposed || Disposing ||
+                                    myWebView == null || myWebView.IsDisposed)
+            {
+                // Expected during shutdown: WebView2 is being disposed.
+            }
+        }
+
         private async Task displayMonthlyAttendanceRegisterData()
         {
             try
             {
-                List<MonthlyAttendanceRegisterRow> data = await objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
-                string json = JsonConvert.SerializeObject(data);
+                if (_isClosing || IsDisposed || Disposing ||
+                    myWebView == null || myWebView.IsDisposed)
+                    return;
 
+                await myWebView.EnsureCoreWebView2Async();
+
+                if (_isClosing || IsDisposed || Disposing ||
+                    myWebView == null || myWebView.IsDisposed ||
+                    myWebView.CoreWebView2 == null)
+                    return;
+
+                List<MonthlyAttendanceRegisterRow> data = await objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
+
+                if (_isClosing || IsDisposed || Disposing)
+                    return;
+
+                string json = JsonConvert.SerializeObject(data);
                 string script = $"displayMonthlyAttendanceRegisterData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
+            }
+            catch (Exception) when (_isClosing || IsDisposed || Disposing)
+            {
+                // The dashboard was closed while the asynchronous operation was running.
+                return;
             }
             catch (Exception ex)
             {
@@ -7811,8 +7914,7 @@ namespace StaffSync
                     ex.Message,
                     "StaffSync",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -7837,27 +7939,51 @@ namespace StaffSync
 
         public async void refreshDashboardCharts()
         {
+            if (_isClosing || IsDisposed || Disposing)
+                return;
+
             await displayAssetRegisterChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayAssetAnalyticsInformationChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayEmployeesOnLeaveTodayChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayLeaveStatusSummaryChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayLeaveMatrixChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayUpcomingHolidayChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayAttendanceSummaryChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayAttendanceCalendarChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayLeaveOutstandingSummary();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayUpcomingPlannedLeavesChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayBirthdayEmployeesChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayWorkAnniversaryEmployeesChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayYearlyHolidaySummaryData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayPendingApprovalLeaveChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayMonthlyAttendanceRegisterData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayEmployeeAdvanceInformationChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayMonthlyEmployeeAdvanceInformationChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayEmployeeConfirmationChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayReimbursementOutstandingChartData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayApprovalPendingReimbursementData();
+            if (_isClosing || IsDisposed || Disposing) return;
             await displayPendingAssetRequestData();
+            if (_isClosing || IsDisposed || Disposing) return;
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
@@ -7907,7 +8033,7 @@ namespace StaffSync
                             int RowCounter = 0;
                             EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(CurrentUser.EmpID.ToString()), Convert.ToDateTime(trustedDateTimeText));
                             IsEmployeeOnLeave EmployeeLeaveStatus = objAttendanceMas.IsEmployeeOnLeave(CurrentUser.EmpID, DateTime.Today);
-                            if(EmployeeLeaveStatus != null && EmployeeLeaveStatus.LeaveDuration == 1)
+                            if (EmployeeLeaveStatus != null && EmployeeLeaveStatus.LeaveDuration == 1)
                             {
                                 RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Leave : Full Day", 0);
                             }
@@ -8051,7 +8177,7 @@ namespace StaffSync
                     }
 
                     string attendanceJson = JsonConvert.SerializeObject(objEmployeeLoginLogoutInfo);
-                    await myWebView.CoreWebView2.ExecuteScriptAsync("window.setStaffSyncAttendanceResult(" + attendanceJson + ");");
+                    await ExecuteDashboardScriptAsync("window.setStaffSyncAttendanceResult(" + attendanceJson + ");");
                 }
                 catch (Exception ex)
                 {
@@ -8209,7 +8335,7 @@ namespace StaffSync
 
                     string script = "displayEmployeeWiseLeaveOutstandingSummary(" + json + ", " + JsonConvert.SerializeObject(departmentTitle) + ");";
 
-                    await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                    await ExecuteDashboardScriptAsync(script);
                 }
                 catch (Exception ex)
                 {
@@ -8368,7 +8494,7 @@ namespace StaffSync
 
                 string script = $"setDashboardChartVisibilityItem({json},{isVisible.ToString().ToLowerInvariant()});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -8744,7 +8870,7 @@ namespace StaffSync
 
                 string script = $"displayEmployeeAdvanceInformationChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -8766,7 +8892,7 @@ namespace StaffSync
 
                 string script = $"displayMonthlyEmployeeAdvanceInformationChartData({json});";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -9147,7 +9273,7 @@ namespace StaffSync
                     }
                 })();";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -9173,7 +9299,7 @@ namespace StaffSync
 
                 string json = JsonConvert.SerializeObject(data ?? new List<ModelStaffSync.ReimbursementInfoPendingList>());
                 string script = "(function(){var payload=" + json + "; if(typeof window.displayPendingReimbursementApprovals==='function'){window.displayPendingReimbursementApprovals(payload);}else{window.__staffSyncPendingApprovalReimbursements=payload;}})();";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {
@@ -9205,7 +9331,7 @@ namespace StaffSync
                     "window.displayPendingAssetRequestData(payload);" +
                     "}else{window.__staffSyncPendingAssetRequests=payload;}})();";
 
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                await ExecuteDashboardScriptAsync(script);
             }
             catch (Exception ex)
             {

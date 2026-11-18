@@ -102,6 +102,7 @@ namespace StaffSync
             {
                 this.Hide();
                 frmDashboard objDashboard = new frmDashboard(1);
+                objDashboard.Owner = this;
                 objDashboard.Show();
             }
             else if (validateAuthInfo() == true)
@@ -127,6 +128,7 @@ namespace StaffSync
 
                         objLogin.getLoggedInUserInfo(loginUserInfo.EmpID);
                         frmDashboard objDashboard = new frmDashboard(loginUserInfo.EmpID);
+                        objDashboard.Owner = this;
                         objDashboard.Show();
                     }
                     else
