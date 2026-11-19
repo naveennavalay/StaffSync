@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingEngine", "..\ReportingEngine\ReportingEngine.csproj", "{6DCF08FA-EA5F-4A52-A91D-4679DF022747}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStaffSync", "..\WebStaffSync\WebStaffSync.csproj", "{5A37F7AF-3069-4E15-AA3D-3A26432A20E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationService", "..\IntegrationService\IntegrationService.csproj", "{E7C90702-114D-462F-849B-6876C65DA5DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{6DCF08FA-EA5F-4A52-A91D-4679DF022747}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DCF08FA-EA5F-4A52-A91D-4679DF022747}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DCF08FA-EA5F-4A52-A91D-4679DF022747}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A37F7AF-3069-4E15-AA3D-3A26432A20E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A37F7AF-3069-4E15-AA3D-3A26432A20E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A37F7AF-3069-4E15-AA3D-3A26432A20E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A37F7AF-3069-4E15-AA3D-3A26432A20E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7C90702-114D-462F-849B-6876C65DA5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C90702-114D-462F-849B-6876C65DA5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C90702-114D-462F-849B-6876C65DA5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C90702-114D-462F-849B-6876C65DA5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
