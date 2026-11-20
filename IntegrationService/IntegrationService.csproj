@@ -156,6 +156,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\EmployeeProfileController.cs" />
     <Compile Include="Controllers\SystemStatusController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -313,10 +315,6 @@
     <ProjectReference Include="..\DALStaffSync\DALStaffSync.csproj">
       <Project>{3dbf3bc3-0d0f-4463-9f55-c1d60c3ffce6}</Project>
       <Name>DALStaffSync</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dbStaffSync\dbStaffSync.csproj">
-      <Project>{5988d8ec-617c-47a8-a024-753c1fb66410}</Project>
-      <Name>dbStaffSync</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModelStaffSync\ModelStaffSync.csproj">
       <Project>{79a01532-92d7-431f-aee6-fcc9cf4050d7}</Project>

@@ -1,8 +1,111 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Dashboard";
+    var employeeName = (ViewBag.EmployeeName as string) ?? "Employee";
+    var firstName = employeeName.Split(new[] { '@', '.', ' ' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "there";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="page-heading">
+    <div>
+        <div class="page-eyebrow">EMPLOYEE SELF-SERVICE</div>
+        <h1>Good to see you, @firstName <span class="greeting-wave">👋</span></h1>
+        <p>Here’s your personal StaffSync workspace at a glance.</p>
+    </div>
+    <div class="heading-date">
+        <span class="heading-date-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"></path></svg>
+        </span>
+        <span><strong id="dashboardDate">Today</strong><small>Welcome to your workspace</small></span>
+    </div>
 </div>
+
+<section class="welcome-banner">
+    <div class="welcome-banner-content">
+        <span class="banner-kicker">YOUR STAFFSYNC WORKSPACE</span>
+        <h2>Everything you need for your workday.</h2>
+        <p>Your personal employee information and workplace services, brought together in one secure place.</p>
+        <span class="banner-status"><span></span> You are securely signed in</span>
+    </div>
+    <div class="banner-art" aria-hidden="true">
+        <div class="banner-orbit orbit-a"></div>
+        <div class="banner-orbit orbit-b"></div>
+        <div class="banner-glass-card">
+            <div class="glass-card-top"><span></span><span></span><span></span></div>
+            <div class="glass-card-line line-long"></div>
+            <div class="glass-card-line line-short"></div>
+            <div class="glass-card-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+    </div>
+</section>
+
+<div class="section-heading">
+    <div><h2>Your services</h2><p>Quick access to your employee information</p></div>
+    <span class="section-note">Personal access only</span>
+</div>
+
+<section class="service-grid" aria-label="Employee services">
+    <article class="service-card service-attendance">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17M8 13h2m4 0h2M8 16.5h2"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>My Attendance</h3><p>Review your daily attendance, shift timings and attendance history.</p>
+        <span class="service-link">Attendance details <b>→</b></span>
+    </article>
+    <article class="service-card service-leave">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10M8 3.5v4l-3.5 6a5.5 5.5 0 0 0 4.8 8h5.4a5.5 5.5 0 0 0 4.8-8L16 7.5v-4"></path><path d="M7 15h10"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>My Leaves</h3><p>View leave balances, review leave history and follow your requests.</p>
+        <span class="service-link">Leave information <b>→</b></span>
+    </article>
+    <article class="service-card service-payroll">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h4"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>My Payslips</h3><p>Access your salary statements and monthly payslip information.</p>
+        <span class="service-link">Salary information <b>→</b></span>
+    </article>
+    <article class="service-card service-claims">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6.5" width="17" height="13" rx="2"></rect><path d="M3.5 10h17M8 15h3M7 6.5v-3h10v3"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>Reimbursements</h3><p>Track your submitted reimbursement claims and settlement details.</p>
+        <span class="service-link">Claim information <b>→</b></span>
+    </article>
+    <article class="service-card service-advance">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5c-.7-.8-1.8-1.2-3.2-1.2-1.8 0-3 .9-3 2.2 0 3.5 6.5 1.1 6.5 4.8 0 1.4-1.3 2.4-3.3 2.4-1.5 0-2.8-.5-3.7-1.5M12 5.5v13"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>My Advances</h3><p>View your advance requests, outstanding amounts and repayment details.</p>
+        <span class="service-link">Advance details <b>→</b></span>
+    </article>
+    <article class="service-card service-assets">
+        <div class="service-card-top"><span class="service-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"></path></svg>
+        </span><span class="service-status">Coming soon</span></div>
+        <h3>My Assets</h3><p>See the company assets assigned to you and their details.</p>
+        <span class="service-link">Asset information <b>→</b></span>
+    </article>
+</section>
+
+<section class="dashboard-bottom">
+    <article class="info-panel">
+        <div class="panel-heading"><div><h2>Getting started</h2><p>Your employee portal is ready</p></div><span class="panel-heading-icon">✦</span></div>
+        <div class="getting-started-row">
+            <span class="getting-started-check">✓</span>
+            <div><strong>Secure sign-in completed</strong><p>You have successfully accessed your personal workspace.</p></div>
+            <span class="row-state">Completed</span>
+        </div>
+        <div class="getting-started-row">
+            <span class="getting-started-pending">2</span>
+            <div><strong>Explore your employee services</strong><p>Attendance, leave, payroll and other modules will be enabled in upcoming releases.</p></div>
+            <span class="row-state row-state-pending">Upcoming</span>
+        </div>
+    </article>
+    <article class="info-panel support-panel">
+        <div class="support-symbol">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2"></path><path d="M4 13h3v6H6a2 2 0 0 1-2-2v-4zm16 0h-3v6h1a2 2 0 0 0 2-2v-4zM17 19c-.8 1.2-2.3 2-5 2"></path></svg>
+        </div>
+        <h2>Need a hand?</h2>
+        <p>For assistance with your employee account or portal access, please contact your organisation's StaffSync administrator.</p>
+        <span class="support-footnote">We're here to help.</span>
+    </article>
+</section>

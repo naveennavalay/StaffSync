@@ -1,0 +1,196 @@
+@model WebStaffSync.Models.MyProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+    var tabs = new[] {
+        ("personal", "Personal Info"), ("professional", "Professional Info"),
+        ("photo", "Photo"), ("family", "Family Members"), ("experience", "Previous Experience"),
+        ("skills", "Skills"), ("education", "Educational Info"), ("documents", "Documents"),
+        ("leaves", "Leaves"), ("bank", "Bank Account Info"), ("statutory", "Statutory Information"),
+        ("salary", "Salary Profile")
+    };
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/my-profile.css" asp-append-version="true" />
+}
+<div class="page-heading profile-page-heading">
+    <div>
+        <div class="page-eyebrow">EMPLOYEE SELF-SERVICE</div>
+        <h1>My Profile</h1>
+        <p>View your employee information maintained by your organisation.</p>
+    </div>
+    <div class="profile-readonly-note"><span>✓</span> Read-only profile</div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <section class="profile-message profile-message-warning" role="status">
+        <strong>Profile information unavailable</strong>
+        <p>@Model.ErrorMessage</p>
+    </section>
+}
+
+<section class="profile-identity-card">
+        <div class="profile-avatar">
+            @if (!string.IsNullOrWhiteSpace(Model.PhotoDataUrl))
+            {
+                <img src="@Model.PhotoDataUrl" alt="Employee photograph" />
+            }
+            else
+            {
+                var initials = string.Join("", (Model.EmployeeName ?? "Employee").Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(x => x[..1].ToUpperInvariant()));
+                <span>@initials</span>
+            }
+        </div>
+        <div class="profile-identity-copy">
+            <span class="profile-kicker">EMPLOYEE PROFILE</span>
+            <h2>@(Model.EmployeeName ?? "Employee")</h2>
+            <div class="profile-identity-meta">
+                <span>Employee Code: <strong>@(Model.EmployeeCode ?? "—")</strong></span>
+                <span class="profile-status">@(!string.IsNullOrWhiteSpace(Model.Status) ? Model.Status : "Status unavailable")</span>
+            </div>
+        </div>
+        <div class="profile-lock-mark" title="Information is read-only">▣</div>
+    </section>
+
+    <section class="profile-workspace">
+        <div class="profile-tab-strip" role="tablist" aria-label="Employee profile sections">
+            @for (var i = 0; i < tabs.Length; i++)
+            {
+                <button type="button" class="profile-tab @(i == 0 ? "is-active" : "")"
+                        id="tab-@tabs[i].Item1" role="tab" aria-selected="@(i == 0 ? "true" : "false")"
+                        aria-controls="panel-@tabs[i].Item1" data-profile-tab="@tabs[i].Item1">
+                    @tabs[i].Item2
+                </button>
+            }
+        </div>
+
+        <div class="profile-tab-content">
+            <section class="profile-panel is-active" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
+                <div class="profile-section-heading"><div><h2>Personal Information</h2><p>Your personal details and registered addresses</p></div></div>
+                @Fields(Model.PersonalInfo)
+                <div class="profile-subsection-grid">
+                    <div class="profile-subsection"><h3>Current Address</h3>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
+                    <div class="profile-subsection"><h3>Permanent Address</h3><p class="profile-muted">@(Model.SameAsCurrentAddress == "true" ? "Same as current address" : "")</p>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
+                </div>
+                <div class="profile-subsection"><h3>Contact Information</h3>@Fields(Model.ContactInfo.Where(x => !x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase) && !x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
+            </section>
+
+            <section class="profile-panel" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" hidden>
+                <div class="profile-section-heading"><div><h2>Professional Information</h2><p>Your employment and reporting details</p></div></div>
+                @Fields(Model.ProfessionalInfo)
+                <div class="profile-subsection-grid">
+                    <div class="profile-subsection"><h3>Contact Person</h3>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Contact Person", StringComparison.OrdinalIgnoreCase)).ToList())</div>
+                    <div class="profile-subsection"><h3>Nomination Details</h3>@Fields(Model.NominationInfo)</div>
+                </div>
+            </section>
+
+            <section class="profile-panel" id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" hidden>
+                <div class="profile-section-heading"><div><h2>Employee Photograph</h2><p>Photograph registered in your employee record</p></div></div>
+                @if (!string.IsNullOrWhiteSpace(Model.PhotoDataUrl)) { <div class="profile-photo-preview"><img src="@Model.PhotoDataUrl" alt="Employee photograph" /></div> }
+                else { <div class="profile-empty">No employee photograph is available.</div> }
+            </section>
+
+            <section class="profile-panel" id="panel-family" role="tabpanel" aria-labelledby="tab-family" hidden>
+                <div class="profile-section-heading"><div><h2>Family Members</h2><p>Family information recorded in your employee profile</p></div></div>
+                @Table(Model.FamilyMembers, new[] { "Member Name", "DOB", "Age", "Relationship", "Address 1", "Address 2", "Area" })
+            </section>
+
+            <section class="profile-panel" id="panel-experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
+                <div class="profile-section-heading"><div><h2>Previous Experience</h2><p>Your employment history</p></div></div>
+                @Table(Model.PreviousExperience, new[] { "Company Name", "Company Address", "Start Date", "End Date", "More Details" })
+            </section>
+
+            <section class="profile-panel" id="panel-skills" role="tabpanel" aria-labelledby="tab-skills" hidden>
+                <div class="profile-section-heading"><div><h2>Skills</h2><p>Skills associated with your employee record</p></div></div>
+                @Tags(Model.Skills)
+            </section>
+
+            <section class="profile-panel" id="panel-education" role="tabpanel" aria-labelledby="tab-education" hidden>
+                <div class="profile-section-heading"><div><h2>Educational Qualifications</h2><p>Qualifications recorded in your employee profile</p></div></div>
+                @Tags(Model.Education)
+            </section>
+
+            <section class="profile-panel" id="panel-documents" role="tabpanel" aria-labelledby="tab-documents" hidden>
+                <div class="profile-section-heading"><div><h2>Documents</h2><p>Documents associated with your employee record</p></div></div>
+                @Table(Model.Documents, new[] { "Document Name", "Document Type", "Description", "Uploaded On", "Status" })
+            </section>
+
+            <section class="profile-panel" id="panel-leaves" role="tabpanel" aria-labelledby="tab-leaves" hidden>
+                <div class="profile-section-heading"><div><h2>Leave Information</h2><p>Your weekly off and leave balances</p></div></div>
+                @Fields(new List<WebStaffSync.Models.ProfileField> { new() { Label = "Weekly Off", Value = Model.WeeklyOff ?? "—" } })
+                @Table(Model.LeaveBalances, new[] { "Leave Type", "Total Leaves Allotted", "Total Leaves Available", "Total Utilised Leaves", "Leave Balance" })
+                <div class="profile-summary-grid">@Fields(Model.LeaveSummary)</div>
+            </section>
+
+            <section class="profile-panel" id="panel-bank" role="tabpanel" aria-labelledby="tab-bank" hidden>
+                <div class="profile-section-heading"><div><h2>Bank Account Information</h2><p>Bank details registered for salary processing</p></div></div>
+                @Fields(Model.BankInfo)
+            </section>
+
+            <section class="profile-panel" id="panel-statutory" role="tabpanel" aria-labelledby="tab-statutory" hidden>
+                <div class="profile-section-heading"><div><h2>Statutory Information</h2><p>Your statutory identification and applicability details</p></div></div>
+                @Fields(Model.StatutoryInfo)
+            </section>
+
+            <section class="profile-panel" id="panel-salary" role="tabpanel" aria-labelledby="tab-salary" hidden>
+                <div class="profile-section-heading"><div><h2>Salary Profile</h2><p>Your configured salary components and tax scheme</p></div></div>
+                @Fields(new List<WebStaffSync.Models.ProfileField> {
+                    new() { Label = "Tax Scheme", Value = Model.TaxScheme ?? "—" },
+                    new() { Label = "Effective From", Value = Model.EffectiveFrom ?? "—" }
+                })
+                @Table(Model.SalaryComponents, new[] { "Salary Header", "Type", "Allowance Amount", "Deduction Amount", "Reimbursement Amount" })
+                <div class="profile-summary-grid">@Fields(Model.SalarySummary)</div>
+            </section>
+        </div>
+    </section>
+@functions {
+    private Microsoft.AspNetCore.Html.IHtmlContent Fields(IEnumerable<WebStaffSync.Models.ProfileField>? fields)
+    {
+        var items = fields?.ToList() ?? new();
+        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+        var content = new System.Text.StringBuilder("<div class=\"profile-field-grid\">");
+        foreach (var f in items)
+        {
+            content.Append("<div class=\"profile-field\"><span>").Append(System.Net.WebUtility.HtmlEncode(f.Label))
+                .Append("</span><strong>").Append(System.Net.WebUtility.HtmlEncode(string.IsNullOrWhiteSpace(f.Value) ? "—" : f.Value))
+                .Append("</strong></div>");
+        }
+        content.Append("</div>");
+        return new Microsoft.AspNetCore.Html.HtmlString(content.ToString());
+    }
+    private Microsoft.AspNetCore.Html.IHtmlContent Tags(IEnumerable<string>? values)
+    {
+        var items = values?.Where(x => !string.IsNullOrWhiteSpace(x)).ToList() ?? new();
+        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+        return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-tags\">" +
+            string.Join("", items.Select(x => "<span>" + System.Net.WebUtility.HtmlEncode(x) + "</span>")) + "</div>");
+    }
+    private Microsoft.AspNetCore.Html.IHtmlContent Table(IEnumerable<WebStaffSync.Models.ProfileRow>? rows, string[] columns)
+    {
+        var items = rows?.ToList() ?? new();
+        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+        // Prefer the reference-screen column labels when present. Otherwise use the
+        // actual property names returned by DALStaffSync so data is never silently hidden.
+        var actualKeys = items.SelectMany(x => x.Values.Keys).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        var displayColumns = columns.Where(c => actualKeys.Any(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase))).ToList();
+        if (displayColumns.Count == 0) displayColumns = actualKeys;
+        var html = new System.Text.StringBuilder("<div class=\"profile-table-wrap\"><table class=\"profile-table\"><thead><tr>");
+        foreach (var col in displayColumns) html.Append("<th>").Append(System.Net.WebUtility.HtmlEncode(col)).Append("</th>");
+        html.Append("</tr></thead><tbody>");
+        foreach (var row in items)
+        {
+            html.Append("<tr>");
+            foreach (var col in displayColumns)
+            {
+                row.Values.TryGetValue(col, out var value);
+                html.Append("<td>").Append(System.Net.WebUtility.HtmlEncode(string.IsNullOrWhiteSpace(value) ? "—" : value)).Append("</td>");
+            }
+            html.Append("</tr>");
+        }
+        html.Append("</tbody></table></div>");
+        return new Microsoft.AspNetCore.Html.HtmlString(html.ToString());
+    }
+}
+@section Scripts {
+    <script src="~/js/my-profile.js" asp-append-version="true"></script>
+}
