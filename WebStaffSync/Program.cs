@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using WebStaffSync.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,12 @@ builder.Services.AddHttpClient("IntegrationService", client =>
     client.BaseAddress = new Uri(baseUrl.TrimEnd('/') + "/");
     client.Timeout = TimeSpan.FromSeconds(30);
 });
+
+builder.Services.AddDataProtection()
+    .SetApplicationName("StaffSync.Web")
+    .PersistKeysToFileSystem(
+        new DirectoryInfo(
+            @"C:\StaffSyncDataProtectionKeys"));
 
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
