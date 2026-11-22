@@ -1,4 +1,6 @@
 @model WebStaffSync.Models.MyProfileViewModel
+@using System.Text.Json
+@using System.Net
 @{
     ViewData["Title"] = "My Profile";
     var tabs = new[] {
@@ -9,9 +11,379 @@
         ("salary", "Salary Profile")
     };
 }
+
 @section Styles {
+    @* <link href="https://cdn.jsdelivr.net/npm/@@progress/kendo-theme-meridian@14.9.0/dist/meridian-main.css" rel="stylesheet" /> *@
     <link rel="stylesheet" href="~/css/my-profile.css" asp-append-version="true" />
+
+    <style>
+        /* Kendo widgets inherit the existing StaffSync profile layout and spacing. */
+        .profile-kendo-grid {
+            width: 100%;
+            min-width: 0;
+        }
+
+            .profile-kendo-grid .k-grid-header th {
+                font-weight: 700;
+            }
+
+        .profile-field-grid {
+            display: none;
+        }
+
+        .profile-table-wrap {
+            display: none;
+        }
+
+        .profile-tags {
+            display: none;
+        }
+
+        .profile-kendo-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+        }
+
+        .profile-photo-preview img {
+            max-width: 240px;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        #profileTabs > .k-content {
+            padding: 1.25rem;
+        }
+
+        #profileTabs > .k-tabstrip-items-wrapper {
+            overflow-x: auto;
+        }
+
+        .profile-empty {
+            padding: 1rem;
+            color: #718096;
+        }
+
+        .profile-demo-showcase {
+            margin: 1rem 0 1.25rem;
+            padding: 1.25rem;
+            border: 1px solid #dce6ef;
+            border-radius: 12px;
+            background: #f8fbff;
+        }
+
+        .profile-demo-tag {
+            display: inline-block;
+            padding: .35rem .65rem;
+            border-radius: 999px;
+            background: #e7f2ff;
+            color: #245b91;
+            font-size: .7rem;
+            font-weight: 700;
+        }
+
+        .profile-demo-card {
+            margin: 1rem 0;
+            padding: 1.1rem;
+            border: 1px solid #dce6ef;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+            .profile-demo-card h3 {
+                margin: 0 0 1rem;
+                color: #174f79;
+                font-size: 1rem;
+            }
+
+        .profile-demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(220px, 1fr));
+            gap: 1rem 1.25rem;
+            align-items: end;
+        }
+
+        .profile-demo-field {
+            min-width: 0;
+        }
+
+            .profile-demo-field > label {
+                display: block;
+                margin-bottom: .4rem;
+                color: #294b64;
+                font-weight: 600;
+                font-size: .875rem;
+            }
+
+            .profile-demo-field > input:not([type="checkbox"]), .profile-demo-field > select {
+                width: 100%;
+            }
+
+            .profile-demo-field small {
+                display: block;
+                margin-top: .3rem;
+                color: #718096;
+            }
+
+        .profile-demo-checkbox {
+            display: flex;
+            align-items: center;
+            gap: .55rem;
+            min-height: 40px;
+        }
+
+            .profile-demo-checkbox label {
+                margin: 0;
+            }
+
+        .profile-demo-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .65rem;
+            margin-top: 1.1rem;
+        }
+
+        #demoActionMessage {
+            color: #187344;
+            font-size: .875rem;
+        }
+
+        #demoNestedTabs {
+            min-height: 125px;
+        }
+
+            #demoNestedTabs .k-content {
+                padding: 1rem;
+            }
+
+        #demoEmployeeGrid {
+            width: 100%;
+        }
+
+        .profile-demo-separator {
+            margin: 0 .6rem;
+            color: #94a3b8;
+        }
+
+        /* Additional Kendo component demonstrations */
+        .profile-demo-badge-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .75rem;
+        }
+
+        .profile-demo-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2rem;
+            min-height: 1.6rem;
+            padding: .2rem .65rem;
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .profile-demo-badge-primary {
+            background: #e7f2ff;
+            color: #245b91;
+        }
+
+        .profile-demo-badge-success {
+            background: #e5f7ed;
+            color: #187344;
+        }
+
+        .profile-demo-badge-warning {
+            background: #fff4d6;
+            color: #946200;
+        }
+
+        .profile-demo-badge-danger {
+            background: #fde8e8;
+            color: #a12626;
+        }
+
+        .profile-demo-listbox {
+            width: 100%;
+        }
+
+        /* Explicit ListBox layout for the current Kendo theme/build.
+                   Some older Kendo bundles do not apply the expected flex layout. */
+        .profile-demo-card .k-listbox {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+            gap: .5rem;
+            width: 100%;
+            height: 220px;
+            min-height: 220px;
+            box-sizing: border-box;
+        }
+
+            .profile-demo-card .k-listbox .k-list-scroller {
+                display: block !important;
+                order: 1;
+                flex: 1 1 auto;
+                width: auto !important;
+                min-width: 0;
+                height: 220px;
+                min-height: 220px;
+                overflow-y: auto;
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                background: #fff;
+            }
+
+            .profile-demo-card .k-listbox .k-list {
+                display: block;
+                min-height: 200px;
+                margin: 0;
+                padding: .25rem;
+            }
+
+            .profile-demo-card .k-listbox .k-list-item,
+            .profile-demo-card .k-listbox .k-item {
+                display: block;
+                padding: .45rem .65rem;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+                .profile-demo-card .k-listbox .k-list-item.k-selected,
+                .profile-demo-card .k-listbox .k-item.k-state-selected {
+                    background: #dcecff;
+                    color: #174f79;
+                }
+
+            .profile-demo-card .k-listbox .k-listbox-toolbar {
+                display: flex !important;
+                flex: 0 0 38px;
+                order: 2;
+                flex-direction: column !important;
+                justify-content: center;
+                align-items: stretch;
+                gap: .35rem;
+                width: 38px;
+                margin: 0;
+            }
+
+                .profile-demo-card .k-listbox .k-listbox-toolbar .k-button {
+                    min-width: 34px;
+                    margin: 0;
+                }
+
+        .profile-demo-listview {
+            width: 100%;
+            min-height: 190px;
+        }
+
+        .profile-demo-listview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: .75rem .9rem;
+            border-bottom: 1px solid #e5edf5;
+        }
+
+            .profile-demo-listview-item:last-child {
+                border-bottom: 0;
+            }
+
+        .profile-demo-listview-meta {
+            color: #718096;
+            font-size: .8rem;
+        }
+
+        /* Timeline, TreeView, TreeList and TimePicker demo layout */
+        .profile-demo-timeline {
+            min-height: 120px;
+            padding: .75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .profile-demo-timeline-fallback {
+            display: grid;
+            gap: .85rem;
+        }
+
+        .profile-demo-timeline-item {
+            position: relative;
+            padding: .25rem .5rem .75rem 1.25rem;
+            border-left: 2px solid #b8d2ee;
+        }
+
+            .profile-demo-timeline-item::before {
+                content: "";
+                position: absolute;
+                left: -.42rem;
+                top: .35rem;
+                width: .7rem;
+                height: .7rem;
+                border-radius: 50%;
+                background: #3478df;
+            }
+
+        .profile-demo-timeline-date {
+            color: #64748b;
+            font-size: .78rem;
+            margin-bottom: .2rem;
+        }
+
+        .profile-demo-tree,
+        .profile-demo-treelist {
+            width: 100%;
+            min-height: 180px;
+        }
+
+        .profile-demo-tree-fallback ul {
+            margin: .25rem 0 .25rem 1.2rem;
+            padding-left: 1rem;
+        }
+
+        .profile-demo-tree-fallback li {
+            padding: .2rem 0;
+        }
+
+        .profile-demo-timepicker {
+            max-width: 280px;
+        }
+
+        .profile-demo-radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem 1.25rem;
+            padding: .85rem;
+            border: 1px solid #dce6ef;
+            border-radius: 8px;
+        }
+
+            .profile-demo-radio-group label {
+                display: inline-flex;
+                align-items: center;
+                gap: .45rem;
+                margin: 0;
+                font-weight: 500;
+            }
+
+            .profile-demo-radio-group input[type="radio"] {
+                accent-color: #3478df;
+            }
+
+        /*         @@ media (max-width: 700px) {
+                            .profile-demo-grid {
+                                grid-template-columns: 1fr;
+                            }
+                        } */
+    </style>
 }
+
 <div class="page-heading profile-page-heading">
     <div>
         <div class="page-eyebrow">EMPLOYEE SELF-SERVICE</div>
@@ -30,167 +402,819 @@
 }
 
 <section class="profile-identity-card">
-        <div class="profile-avatar">
+    <div class="profile-avatar">
+        @if (!string.IsNullOrWhiteSpace(Model.PhotoDataUrl))
+        {
+            <img src="@Model.PhotoDataUrl" alt="Employee photograph" />
+        }
+        else
+        {
+            var initials = string.Join("", (Model.EmployeeName ?? "Employee").Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(x => x[..1].ToUpperInvariant()));
+            <span>@initials</span>
+        }
+    </div>
+    <div class="profile-identity-copy">
+        <span class="profile-kicker">EMPLOYEE PROFILE</span>
+        <h2>@(Model.EmployeeName ?? "Employee")</h2>
+        <div class="profile-identity-meta">
+            <span>Employee Code: <strong>@(Model.EmployeeCode ?? "—")</strong></span>
+            <span class="profile-status">@(!string.IsNullOrWhiteSpace(Model.Status) ? Model.Status : "Status unavailable")</span>
+        </div>
+    </div>
+    <div class="profile-lock-mark" title="Information is read-only">▣</div>
+</section>
+
+<section class="profile-demo-showcase" aria-labelledby="profileDemoTitle">
+    <div class="profile-section-heading">
+        <div>
+            <h2 id="profileDemoTitle">UI Components Demo</h2>
+            <p>Interactive examples with sample values. Changes are for demonstration only.</p>
+        </div>
+        <span class="profile-demo-tag">SAMPLE DATA</span>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>Input Controls</h3>
+        <div class="profile-demo-grid">
+            <div class="profile-demo-field">
+                <label for="demoMultiSelect">MultiSelect Dropdown</label>
+                <select id="demoMultiSelect" multiple="multiple">
+                    <option>Human Resources</option>
+                    <option selected>Finance</option>
+                    <option selected>Information Technology</option>
+                    <option>Administration</option>
+                    <option>Operations</option>
+                    <option>Sales</option>
+                </select>
+            </div>
+            <div class="profile-demo-field">
+                <label for="demoDropDown">Dropdown</label>
+                <select id="demoDropDown">
+                    <option>Software Engineer</option>
+                    <option selected>Technical Specialist</option>
+                    <option>HR Executive</option>
+                    <option>Accountant</option>
+                    <option>Operations Manager</option>
+                </select>
+            </div>
+            <div class="profile-demo-field">
+                <label for="demoAlphaNumeric">Alphanumeric Input</label>
+                <input id="demoAlphaNumeric" value="EMP2026001" maxlength="20" />
+                <small>Only letters and numbers are accepted.</small>
+            </div>
+            <div class="profile-demo-field">
+                <label for="demoNumeric">Numeric Input</label>
+                <input id="demoNumeric" value="125" />
+                <small>Whole-number example.</small>
+            </div>
+            <div class="profile-demo-field">
+                <div class="profile-demo-checkbox">
+                    <input id="demoActive" type="checkbox" checked />
+                    <label for="demoActive">Active Employee</label>
+                </div>
+            </div>
+        </div>
+        <div class="profile-demo-actions">
+            <button type="button" id="demoSave" class="k-button k-button-solid-primary">Save Demo</button>
+            <button type="button" id="demoClear" class="k-button k-button-solid-base">Clear</button>
+            <span id="demoActionMessage" role="status">Sample values loaded. No database changes will be made.</span>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>Nested Tab Example</h3>
+        <div id="demoNestedTabs">
+            <ul>
+                <li class="k-active">Employee Details</li>
+                <li>Employment Details</li>
+                <li>Notes</li>
+            </ul>
+            <div><strong>Employee:</strong> S. Kumar <span class="profile-demo-separator">|</span> <strong>Code:</strong> EMP-0001</div>
+            <div><strong>Department:</strong> Information Technology <span class="profile-demo-separator">|</span> <strong>Designation:</strong> Technical Specialist</div>
+            <div>Sample employee record for testing the nested tab component.</div>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>Grid Example – Sample Employees</h3>
+        <div id="demoEmployeeGrid"></div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>Badge Examples</h3>
+        <p>Sample employee status counts for the current demonstration.</p>
+        <div class="profile-demo-badge-row">
+            <span>Employee Status:</span>
+            <span class="profile-demo-badge profile-demo-badge-success">Active · 24</span>
+            <span class="profile-demo-badge profile-demo-badge-primary">New · 3</span>
+            <span class="profile-demo-badge profile-demo-badge-warning">On Leave · 2</span>
+            <span class="profile-demo-badge profile-demo-badge-danger">Inactive · 1</span>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>DatePicker</h3>
+        <p>Sample effective date: 22-Nov-2026.</p>
+        <div class="profile-demo-grid">
+            <div class="profile-demo-field">
+                <label for="demoDatePicker">Joining / Effective Date</label>
+                <input id="demoDatePicker" value="11/22/2026" />
+                <small>Select a date using the calendar control.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>ListBox</h3>
+        <p>Sample skill catalogue with two skills preselected.</p>
+        <div class="profile-demo-grid">
+            <div class="profile-demo-field">
+                <label for="demoAvailableSkills">Available Skills</label>
+                <select id="demoAvailableSkills" class="profile-demo-listbox" aria-label="Available skills"></select>
+                <small>Choose one or more skills.</small>
+            </div>
+            <div class="profile-demo-field">
+                <label for="demoSelectedSkills">Selected Skills</label>
+                <select id="demoSelectedSkills" class="profile-demo-listbox" aria-label="Selected skills"></select>
+                <small>Sample selected skills.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>ListView</h3>
+        <p>Sample employee directory with name, employee code and designation.</p>
+        <div id="demoEmployeeListView" class="profile-demo-listview"></div>
+    </div>
+
+
+    <div class="profile-demo-card">
+        <h3>Timeline</h3>
+        <p>Sample employee lifecycle and HR activity history.</p>
+        <div id="demoEmployeeTimeline" class="profile-demo-timeline"></div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>TreeView</h3>
+        <p>Sample organisation structure. Expand or collapse departments to view employees.</p>
+        <div id="demoOrganizationTree" class="profile-demo-tree"></div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>TreeList</h3>
+        <p>Sample employee reporting hierarchy with sortable columns.</p>
+        <div id="demoEmployeeTreeList" class="profile-demo-treelist"></div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>TimePicker</h3>
+        <p>Sample shift timing configuration.</p>
+        <div class="profile-demo-grid">
+            <div class="profile-demo-field">
+                <label for="demoShiftStartTime">Shift Start Time</label>
+                <input id="demoShiftStartTime" value="09:00 AM" class="profile-demo-timepicker" />
+                <small>Sample shift login time: 09:00 AM.</small>
+            </div>
+            <div class="profile-demo-field">
+                <label for="demoShiftEndTime">Shift End Time</label>
+                <input id="demoShiftEndTime" value="06:00 PM" class="profile-demo-timepicker" />
+                <small>Sample shift logout time: 06:00 PM.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-demo-card">
+        <h3>RadioButton / RadioGroup</h3>
+        <p>Sample employment type and work mode selections.</p>
+        <div class="profile-demo-grid">
+            <div class="profile-demo-field">
+                <label>Employment Type</label>
+                <div class="profile-demo-radio-group" id="demoEmploymentTypeGroup">
+                    <label><input type="radio" name="demoEmploymentType" value="Permanent" checked /> Permanent</label>
+                    <label><input type="radio" name="demoEmploymentType" value="Contract" /> Contract</label>
+                    <label><input type="radio" name="demoEmploymentType" value="Intern" /> Intern</label>
+                </div>
+            </div>
+            <div class="profile-demo-field">
+                <label>Work Mode</label>
+                <div class="profile-demo-radio-group" id="demoWorkModeGroup">
+                    <label><input type="radio" name="demoWorkMode" value="Office" checked /> Office</label>
+                    <label><input type="radio" name="demoWorkMode" value="Hybrid" /> Hybrid</label>
+                    <label><input type="radio" name="demoWorkMode" value="Remote" /> Remote</label>
+                </div>
+            </div>
+        </div>
+        <small>Radio buttons are grouped by name so only one option can be selected in each group.</small>
+    </div>
+
+</section>
+
+<section class="profile-workspace">
+    <div id="profileTabs">
+        <ul>
+            @foreach (var tab in tabs)
+            {
+                <li>@tab.Item2</li>
+            }
+        </ul>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Personal Information</h2><p>Your personal details and registered addresses</p></div></div>
+            @Fields(Model.PersonalInfo)
+            <div class="profile-subsection-grid">
+                <div class="profile-subsection">
+                    <h3>Current Address</h3>
+                    @Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase)).ToList())
+                </div>
+                <div class="profile-subsection">
+                    <h3>Permanent Address</h3>
+                    <p class="profile-muted">@(Model.SameAsCurrentAddress == "true" ? "Same as current address" : "")</p>
+                    @Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())
+                </div>
+            </div>
+            <div class="profile-subsection">
+                <h3>Contact Information</h3>
+                @Fields(Model.ContactInfo.Where(x => !x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase) && !x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())
+            </div>
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Professional Information</h2><p>Your employment and reporting details</p></div></div>
+            @Fields(Model.ProfessionalInfo)
+            <div class="profile-subsection-grid">
+                <div class="profile-subsection"><h3>Contact Person</h3>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Contact Person", StringComparison.OrdinalIgnoreCase)).ToList())</div>
+                <div class="profile-subsection"><h3>Nomination Details</h3>@Fields(Model.NominationInfo)</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Employee Photograph</h2><p>Photograph registered in your employee record</p></div></div>
             @if (!string.IsNullOrWhiteSpace(Model.PhotoDataUrl))
             {
-                <img src="@Model.PhotoDataUrl" alt="Employee photograph" />
+                <div class="profile-photo-preview"><img src="@Model.PhotoDataUrl" alt="Employee photograph" /></div>
             }
             else
             {
-                var initials = string.Join("", (Model.EmployeeName ?? "Employee").Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(x => x[..1].ToUpperInvariant()));
-                <span>@initials</span>
-            }
-        </div>
-        <div class="profile-identity-copy">
-            <span class="profile-kicker">EMPLOYEE PROFILE</span>
-            <h2>@(Model.EmployeeName ?? "Employee")</h2>
-            <div class="profile-identity-meta">
-                <span>Employee Code: <strong>@(Model.EmployeeCode ?? "—")</strong></span>
-                <span class="profile-status">@(!string.IsNullOrWhiteSpace(Model.Status) ? Model.Status : "Status unavailable")</span>
-            </div>
-        </div>
-        <div class="profile-lock-mark" title="Information is read-only">▣</div>
-    </section>
-
-    <section class="profile-workspace">
-        <div class="profile-tab-strip" role="tablist" aria-label="Employee profile sections">
-            @for (var i = 0; i < tabs.Length; i++)
-            {
-                <button type="button" class="profile-tab @(i == 0 ? "is-active" : "")"
-                        id="tab-@tabs[i].Item1" role="tab" aria-selected="@(i == 0 ? "true" : "false")"
-                        aria-controls="panel-@tabs[i].Item1" data-profile-tab="@tabs[i].Item1">
-                    @tabs[i].Item2
-                </button>
+                <div class="profile-empty">No employee photograph is available.</div>
             }
         </div>
 
-        <div class="profile-tab-content">
-            <section class="profile-panel is-active" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
-                <div class="profile-section-heading"><div><h2>Personal Information</h2><p>Your personal details and registered addresses</p></div></div>
-                @Fields(Model.PersonalInfo)
-                <div class="profile-subsection-grid">
-                    <div class="profile-subsection"><h3>Current Address</h3>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
-                    <div class="profile-subsection"><h3>Permanent Address</h3><p class="profile-muted">@(Model.SameAsCurrentAddress == "true" ? "Same as current address" : "")</p>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
-                </div>
-                <div class="profile-subsection"><h3>Contact Information</h3>@Fields(Model.ContactInfo.Where(x => !x.Label.StartsWith("Current ", StringComparison.OrdinalIgnoreCase) && !x.Label.StartsWith("Permanent ", StringComparison.OrdinalIgnoreCase)).ToList())</div>
-            </section>
-
-            <section class="profile-panel" id="panel-professional" role="tabpanel" aria-labelledby="tab-professional" hidden>
-                <div class="profile-section-heading"><div><h2>Professional Information</h2><p>Your employment and reporting details</p></div></div>
-                @Fields(Model.ProfessionalInfo)
-                <div class="profile-subsection-grid">
-                    <div class="profile-subsection"><h3>Contact Person</h3>@Fields(Model.ContactInfo.Where(x => x.Label.StartsWith("Contact Person", StringComparison.OrdinalIgnoreCase)).ToList())</div>
-                    <div class="profile-subsection"><h3>Nomination Details</h3>@Fields(Model.NominationInfo)</div>
-                </div>
-            </section>
-
-            <section class="profile-panel" id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" hidden>
-                <div class="profile-section-heading"><div><h2>Employee Photograph</h2><p>Photograph registered in your employee record</p></div></div>
-                @if (!string.IsNullOrWhiteSpace(Model.PhotoDataUrl)) { <div class="profile-photo-preview"><img src="@Model.PhotoDataUrl" alt="Employee photograph" /></div> }
-                else { <div class="profile-empty">No employee photograph is available.</div> }
-            </section>
-
-            <section class="profile-panel" id="panel-family" role="tabpanel" aria-labelledby="tab-family" hidden>
-                <div class="profile-section-heading"><div><h2>Family Members</h2><p>Family information recorded in your employee profile</p></div></div>
-                @Table(Model.FamilyMembers, new[] { "Member Name", "DOB", "Age", "Relationship", "Address 1", "Address 2", "Area" })
-            </section>
-
-            <section class="profile-panel" id="panel-experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
-                <div class="profile-section-heading"><div><h2>Previous Experience</h2><p>Your employment history</p></div></div>
-                @Table(Model.PreviousExperience, new[] { "Company Name", "Company Address", "Start Date", "End Date", "More Details" })
-            </section>
-
-            <section class="profile-panel" id="panel-skills" role="tabpanel" aria-labelledby="tab-skills" hidden>
-                <div class="profile-section-heading"><div><h2>Skills</h2><p>Skills associated with your employee record</p></div></div>
-                @Tags(Model.Skills)
-            </section>
-
-            <section class="profile-panel" id="panel-education" role="tabpanel" aria-labelledby="tab-education" hidden>
-                <div class="profile-section-heading"><div><h2>Educational Qualifications</h2><p>Qualifications recorded in your employee profile</p></div></div>
-                @Tags(Model.Education)
-            </section>
-
-            <section class="profile-panel" id="panel-documents" role="tabpanel" aria-labelledby="tab-documents" hidden>
-                <div class="profile-section-heading"><div><h2>Documents</h2><p>Documents associated with your employee record</p></div></div>
-                @Table(Model.Documents, new[] { "Document Name", "Document Type", "Description", "Uploaded On", "Status" })
-            </section>
-
-            <section class="profile-panel" id="panel-leaves" role="tabpanel" aria-labelledby="tab-leaves" hidden>
-                <div class="profile-section-heading"><div><h2>Leave Information</h2><p>Your weekly off and leave balances</p></div></div>
-                @Fields(new List<WebStaffSync.Models.ProfileField> { new() { Label = "Weekly Off", Value = Model.WeeklyOff ?? "—" } })
-                @Table(Model.LeaveBalances, new[] { "Leave Type", "Total Leaves Allotted", "Total Leaves Available", "Total Utilised Leaves", "Leave Balance" })
-                <div class="profile-summary-grid">@Fields(Model.LeaveSummary)</div>
-            </section>
-
-            <section class="profile-panel" id="panel-bank" role="tabpanel" aria-labelledby="tab-bank" hidden>
-                <div class="profile-section-heading"><div><h2>Bank Account Information</h2><p>Bank details registered for salary processing</p></div></div>
-                @Fields(Model.BankInfo)
-            </section>
-
-            <section class="profile-panel" id="panel-statutory" role="tabpanel" aria-labelledby="tab-statutory" hidden>
-                <div class="profile-section-heading"><div><h2>Statutory Information</h2><p>Your statutory identification and applicability details</p></div></div>
-                @Fields(Model.StatutoryInfo)
-            </section>
-
-            <section class="profile-panel" id="panel-salary" role="tabpanel" aria-labelledby="tab-salary" hidden>
-                <div class="profile-section-heading"><div><h2>Salary Profile</h2><p>Your configured salary components and tax scheme</p></div></div>
-                @Fields(new List<WebStaffSync.Models.ProfileField> {
-                    new() { Label = "Tax Scheme", Value = Model.TaxScheme ?? "—" },
-                    new() { Label = "Effective From", Value = Model.EffectiveFrom ?? "—" }
-                })
-                @Table(Model.SalaryComponents, new[] { "Salary Header", "Type", "Allowance Amount", "Deduction Amount", "Reimbursement Amount" })
-                <div class="profile-summary-grid">@Fields(Model.SalarySummary)</div>
-            </section>
+        <div>
+            <div class="profile-section-heading"><div><h2>Family Members</h2><p>Family information recorded in your employee profile</p></div></div>
+            @Table(Model.FamilyMembers, new[] { "Member Name", "DOB", "Age", "Relationship", "Address 1", "Address 2", "Area" })
         </div>
-    </section>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Previous Experience</h2><p>Your employment history</p></div></div>
+            @Table(Model.PreviousExperience, new[] { "Company Name", "Company Address", "Start Date", "End Date", "More Details" })
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Skills</h2><p>Skills associated with your employee record</p></div></div>
+            @Tags(Model.Skills)
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Educational Qualifications</h2><p>Qualifications recorded in your employee profile</p></div></div>
+            @Tags(Model.Education)
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Documents</h2><p>Documents associated with your employee record</p></div></div>
+            @Table(Model.Documents, new[] { "Document Name", "Document Type", "Description", "Uploaded On", "Status" })
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Leave Information</h2><p>Your weekly off and leave balances</p></div></div>
+            @Fields(new List<WebStaffSync.Models.ProfileField> { new() { Label = "Weekly Off", Value = Model.WeeklyOff ?? "—" } })
+            @Table(Model.LeaveBalances, new[] { "Leave Type", "Total Leaves Allotted", "Total Leaves Available", "Total Utilised Leaves", "Leave Balance" })
+            <div class="profile-summary-grid">@Fields(Model.LeaveSummary)</div>
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Bank Account Information</h2><p>Bank details registered for salary processing</p></div></div>
+            @Fields(Model.BankInfo)
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Statutory Information</h2><p>Your statutory identification and applicability details</p></div></div>
+            @Fields(Model.StatutoryInfo)
+        </div>
+
+        <div>
+            <div class="profile-section-heading"><div><h2>Salary Profile</h2><p>Your configured salary components and tax scheme</p></div></div>
+            @Fields(new List<WebStaffSync.Models.ProfileField> {
+            new() { Label = "Tax Scheme", Value = Model.TaxScheme ?? "—" },
+                        new() { Label = "Effective From", Value = Model.EffectiveFrom ?? "—" }
+                        })
+            @Table(Model.SalaryComponents, new[] { "Salary Header", "Type", "Allowance Amount", "Deduction Amount", "Reimbursement Amount" })
+            <div class="profile-summary-grid">@Fields(Model.SalarySummary)</div>
+        </div>
+    </div>
+</section>
+
+
+
+
 @functions {
     private Microsoft.AspNetCore.Html.IHtmlContent Fields(IEnumerable<WebStaffSync.Models.ProfileField>? fields)
     {
-        var items = fields?.ToList() ?? new();
-        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
-        var content = new System.Text.StringBuilder("<div class=\"profile-field-grid\">");
-        foreach (var f in items)
-        {
-            content.Append("<div class=\"profile-field\"><span>").Append(System.Net.WebUtility.HtmlEncode(f.Label))
-                .Append("</span><strong>").Append(System.Net.WebUtility.HtmlEncode(string.IsNullOrWhiteSpace(f.Value) ? "—" : f.Value))
-                .Append("</strong></div>");
-        }
-        content.Append("</div>");
-        return new Microsoft.AspNetCore.Html.HtmlString(content.ToString());
+        var items = fields?.Select(f => new { Label = f.Label, Value = string.IsNullOrWhiteSpace(f.Value) ? "—" : f.Value }).ToList();
+        if (items == null || items.Count == 0)
+            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+
+        var json = JsonSerializer.Serialize(items);
+        return new Microsoft.AspNetCore.Html.HtmlString(
+            "<div class=\"profile-kendo-grid profile-fields-grid\" data-grid='" + WebUtility.HtmlEncode(json) + "'></div>");
     }
+
     private Microsoft.AspNetCore.Html.IHtmlContent Tags(IEnumerable<string>? values)
     {
         var items = values?.Where(x => !string.IsNullOrWhiteSpace(x)).ToList() ?? new();
-        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
-        return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-tags\">" +
-            string.Join("", items.Select(x => "<span>" + System.Net.WebUtility.HtmlEncode(x) + "</span>")) + "</div>");
+        if (items.Count == 0)
+            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+
+        var json = JsonSerializer.Serialize(items.Select(x => new { label = x }));
+        return new Microsoft.AspNetCore.Html.HtmlString(
+            "<div class=\"profile-kendo-chips\" data-chips='" + WebUtility.HtmlEncode(json) + "'></div>");
     }
-    private Microsoft.AspNetCore.Html.IHtmlContent Table(IEnumerable<WebStaffSync.Models.ProfileRow>? rows, string[] columns)
+
+    private Microsoft.AspNetCore.Html.IHtmlContent Table(IEnumerable<WebStaffSync.Models.ProfileRow>? rows, string[] preferredColumns)
     {
         var items = rows?.ToList() ?? new();
-        if (items.Count == 0) return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
-        // Prefer the reference-screen column labels when present. Otherwise use the
-        // actual property names returned by DALStaffSync so data is never silently hidden.
+        if (items.Count == 0)
+            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+
+        // Retain the existing behaviour: use reference labels where they match the
+        // returned data; otherwise expose the actual keys supplied by the profile API.
         var actualKeys = items.SelectMany(x => x.Values.Keys).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-        var displayColumns = columns.Where(c => actualKeys.Any(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase))).ToList();
-        if (displayColumns.Count == 0) displayColumns = actualKeys;
-        var html = new System.Text.StringBuilder("<div class=\"profile-table-wrap\"><table class=\"profile-table\"><thead><tr>");
-        foreach (var col in displayColumns) html.Append("<th>").Append(System.Net.WebUtility.HtmlEncode(col)).Append("</th>");
-        html.Append("</tr></thead><tbody>");
-        foreach (var row in items)
-        {
-            html.Append("<tr>");
-            foreach (var col in displayColumns)
-            {
-                row.Values.TryGetValue(col, out var value);
-                html.Append("<td>").Append(System.Net.WebUtility.HtmlEncode(string.IsNullOrWhiteSpace(value) ? "—" : value)).Append("</td>");
-            }
-            html.Append("</tr>");
-        }
-        html.Append("</tbody></table></div>");
-        return new Microsoft.AspNetCore.Html.HtmlString(html.ToString());
+        var columns = preferredColumns.Where(c => actualKeys.Any(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase))).ToList();
+        if (columns.Count == 0) columns = actualKeys;
+
+        var data = items.Select(row => columns.ToDictionary(
+            col => col,
+            col => row.Values.TryGetValue(col, out var value) && !string.IsNullOrWhiteSpace(value) ? value : "—",
+            StringComparer.OrdinalIgnoreCase)).ToList();
+
+        var payload = JsonSerializer.Serialize(new { columns, data });
+        return new Microsoft.AspNetCore.Html.HtmlString(
+            "<div class=\"profile-kendo-grid profile-records-grid\" data-grid='" + WebUtility.HtmlEncode(payload) + "'></div>");
     }
 }
+
 @section Scripts {
-    <script src="~/js/my-profile.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+
+    <script src="https://kendo.cdn.telerik.com/2017.3.1026/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.aspnetmvc.min.js"></script>
+
+    <script>
+        (function ($, kendo) {
+            "use strict";
+
+            if (!$ || !kendo) {
+                console.error("Kendo UI for jQuery could not be loaded. Verify jQuery and Kendo CDN responses.");
+                return;
+            }
+
+            if (!$.fn || typeof $.fn.kendoTabStrip !== "function" ||
+                typeof $.fn.kendoGrid !== "function") {
+                console.error("Kendo TabStrip/Grid widgets are unavailable. Check that the Kendo 2026 bundle loaded after jQuery.");
+                return;
+            }
+
+
+            // Demo-only Kendo controls. These values are never posted or saved.
+            $("#demoMultiSelect").kendoMultiSelect({ placeholder: "Select departments..." });
+            $("#demoDropDown").kendoDropDownList();
+            $("#demoAlphaNumeric").on("input", function () {
+                this.value = this.value.replace(/[^a-z0-9]/gi, "");
+            });
+            $("#demoNumeric").kendoNumericTextBox({ format: "n0", decimals: 0, restrictDecimals: true, min: 0 });
+            //$("#demoActive").kendoCheckBox();
+            $("#demoNestedTabs").kendoTabStrip({ animation: false });
+
+            var demoEmployees = [
+                { employeeCode: "EMP-0001", employeeName: "S. Kumar", department: "Information Technology", designation: "Technical Specialist", status: "Active" },
+                { employeeCode: "EMP-0002", employeeName: "A. Sharma", department: "Finance", designation: "Accountant", status: "Active" },
+                { employeeCode: "EMP-0003", employeeName: "P. Reddy", department: "Human Resources", designation: "HR Executive", status: "Active" },
+                { employeeCode: "EMP-0004", employeeName: "M. Patel", department: "Operations", designation: "Operations Manager", status: "On Leave" },
+                { employeeCode: "EMP-0005", employeeName: "R. Nair", department: "Sales", designation: "Sales Executive", status: "Active" },
+                { employeeCode: "EMP-0006", employeeName: "K. Das", department: "Information Technology", designation: "Software Engineer", status: "Inactive" }
+            ];
+            $("#demoEmployeeGrid").kendoGrid({
+                dataSource: { data: demoEmployees, pageSize: 5 },
+                columns: [
+                    { field: "employeeCode", title: "Employee Code", width: 130 },
+                    { field: "employeeName", title: "Employee Name" },
+                    { field: "department", title: "Department" },
+                    { field: "designation", title: "Designation" },
+                    { field: "status", title: "Status", width: 110 }
+                ],
+                sortable: true, filterable: true, pageable: { pageSizes: [5, 10], buttonCount: 3 },
+                resizable: true, reorderable: true
+            });
+
+
+            // Additional demo components. Each initializer is isolated so an
+            // unsupported widget in the currently loaded Kendo build cannot
+            // prevent the other demo controls from rendering.
+            try {
+                if (typeof $.fn.kendoDatePicker === "function") {
+                    $("#demoDatePicker").kendoDatePicker({
+                        format: "dd-MMM-yyyy",
+                        value: new Date(2026, 10, 22)
+                    });
+                } else {
+                    console.warn("Kendo DatePicker is not available in the loaded Kendo build.");
+                }
+            } catch (datePickerError) {
+                console.error("DatePicker initialization failed:", datePickerError);
+            }
+
+            try {
+                var availableSkillData = [
+                    { text: "C# Development", value: "CSharp" },
+                    { text: "SQL Server / MS Access", value: "SQL" },
+                    { text: "ASP.NET Core MVC", value: "MVC" },
+                    { text: "JavaScript", value: "JavaScript" },
+                    { text: "Payroll Processing", value: "Payroll" }
+                ];
+
+                var selectedSkillData = [
+                    { text: "ASP.NET Core MVC", value: "MVC" },
+                    { text: "Payroll Processing", value: "Payroll" }
+                ];
+
+                if (typeof $.fn.kendoListBox === "function") {
+                    $("#demoAvailableSkills").kendoListBox({
+                        dataSource: availableSkillData,
+                        height: 220,
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        connectWith: "demoSelectedSkills",
+                        selectable: "multiple",
+                        toolbar: {
+                            position: "right",
+                            tools: ["transferTo", "transferFrom", "transferAllTo", "transferAllFrom"]
+                        }
+                    });
+
+                    $("#demoSelectedSkills").kendoListBox({
+                        dataSource: selectedSkillData,
+                        height: 220,
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        selectable: "multiple"
+                    });
+                } else {
+                    console.warn("Kendo ListBox is unavailable. The demo will use the native multi-select fallback.");
+                    $("#demoAvailableSkills").replaceWith(
+                        $("<select multiple size='7' id='demoAvailableSkills' class='profile-demo-listbox' aria-label='Available skills'></select>")
+                            .append(availableSkillData.map(function (item) {
+                                return $("<option/>", { value: item.value, text: item.text });
+                            }))
+                    );
+                    $("#demoSelectedSkills").replaceWith(
+                        $("<select multiple size='7' id='demoSelectedSkills' class='profile-demo-listbox' aria-label='Selected skills'></select>")
+                            .append(selectedSkillData.map(function (item) {
+                                return $("<option/>", { value: item.value, text: item.text, selected: true });
+                            }))
+                    );
+                }
+            } catch (listBoxError) {
+                console.error("ListBox initialization failed:", listBoxError);
+            }
+
+            var demoListViewData = [
+                { name: "S. Kumar", code: "EMP-0001", role: "Technical Specialist" },
+                { name: "A. Sharma", code: "EMP-0002", role: "Accountant" },
+                { name: "P. Reddy", code: "EMP-0003", role: "HR Executive" },
+                { name: "M. Patel", code: "EMP-0004", role: "Operations Manager" }
+            ];
+
+            try {
+                if (typeof $.fn.kendoListView === "function") {
+                    $("#demoEmployeeListView").kendoListView({
+                        dataSource: { data: demoListViewData },
+                        template:
+                            '<div class="profile-demo-listview-item">' +
+                                '<div><strong>#: kendo.htmlEncode(name) #</strong>' +
+                                '<div class="profile-demo-listview-meta">#: kendo.htmlEncode(code) #</div></div>' +
+                                '<span>#: kendo.htmlEncode(role) #</span>' +
+                            '</div>'
+                    });
+                } else {
+                    var fallbackList = $("<div/>");
+                    demoListViewData.forEach(function (employee) {
+                        $("<div/>", {
+                            "class": "profile-demo-listview-item"
+                        }).append(
+                            $("<div/>").append(
+                                $("<strong/>").text(employee.name),
+                                $("<div/>", { "class": "profile-demo-listview-meta" }).text(employee.code)
+                            ),
+                            $("<span/>").text(employee.role)
+                        ).appendTo(fallbackList);
+                    });
+                    $("#demoEmployeeListView").empty().append(fallbackList.children());
+                    console.warn("Kendo ListView is not available in the loaded Kendo build; styled list fallback is active.");
+                }
+            } catch (listViewError) {
+                console.error("ListView initialization failed:", listViewError);
+            }
+
+
+            // Timeline: use the Kendo widget when it is included in the active
+            // bundle; otherwise render the same sample events as a simple timeline.
+            var demoTimelineData = [
+                { date: new Date(2020, 0, 6), title: "Joined StaffSync", subtitle: "06-Jan-2020", description: "Employee onboarding completed. Employee Code: EMP-0001." },
+                { date: new Date(2022, 1, 1), title: "Role Updated", subtitle: "01-Feb-2022", description: "Moved into the Technical Specialist role in Information Technology." },
+                { date: new Date(2024, 5, 15), title: "Training Completed", subtitle: "15-Jun-2024", description: "Completed advanced application support training." },
+                { date: new Date(2026, 10, 1), title: "Profile Reviewed", subtitle: "01-Nov-2026", description: "Employee profile information reviewed and confirmed." }
+            ];
+
+            try {
+                if (typeof $.fn.kendoTimeline === "function") {
+                    $("#demoEmployeeTimeline").kendoTimeline({
+                        orientation: "vertical",
+                        alternatingMode: false,
+                        collapsibleEvents: false,
+                        dataSource: { data: demoTimelineData },
+                        dateField: "date",
+                        titleField: "title",
+                        descriptionField: "description"
+                    });
+                } else {
+                    var timelineFallback = $("<div/>", { "class": "profile-demo-timeline-fallback" });
+                    demoTimelineData.forEach(function (eventItem) {
+                        var eventDate = eventItem.date.toLocaleDateString("en-GB", {
+                            day: "2-digit", month: "short", year: "numeric"
+                        });
+                        var item = $("<div/>", { "class": "profile-demo-timeline-item" });
+                        item.append(
+                            $("<div/>", { "class": "profile-demo-timeline-date" }).text(eventItem.subtitle || eventDate),
+                            $("<strong/>").text(eventItem.title),
+                            $("<div/>").text(eventItem.description)
+                        );
+                        timelineFallback.append(item);
+                    });
+                    $("#demoEmployeeTimeline").empty().append(timelineFallback);
+                    console.warn("Kendo Timeline is not available in this bundle; sample timeline fallback is displayed.");
+                }
+            } catch (timelineError) {
+                console.error("Timeline initialization failed:", timelineError);
+            }
+
+            // TreeView: organisation structure with nested department/employee nodes.
+            var demoOrganizationData = [
+                {
+                    text: "StaffSync",
+                    expanded: true,
+                    items: [
+                        {
+                            text: "Information Technology",
+                            expanded: true,
+                            items: [
+                                { text: "S. Kumar - Technical Specialist" },
+                                { text: "A. Sharma - Software Engineer" }
+                            ]
+                        },
+                        {
+                            text: "Human Resources",
+                            items: [
+                                { text: "P. Reddy - HR Executive" }
+                            ]
+                        },
+                        {
+                            text: "Finance",
+                            items: [
+                                { text: "M. Patel - Accountant" }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            try {
+                if (typeof $.fn.kendoTreeView === "function") {
+                    $("#demoOrganizationTree").kendoTreeView({
+                        dataSource: demoOrganizationData,
+                        dataTextField: "text"
+                    });
+                } else {
+                    function renderDemoTree(nodes) {
+                        var list = $("<ul/>");
+                        nodes.forEach(function (node) {
+                            var li = $("<li/>").text(node.text);
+                            if (node.items && node.items.length) {
+                                li.append(renderDemoTree(node.items));
+                            }
+                            list.append(li);
+                        });
+                        return list;
+                    }
+                    $("#demoOrganizationTree")
+                        .addClass("profile-demo-tree-fallback")
+                        .empty()
+                        .append(renderDemoTree(demoOrganizationData));
+                    console.warn("Kendo TreeView is not available in this bundle; nested tree fallback is displayed.");
+                }
+            } catch (treeViewError) {
+                console.error("TreeView initialization failed:", treeViewError);
+            }
+
+            // TreeList: employee reporting hierarchy.
+            var demoEmployeeHierarchy = [
+                { id: 1, parentId: null, employeeCode: "EMP-0001", employeeName: "S. Kumar", designation: "Technical Specialist", department: "Information Technology" },
+                { id: 2, parentId: 1, employeeCode: "EMP-0002", employeeName: "A. Sharma", designation: "Software Engineer", department: "Information Technology" },
+                { id: 3, parentId: 1, employeeCode: "EMP-0003", employeeName: "P. Reddy", designation: "HR Executive", department: "Human Resources" },
+                { id: 4, parentId: 1, employeeCode: "EMP-0004", employeeName: "M. Patel", designation: "Accountant", department: "Finance" },
+                { id: 5, parentId: 2, employeeCode: "EMP-0005", employeeName: "R. Das", designation: "Associate Engineer", department: "Information Technology" }
+            ];
+
+            try {
+                if (typeof $.fn.kendoTreeList === "function") {
+                    $("#demoEmployeeTreeList").kendoTreeList({
+                        dataSource: {
+                            data: demoEmployeeHierarchy,
+                            schema: {
+                                model: {
+                                    id: "id",
+                                    parentId: "parentId",
+                                    fields: {
+                                        id: { type: "number", nullable: false },
+                                        parentId: { type: "number", nullable: true },
+                                        employeeCode: { type: "string" },
+                                        employeeName: { type: "string" },
+                                        designation: { type: "string" },
+                                        department: { type: "string" }
+                                    },
+                                    expanded: true
+                                }
+                            }
+                        },
+                        columns: [
+                            { field: "employeeName", title: "Employee", expandable: true, width: 220 },
+                            { field: "employeeCode", title: "Employee Code", width: 130 },
+                            { field: "designation", title: "Designation", width: 190 },
+                            { field: "department", title: "Department", width: 210 }
+                        ],
+                        sortable: true,
+                        resizable: true,
+                        height: 300
+                    });
+                } else {
+                    var treeListFallback = $("<table/>", {
+                        "class": "profile-demo-grid-fallback",
+                        css: { width: "100%", borderCollapse: "collapse" }
+                    });
+                    var fallbackHead = $("<tr/>");
+                    ["Employee", "Employee Code", "Designation", "Department"].forEach(function (heading) {
+                        fallbackHead.append($("<th/>", {
+                            text: heading,
+                            css: { textAlign: "left", padding: ".65rem", borderBottom: "1px solid #dce6ef" }
+                        }));
+                    });
+                    treeListFallback.append($("<thead/>").append(fallbackHead));
+                    var fallbackBody = $("<tbody/>");
+                    demoEmployeeHierarchy.forEach(function (employee) {
+                        var depth = employee.parentId === null ? 0 : (employee.parentId === 2 ? 2 : 1);
+                        var row = $("<tr/>");
+                        row.append(
+                            $("<td/>", {
+                                text: employee.employeeName,
+                                css: { padding: ".6rem", paddingLeft: (".6rem" + (depth * 1.25) + "rem"), borderBottom: "1px solid #edf2f7" }
+                            }),
+                            $("<td/>", { text: employee.employeeCode, css: { padding: ".6rem", borderBottom: "1px solid #edf2f7" } }),
+                            $("<td/>", { text: employee.designation, css: { padding: ".6rem", borderBottom: "1px solid #edf2f7" } }),
+                            $("<td/>", { text: employee.department, css: { padding: ".6rem", borderBottom: "1px solid #edf2f7" } })
+                        );
+                        fallbackBody.append(row);
+                    });
+                    treeListFallback.append(fallbackBody);
+                    $("#demoEmployeeTreeList").empty().append(treeListFallback);
+                    console.warn("Kendo TreeList is not available in this bundle; employee hierarchy sample table is displayed.");
+                }
+            } catch (treeListError) {
+                console.error("TreeList initialization failed:", treeListError);
+            }
+
+            // TimePicker: sample employee shift start/end times.
+            try {
+                if (typeof $.fn.kendoTimePicker === "function") {
+                    $("#demoShiftStartTime").kendoTimePicker({
+                        format: "hh:mm tt",
+                        interval: 15,
+                        value: new Date(2026, 10, 22, 9, 0)
+                    });
+                    $("#demoShiftEndTime").kendoTimePicker({
+                        format: "hh:mm tt",
+                        interval: 15,
+                        value: new Date(2026, 10, 22, 18, 0)
+                    });
+                } else {
+                    console.warn("Kendo TimePicker is not available in the loaded Kendo bundle.");
+                }
+            } catch (timePickerError) {
+                console.error("TimePicker initialization failed:", timePickerError);
+            }
+
+            // RadioButton and RadioGroup widgets are not present in every
+            // legacy Kendo UI for jQuery release. Native accessible radio
+            // controls are used here to keep both groups fully functional.
+
+            // $("#demoSave").on("click", function () {
+            //     var departments = $("#demoMultiSelect").data("kendoMultiSelect").value().join(", ");
+            //     var designation = $("#demoDropDown").data("kendoDropDownList").value();
+            //     var code = $("#demoAlphaNumeric").val();
+            //     var amount = $("#demoNumeric").data("kendoNumericTextBox").value();
+            //     var active = $("#demoActive").is(":checked") ? "Yes" : "No";
+            //     $("#demoActionMessage").text("Demo values: " + departments + " | " + designation + " | " + code + " | " + amount + " | Active: " + active + ". Not saved.");
+            // });
+            // $("#demoClear").on("click", function () {
+            //     $("#demoMultiSelect").data("kendoMultiSelect").value([]);
+            //     $("#demoDropDown").data("kendoDropDownList").select(0);
+            //     $("#demoAlphaNumeric").val("");
+            //     $("#demoNumeric").data("kendoNumericTextBox").value(null);
+            //     //$("#demoActive").data("kendoCheckBox").check(false);
+            //     $("#demoActionMessage").text("Demo controls cleared. No database changes were made.");
+            // });
+
+            // Read-only profile navigation.
+            var tabStrip = $("#profileTabs").kendoTabStrip({
+                animation: { open: { effects: "fadeIn" } },
+                select: function (e) {
+                    // No editing actions are exposed on this page.
+                }
+            }).data("kendoTabStrip");
+
+            // Employee detail fields are rendered as read-only Kendo Grids.
+            $(".profile-fields-grid").each(function () {
+                var rows = JSON.parse(this.getAttribute("data-grid") || "[]");
+                $(this).kendoGrid({
+                    dataSource: { data: rows },
+                    columns: [
+                        { field: "Label", title: "Field", width: "38%" },
+                        { field: "Value", title: "Information" }
+                    ],
+                    sortable: false,
+                    filterable: false,
+                    pageable: false,
+                    selectable: false,
+                    scrollable: false,
+                    noRecords: { template: "No information available." }
+                });
+            });
+
+            // Repeating profile records use Kendo Grid with sorting, filtering and paging.
+            $(".profile-records-grid").each(function () {
+                var payload = JSON.parse(this.getAttribute("data-grid") || "{}");
+                var columns = (payload.columns || []).map(function (name) {
+                    return { field: name, title: name, minResizableWidth: 120 };
+                });
+
+                $(this).kendoGrid({
+                    dataSource: {
+                        data: payload.data || [],
+                        pageSize: 10
+                    },
+                    columns: columns,
+                    sortable: true,
+                    filterable: true,
+                    pageable: {
+                        refresh: true,
+                        pageSizes: [10, 20, 50],
+                        buttonCount: 5
+                    },
+                    resizable: true,
+                    reorderable: true,
+                    scrollable: true,
+                    noRecords: { template: "No information available." }
+                });
+            });
+
+            // Skills and qualifications are displayed as read-only Kendo ChipLists.
+            $(".profile-kendo-chips").each(function () {
+                var items = JSON.parse(this.getAttribute("data-chips") || "[]");
+                $(this).kendoChipList({
+                    items: items,
+                    selectable: "none",
+                    itemTemplate: function (item) {
+                        return kendo.htmlEncode(item.label);
+                    }
+                });
+            });
+
+            // Keep the first profile tab selected on initial load.
+            if (tabStrip) tabStrip.select(0);
+
+        })(window.jQuery, window.kendo);
+    </script>
 }
