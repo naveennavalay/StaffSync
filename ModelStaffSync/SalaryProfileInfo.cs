@@ -16,16 +16,22 @@ namespace ModelStaffSync
         public int HeaderID { get; set; }
 
         [DisplayName("Salary Header")]
+        [GridColumn(Visible = true, Width = 200)]
         public string HeaderTitle { get; set; }
 
         [DisplayName("Type")]
+        [GridColumn(Visible = true, Width = 200)]
         public string HeaderType { get; set; }
 
         [DisplayName("Calc. Formula")]
+        [GridColumn(Visible = false, Width = 200)]
         public string CalcFormula { get; set; }
 
         [DisplayName("Calc. Formula1")]
+        [GridColumn(Visible = false, Width = 200)]
         public string CalcFormula1 { get; set; }
+
+        [GridColumn(Visible = false, Width = 200)]
         public bool IsFixed { get; set; }
 
         [DisplayName("Actual Amount")]
@@ -40,7 +46,10 @@ namespace ModelStaffSync
         [DisplayName("Reimbursment Amount")]
         public decimal ReimbursmentAmount { get; set; }
 
+        [GridColumn(Visible = false, Width = 200)] 
         public decimal SalProAmount { get; set; }
+
+        [GridColumn(Visible = false, Width = 200)] 
         public int OrderID { get; set; }
     }
 }

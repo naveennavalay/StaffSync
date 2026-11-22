@@ -1,4 +1,7 @@
 using System;
+using System.Reflection;
+using System.Data;
+using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -78,8 +81,24 @@ namespace IntegrationService.Controllers
                 var statutory = statutoryDal.GetEmpPersonalIDInfo(personal.PersonalInfoID);
 
                 var family = familyDal.GetEmpPersonalFamilyMemberInfo(personal.PersonalInfoID);
-                var education = educationDal.GetEduQualListInfo(employeeId);
-                var skills = skillsDal.GetSkillsListInfo(employeeId);
+
+                // Match frmEmployeeMaster: bind the master lists, then select the
+                // employee's checked IDs. The web profile needs the corresponding
+                // readable titles, not ID-only relation records.
+                var educationSelections = educationDal.GetEduQualListInfo(employeeId);
+                var skillSelections = skillsDal.GetSkillsListInfo(employeeId);
+                var educationMaster = new clsEduQalification().GetEduQualMasList();
+                var skillsMaster = new clsSkillsMas().GetSkillList();
+
+                var education = ResolveSelectedTitles(
+                    educationSelections, educationMaster, "EduQualID",
+                    new[] { "EduQualID", "EducationID", "ID" },
+                    new[] { "EduQualTitle", "EducationTitle", "Title", "Name" });
+
+                var skills = ResolveSelectedTitles(
+                    skillSelections, skillsMaster, "SkillID",
+                    new[] { "SkillID", "ID" },
+                    new[] { "SkillTitle", "SkillName", "Title", "Name" });
                 var experience = experienceDal.GetWorkExpListInfo(employeeId);
                 var employment = employmentDal.getEmployeeSpecificEmploymentTypeInfo(employeeId);
                 var shift = shiftDal.getEmployeeSpecificShiftInfo(employeeId);
@@ -145,6 +164,76 @@ namespace IntegrationService.Controllers
                     message = "Employee profile information could not be retrieved. Please check the IntegrationService and DALStaffSync configuration."
                 });
             }
+        }
+
+        private static System.Collections.Generic.List<string> ResolveSelectedTitles(
+            DataTable selectedRows,
+            IEnumerable masterRows,
+            string selectedIdColumn,
+            string[] masterIdPropertyNames,
+            string[] masterTitlePropertyNames)
+        {
+            var selectedIds = new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            if (selectedRows != null && selectedRows.Columns.Contains(selectedIdColumn))
+            {
+                foreach (DataRow row in selectedRows.Rows)
+                {
+                    var id = Convert.ToString(row[selectedIdColumn], System.Globalization.CultureInfo.InvariantCulture);
+                    if (!string.IsNullOrWhiteSpace(id))
+                        selectedIds.Add(id.Trim());
+                }
+            }
+
+            var titles = new System.Collections.Generic.List<string>();
+            if (masterRows == null || selectedIds.Count == 0)
+                return titles;
+
+            foreach (var masterItem in masterRows)
+            {
+                if (masterItem == null) continue;
+
+                var id = ReadMember(masterItem, masterIdPropertyNames);
+                if (string.IsNullOrWhiteSpace(id) || !selectedIds.Contains(id.Trim()))
+                    continue;
+
+                var title = ReadMember(masterItem, masterTitlePropertyNames);
+                if (!string.IsNullOrWhiteSpace(title) &&
+                    !titles.Contains(title.Trim(), StringComparer.OrdinalIgnoreCase))
+                    titles.Add(title.Trim());
+            }
+
+            return titles;
+        }
+
+        private static string ReadMember(object instance, string[] candidateNames)
+        {
+            var type = instance.GetType();
+
+            foreach (var candidate in candidateNames)
+            {
+                var property = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                    .FirstOrDefault(p => string.Equals(p.Name, candidate, StringComparison.OrdinalIgnoreCase));
+
+                if (property != null)
+                {
+                    var value = property.GetValue(instance, null);
+                    if (value != null)
+                        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                var field = type.GetFields(BindingFlags.Instance | BindingFlags.Public)
+                    .FirstOrDefault(f => string.Equals(f.Name, candidate, StringComparison.OrdinalIgnoreCase));
+
+                if (field != null)
+                {
+                    var value = field.GetValue(instance);
+                    if (value != null)
+                        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
+                }
+            }
+
+            return null;
         }
 
         private bool IsTrustedWebStaffSyncRequest()

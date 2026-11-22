@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="EmpResignGratuityInfo.cs" />
     <Compile Include="EmpResignLeaveEncashmentInfo.cs" />
+    <Compile Include="GridColumnAttribute.cs" />
     <Compile Include="ResignationInfo.cs" />
     <Compile Include="CurrentAssetStatusModel.cs" />
     <Compile Include="EmployeeAttendanceClockInfo.cs" />

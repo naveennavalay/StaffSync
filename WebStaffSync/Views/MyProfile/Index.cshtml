@@ -39,6 +39,24 @@
             display: none;
         }
 
+        .profile-readonly-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            padding: .35rem 0;
+            min-height: 2rem;
+        }
+        .profile-readonly-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: .4rem .75rem;
+            border: 1px solid #d7e2f0;
+            border-radius: 999px;
+            background: #f3f7fc;
+            color: #23456f;
+            font-size: .85rem;
+            line-height: 1.25;
+        }
         .profile-kendo-chips {
             display: flex;
             flex-wrap: wrap;
@@ -730,31 +748,60 @@
 
     private Microsoft.AspNetCore.Html.IHtmlContent Tags(IEnumerable<string>? values)
     {
-        var items = values?.Where(x => !string.IsNullOrWhiteSpace(x)).ToList() ?? new();
-        if (items.Count == 0)
-            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+        var items = values?
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList() ?? new();
 
-        var json = JsonSerializer.Serialize(items.Select(x => new { label = x }));
+        if (items.Count == 0)
+            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available for this employee.</div>");
+
+        // Render the already-resolved employee skill/qualification names as safe,
+        // read-only tags. This avoids relying on the optional Kendo ChipList module.
+        var tags = string.Join("", items.Select(x =>
+            "<span class=\"profile-readonly-tag\">" + WebUtility.HtmlEncode(x) + "</span>"));
+
         return new Microsoft.AspNetCore.Html.HtmlString(
-            "<div class=\"profile-kendo-chips\" data-chips='" + WebUtility.HtmlEncode(json) + "'></div>");
+            "<div class=\"profile-readonly-tags\">" + tags + "</div>");
     }
 
     private Microsoft.AspNetCore.Html.IHtmlContent Table(IEnumerable<WebStaffSync.Models.ProfileRow>? rows, string[] preferredColumns)
     {
-        var items = rows?.ToList() ?? new();
+        var items = rows?.Where(r => r != null && r.Values != null && r.Values.Count > 0).ToList() ?? new();
         if (items.Count == 0)
-            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available.</div>");
+            return new Microsoft.AspNetCore.Html.HtmlString("<div class=\"profile-empty\">No information available for this employee.</div>");
 
-        // Retain the existing behaviour: use reference labels where they match the
-        // returned data; otherwise expose the actual keys supplied by the profile API.
-        var actualKeys = items.SelectMany(x => x.Values.Keys).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-        var columns = preferredColumns.Where(c => actualKeys.Any(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase))).ToList();
-        if (columns.Count == 0) columns = actualKeys;
+        // Use the actual field names returned by IntegrationService. The desktop DAL
+        // column names are not always identical to the friendly headings used by the
+        // profile page, so a strict preferred-column match can accidentally discard
+        // useful columns. Keep preferred columns first when a match exists, then append
+        // every remaining returned field.
+        var actualKeys = items
+            .SelectMany(x => x.Values.Keys)
+            .Where(k => !string.IsNullOrWhiteSpace(k))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
 
-        var data = items.Select(row => columns.ToDictionary(
-            col => col,
-            col => row.Values.TryGetValue(col, out var value) && !string.IsNullOrWhiteSpace(value) ? value : "—",
-            StringComparer.OrdinalIgnoreCase)).ToList();
+        var matchedPreferred = preferredColumns
+            .Where(c => actualKeys.Any(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase)))
+            .Select(c => actualKeys.First(k => string.Equals(k, c, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+
+        var columns = matchedPreferred
+            .Concat(actualKeys.Where(k => !matchedPreferred.Contains(k, StringComparer.OrdinalIgnoreCase)))
+            .ToList();
+
+        var data = items.Select(row =>
+        {
+            var record = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var col in columns)
+            {
+                var value = row.Values.TryGetValue(col, out var raw) ? raw : null;
+                record[col] = string.IsNullOrWhiteSpace(value) ? "—" : value;
+            }
+            return record;
+        }).ToList();
 
         var payload = JsonSerializer.Serialize(new { columns, data });
         return new Microsoft.AspNetCore.Html.HtmlString(
@@ -1152,6 +1199,13 @@
                 animation: { open: { effects: "fadeIn" } },
                 select: function (e) {
                     // No editing actions are exposed on this page.
+                },
+                activate: function (e) {
+                    // Grids and ChipLists inside hidden tabs must be resized after
+                    // their panel becomes visible. This does not change any data.
+                    if (kendo && typeof kendo.resize === "function") {
+                        kendo.resize($(e.contentElement));
+                    }
                 }
             }).data("kendoTabStrip");
 
@@ -1161,8 +1215,8 @@
                 $(this).kendoGrid({
                     dataSource: { data: rows },
                     columns: [
-                        { field: "Label", title: "Field", width: "38%" },
-                        { field: "Value", title: "Information" }
+                        { field: "Label", title: "Attribute", width: "38%" },
+                        { field: "Value", title: "Value" }
                     ],
                     sortable: false,
                     filterable: false,
@@ -1173,47 +1227,315 @@
                 });
             });
 
-            // Repeating profile records use Kendo Grid with sorting, filtering and paging.
+            // Repeating profile records use Kendo Grid with sorting, filtering,
+            // paging and a column menu for showing/hiding individual columns.
+            // Source captions are retained as titles; safe field names are used
+            // internally because some API captions contain spaces.
+            function profileColumnType(caption, values) {
+                var name = String(caption || "").toLowerCase();
+                var nonBlank = (values || []).filter(function (value) {
+                    return value !== null && value !== undefined && String(value).trim() !== "";
+                });
+
+                var booleanName = /(^|[\s_-])is($|[\s_-])|^is/i.test(String(caption || ""));
+                var booleanValues = nonBlank.length > 0 && nonBlank.every(function (value) {
+                    return typeof value === "boolean" || /^(true|false|yes|no)$/i.test(String(value).trim());
+                });
+                if (booleanName || booleanValues) return "boolean";
+
+                var dateName = /(date|dob|doj|joining|probation|confirmation|expiry|expire|renewal|relieving|upload)/i.test(name);
+                var dateValues = nonBlank.length > 0 && nonBlank.every(function (value) {
+                    return value instanceof Date || /^\d{4}-\d{1,2}-\d{1,2}/.test(String(value).trim()) ||
+                        /^\d{1,2}[-\/]\d{1,2}[-\/](\d{2}|\d{4})/.test(String(value).trim()) ||
+                        /^\d{1,2}-[A-Za-z]{3}-\d{2,4}/.test(String(value).trim()) ||
+                        /^\/Date\(-?\d+\)\/$/.test(String(value).trim());
+                });
+                if (dateName || dateValues) {
+                    var hasTime = /(datetime|time|timestamp)/i.test(name) || nonBlank.some(function (value) {
+                        return /\d{1,2}:\d{2}/.test(String(value));
+                    });
+                    return hasTime ? "datetime" : "date";
+                }
+
+                var currencyName = /(amount|salary|wage|basic|allowance|deduction|reimbursement|payable|earning|total|balance|advance|rate|cost|price|gross|net)/i.test(name);
+                var numericValues = nonBlank.length > 0 && nonBlank.every(function (value) {
+                    return typeof value === "number" || /^\(?\s*-?\s*[₹$€£]?\s*\d[\d,]*(\.\d+)?\s*\)?$/.test(String(value).trim());
+                });
+                if (currencyName && numericValues) return "currency";
+                return "string";
+            }
+
+            function parseProfileDate(value) {
+                if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+                if (value === null || value === undefined || String(value).trim() === "" || value === "—") return null;
+                var text = String(value).trim();
+                var dotNetDate = text.match(/^\/Date\((-?\d+)\)\/$/);
+                if (dotNetDate) return new Date(parseInt(dotNetDate[1], 10));
+
+                // Parse dd-MMM-yyyy [hh:mm:ss AM/PM] without relying on browser locale.
+                var namedMonth = text.match(/^(\d{1,2})[-\s]([A-Za-z]{3})[-\s](\d{2,4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?)?$/i);
+                if (namedMonth) {
+                    var months = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+                    var year = parseInt(namedMonth[3], 10);
+                    if (year < 100) year += year < 50 ? 2000 : 1900;
+                    var hour = parseInt(namedMonth[4] || "0", 10);
+                    var minute = parseInt(namedMonth[5] || "0", 10);
+                    var second = parseInt(namedMonth[6] || "0", 10);
+                    if ((namedMonth[7] || "").toUpperCase() === "PM" && hour < 12) hour += 12;
+                    if ((namedMonth[7] || "").toUpperCase() === "AM" && hour === 12) hour = 0;
+                    if (months[namedMonth[2].toLowerCase()] !== undefined)
+                        return new Date(year, months[namedMonth[2].toLowerCase()], parseInt(namedMonth[1], 10), hour, minute, second);
+                }
+
+                // Parse dd-MM-yyyy and dd/MM/yyyy explicitly.
+                var numericDate = text.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{2}|\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?)?$/i);
+                if (numericDate) {
+                    var y = parseInt(numericDate[3], 10);
+                    if (y < 100) y += y < 50 ? 2000 : 1900;
+                    var h = parseInt(numericDate[4] || "0", 10);
+                    if ((numericDate[7] || "").toUpperCase() === "PM" && h < 12) h += 12;
+                    if ((numericDate[7] || "").toUpperCase() === "AM" && h === 12) h = 0;
+                    return new Date(y, parseInt(numericDate[2], 10) - 1, parseInt(numericDate[1], 10), h,
+                        parseInt(numericDate[5] || "0", 10), parseInt(numericDate[6] || "0", 10));
+                }
+                var parsed = new Date(text);
+                return isNaN(parsed.getTime()) ? null : parsed;
+            }
+
+            function parseProfileCurrency(value) {
+                if (typeof value === "number") return value;
+                if (value === null || value === undefined || String(value).trim() === "" || value === "—") return null;
+                var cleaned = String(value).replace(/[₹$€£,\s]/g, "").replace(/^\((.*)\)$/, "-$1");
+                var number = Number(cleaned);
+                return isNaN(number) ? null : number;
+            }
+
+            function parseProfileBoolean(value) {
+                if (typeof value === "boolean") return value;
+                var normalized = String(value == null ? "" : value).trim().toLowerCase();
+                if (normalized === "true" || normalized === "yes" || normalized === "1") return true;
+                if (normalized === "false" || normalized === "no" || normalized === "0") return false;
+                return null;
+            }
+
+            // Apply a per-column text alignment and remember it on the grid
+            // so it remains in effect after sorting, filtering and paging.
+            function applyProfileColumnAlignment(grid, field, alignment) {
+                if (!grid || !field || !/^(left|center|right)$/.test(alignment)) return;
+
+                var gridElement = grid.element;
+                var alignments = gridElement.data("profileColumnAlignments") || {};
+                alignments[field] = alignment;
+                gridElement.data("profileColumnAlignments", alignments);
+
+                var header = grid.thead.find("th[data-field]").filter(function () {
+                    return $(this).attr("data-field") === field;
+                }).first();
+
+                if (!header.length) return;
+
+                header.css("text-align", alignment);
+                var visibleColumnIndex = grid.thead.find("th[data-field]").index(header);
+
+                grid.tbody.children("tr").each(function () {
+                    $(this).children("td").eq(visibleColumnIndex).css("text-align", alignment);
+                });
+            }
+
+            function restoreProfileColumnAlignments(grid) {
+                var alignments = grid.element.data("profileColumnAlignments") || {};
+                Object.keys(alignments).forEach(function (field) {
+                    applyProfileColumnAlignment(grid, field, alignments[field]);
+                });
+            }
+
             $(".profile-records-grid").each(function () {
-                var payload = JSON.parse(this.getAttribute("data-grid") || "{}");
-                var columns = (payload.columns || []).map(function (name) {
-                    return { field: name, title: name, minResizableWidth: 120 };
-                });
+                try {
+                    var rawPayload = this.getAttribute("data-grid") || "{}";
+                    var payload = JSON.parse(rawPayload);
+                    var sourceRows = Array.isArray(payload.data) ? payload.data : [];
+                    var sourceFields = Array.isArray(payload.columns) ? payload.columns : [];
 
-                $(this).kendoGrid({
-                    dataSource: {
-                        data: payload.data || [],
-                        pageSize: 10
-                    },
-                    columns: columns,
-                    sortable: true,
-                    filterable: true,
-                    pageable: {
-                        refresh: true,
-                        pageSizes: [10, 20, 50],
-                        buttonCount: 5
-                    },
-                    resizable: true,
-                    reorderable: true,
-                    scrollable: true,
-                    noRecords: { template: "No information available." }
-                });
-            });
+                    if (!sourceFields.length && sourceRows.length) sourceFields = Object.keys(sourceRows[0]);
 
-            // Skills and qualifications are displayed as read-only Kendo ChipLists.
-            $(".profile-kendo-chips").each(function () {
-                var items = JSON.parse(this.getAttribute("data-chips") || "[]");
-                $(this).kendoChipList({
-                    items: items,
-                    selectable: "none",
-                    itemTemplate: function (item) {
-                        return kendo.htmlEncode(item.label);
+                    var fieldNames = [];
+                    sourceFields.forEach(function (name) {
+                        var caption = String(name == null ? "" : name);
+                        if (caption.trim() && !fieldNames.some(function (existing) {
+                            return existing.toLowerCase() === caption.toLowerCase();
+                        })) fieldNames.push(caption);
+                    });
+
+                    if (!fieldNames.length) {
+                        $(this).replaceWith($("<div/>", {
+                            "class": "profile-empty",
+                            text: "No information available for this employee."
+                        }));
+                        return;
                     }
-                });
+
+                    var safeColumns = fieldNames.map(function (caption, index) {
+                        var values = sourceRows.map(function (row) {
+                            if (!row) return null;
+                            if (Object.prototype.hasOwnProperty.call(row, caption)) return row[caption];
+                            var matchingKey = Object.keys(row).find(function (key) {
+                                return key.toLowerCase() === caption.toLowerCase();
+                            });
+                            return matchingKey === undefined ? null : row[matchingKey];
+                        });
+                        var type = profileColumnType(caption, values);
+                        // Keep ID and Is* columns hidden initially; users can reveal
+                        // them from the Grid's column menu when they need them.
+                        var initiallyHidden = /(^|[\s_-])id($|[\s_-])|id$/i.test(caption) ||
+                            /(^|[\s_-])is($|[\s_-])|^is/i.test(caption);
+                        return {
+                            sourceName: caption,
+                            field: "field" + index,
+                            title: caption,
+                            type: type,
+                            hidden: initiallyHidden,
+                            values: values
+                        };
+                    });
+
+                    var safeRows = sourceRows.map(function (sourceRow) {
+                        var safeRow = {};
+                        safeColumns.forEach(function (column) {
+                            var value = null;
+                            if (sourceRow && Object.prototype.hasOwnProperty.call(sourceRow, column.sourceName)) {
+                                value = sourceRow[column.sourceName];
+                            } else if (sourceRow) {
+                                var matchingKey = Object.keys(sourceRow).find(function (key) {
+                                    return key.toLowerCase() === column.sourceName.toLowerCase();
+                                });
+                                if (matchingKey !== undefined) value = sourceRow[matchingKey];
+                            }
+
+                            if (value == null || String(value).trim() === "") {
+                                safeRow[column.field] = null;
+                            } else if (column.type === "date" || column.type === "datetime") {
+                                safeRow[column.field] = parseProfileDate(value);
+                            } else if (column.type === "currency") {
+                                safeRow[column.field] = parseProfileCurrency(value);
+                            } else if (column.type === "boolean") {
+                                safeRow[column.field] = parseProfileBoolean(value);
+                            } else {
+                                safeRow[column.field] = String(value);
+                            }
+                        });
+                        return safeRow;
+                    });
+
+                    var gridColumns = safeColumns.map(function (column) {
+                        var gridColumn = {
+                            field: column.field,
+                            title: column.title,
+                            hidden: column.hidden,
+                            minResizableWidth: 120,
+                            encoded: true
+                        };
+                        if (column.type === "date") {
+                            gridColumn.format = "{0:dd-MMM-yyyy}";
+                            gridColumn.template = "#= " + column.field + " ? kendo.toString(" + column.field + ", 'dd-MMM-yyyy') : '—' #";
+                        } else if (column.type === "datetime") {
+                            gridColumn.format = "{0:dd-MMM-yyyy hh:mm tt}";
+                            gridColumn.template = "#= " + column.field + " ? kendo.toString(" + column.field + ", 'dd-MMM-yyyy hh:mm tt') : '—' #";
+                        } else if (column.type === "currency") {
+                            gridColumn.format = "{0:n2}";
+                            gridColumn.template = "#= " + column.field + " == null ? '—' : '₹ ' + kendo.toString(" + column.field + ", 'n2') #";
+                        } else if (column.type === "boolean") {
+                            gridColumn.template = "#= " + column.field + " == null ? '—' : (" + column.field + " ? 'Yes' : 'No') #";
+                        }
+                        return gridColumn;
+                    });
+
+                    var modelFields = safeColumns.reduce(function (result, column) {
+                        result[column.field] = {
+                            type: column.type === "date" || column.type === "datetime" ? "date" :
+                                column.type === "currency" ? "number" : column.type === "boolean" ? "boolean" : "string"
+                        };
+                        return result;
+                    }, {});
+
+                    $(this).kendoGrid({
+                        dataSource: {
+                            data: safeRows,
+                            pageSize: 10,
+                            schema: { model: { fields: modelFields } }
+                        },
+                        columns: gridColumns,
+                        columnMenu: { columns: true },
+                        columnMenuInit: function (e) {
+                            // Add a Text Alignment submenu to each column menu.
+                            // This is a display-only setting; it does not edit data.
+                            var menuElement = e.container.find(".k-menu").first();
+                            var menu = menuElement.data("kendoMenu");
+
+                            if (!menu && e.container.data("kendoMenu")) {
+                                menu = e.container.data("kendoMenu");
+                            }
+
+                            if (!menu) {
+                                console.warn("Kendo column menu was found, but its menu widget is unavailable.");
+                                return;
+                            }
+
+                            // Avoid adding the submenu more than once if Kendo reuses the menu.
+                            if (menuElement.find(".profile-column-alignment-menu").length) return;
+
+                            menu.append({
+                                text: "Text Alignment",
+                                cssClass: "profile-column-alignment-menu",
+                                items: [
+                                    { text: "Left" },
+                                    { text: "Center" },
+                                    { text: "Right" }
+                                ]
+                            });
+
+                            var currentGrid = e.sender;
+                            var currentField = e.field;
+
+                            menu.bind("select", function (args) {
+                                var selectedText = $(args.item).children(".k-link").first().text().trim();
+                                var alignment = selectedText.toLowerCase();
+
+                                if (alignment === "left" || alignment === "center" || alignment === "right") {
+                                    applyProfileColumnAlignment(currentGrid, currentField, alignment);
+                                }
+                            });
+                        },
+                        dataBound: function () {
+                            restoreProfileColumnAlignments(this);
+                        },
+                        sortable: true,
+                        filterable: true,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: [10, 20, 50],
+                            buttonCount: 5
+                        },
+                        resizable: true,
+                        reorderable: true,
+                        scrollable: true,
+                        noRecords: { template: "No information available for this employee." }
+                    });
+                } catch (gridError) {
+                    console.error("Profile records grid could not be initialized:", gridError);
+                    $(this).text("Unable to display this section. Please check the browser console.");
+                }
             });
+
+            // Skills and qualifications are rendered as escaped, read-only tags
+            // by the Razor Tags() helper. No client-side widget initialization is needed.
 
             // Keep the first profile tab selected on initial load.
-            if (tabStrip) tabStrip.select(0);
+            if (tabStrip) {
+                tabStrip.select(0);
+                if (kendo && typeof kendo.resize === "function") {
+                    kendo.resize($("#profileTabs"));
+                }
+            }
 
         })(window.jQuery, window.kendo);
     </script>

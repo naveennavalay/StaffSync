@@ -171,8 +171,11 @@ namespace WebStaffSync.Controllers
         private static bool ShouldHideColumn(string columnName)
         {
             if (string.IsNullOrWhiteSpace(columnName)) return true;
+
+            // Hide internal identity columns and boolean/status flag columns.
+            // "Is" is checked case-insensitively as requested.
             return columnName.Contains("ID", StringComparison.OrdinalIgnoreCase)
-                || columnName.StartsWith("Is", StringComparison.OrdinalIgnoreCase);
+                || columnName.Contains("Is", StringComparison.OrdinalIgnoreCase);
         }
 
         private static List<ProfileField> Fields(JsonElement element, string prefix = "")
@@ -215,43 +218,40 @@ namespace WebStaffSync.Controllers
                 return string.Empty;
 
             var name = propertyName ?? string.Empty;
-            var isDateTimeField = name.Contains("DateTime", StringComparison.OrdinalIgnoreCase)
+            var isDateField = name.Contains("Date", StringComparison.OrdinalIgnoreCase)
+                || name.Contains("DOB", StringComparison.OrdinalIgnoreCase)
                 || name.Contains("Timestamp", StringComparison.OrdinalIgnoreCase)
-                || name.Contains("TimeStamp", StringComparison.OrdinalIgnoreCase)
-                || name.EndsWith("Time", StringComparison.OrdinalIgnoreCase);
-            var isDateField = isDateTimeField || name.Contains("Date", StringComparison.OrdinalIgnoreCase)
-                || name.Equals("DOB", StringComparison.OrdinalIgnoreCase);
+                || name.Contains("TimeStamp", StringComparison.OrdinalIgnoreCase);
 
             if (value.ValueKind == JsonValueKind.Number)
             {
                 if (!value.TryGetDecimal(out var number)) return value.ToString();
                 if (IsCurrencyField(name) || number % 1m != 0m)
                     return number.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
-                return number.ToString("00000", System.Globalization.CultureInfo.InvariantCulture);
+                return number.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
             var raw = Scalar(value);
             if (string.IsNullOrWhiteSpace(raw)) return string.Empty;
 
+            // All date/date-time fields in the employee profile are displayed as
+            // date-only values in the requested dd-MMM-yyyy format.
             if (isDateField && DateTime.TryParse(raw,
                     System.Globalization.CultureInfo.InvariantCulture,
                     System.Globalization.DateTimeStyles.AllowWhiteSpaces | System.Globalization.DateTimeStyles.AssumeLocal,
                     out var parsed))
             {
-                return isDateTimeField || raw.Contains(':')
-                    ? parsed.ToString("dd-MMM-yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)
-                    : parsed.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                return parsed.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            // Date/time values are also formatted when the JSON serializer supplies a
-            // date-looking string but the property name is not explicit enough.
-            if (raw.Length >= 10 && DateTime.TryParse(raw, System.Globalization.CultureInfo.InvariantCulture,
+            // Also normalize date-looking values when the database property name
+            // is not explicit enough to identify it as a date field.
+            if (raw.Length >= 8 && DateTime.TryParse(raw,
+                    System.Globalization.CultureInfo.InvariantCulture,
                     System.Globalization.DateTimeStyles.AllowWhiteSpaces | System.Globalization.DateTimeStyles.AssumeLocal,
                     out parsed) && (raw.Contains('-') || raw.Contains('/')))
             {
-                return raw.Contains(':')
-                    ? parsed.ToString("dd-MMM-yyyy hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture)
-                    : parsed.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                return parsed.ToString("dd-MMM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
 
             return raw;
@@ -323,8 +323,41 @@ namespace WebStaffSync.Controllers
         private static string Humanize(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return value;
+
+            // Central place to define employee-friendly column captions.
+            // Add/adjust mappings here; the Index.cshtml preferredColumns arrays
+            // should be used only to control column order.
+            var captions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["FamMemName"] = "Member Name",
+                ["FamMemDOB"] = "Date Of Birth",
+                ["FamMemAge"] = "Age",
+                ["FamMemRelationship"] = "Relationship",
+                ["LastCompanyTitle"] = "Company Name",
+                ["Address"] = "Company Address",
+                ["StartDate"] = "Start Date",
+                ["EndDate"] = "End Date",
+                ["Comments"] = "More Details",
+                ["DocCode"] = "Document Code",
+                ["DocName"] = "Document Name",
+                ["DocType"] = "Document Type",
+                ["DocUploadDate"] = "Upload Date",
+                ["LeaveTypeTitle"] = "Leave Type",
+                ["TotalLeaves"] = "Total Leaves Allotted",
+                ["TotalLeavesAvailable"] = "Total Leaves Available",
+                ["TotalUtilisedLeaves"] = "Total Utilised Leaves",
+                ["SalaryHeaderTitle"] = "Salary Header",
+                ["SalHeaderTitle"] = "Salary Header",
+                ["AllowanceAmount"] = "Allowance Amount",
+                ["DeductionAmount"] = "Deduction Amount",
+                ["ReimbursementAmount"] = "Reimbursement Amount"
+            };
+
+            if (captions.TryGetValue(value.Trim(), out var caption))
+                return caption;
+
             value = Regex.Replace(value, "([a-z0-9])([A-Z])", "$1 $2");
-            value = value.Replace("_", " ").Replace("ID", "ID").Trim();
+            value = value.Replace("_", " ").Trim();
             return char.ToUpperInvariant(value[0]) + value.Substring(1);
         }
     }

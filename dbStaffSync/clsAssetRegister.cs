@@ -454,7 +454,7 @@ namespace dbStaffSync
                                             AND ((R.AssetRequestByStatus) = False)
                                             AND ((R.RequestedToStatus) = False)
                                             AND ((R.AssetRequestStatus) = False)
-                                            AND ((CL.ClientID) = 1)
+                                            AND ((CL.ClientID) = " + txtClientID + @")
                                             AND ((R.IsActive) = True)
                                             AND ((R.IsDeleted) = False)
                                             AND ((C.ClientID) = [CL].[ClientID])
