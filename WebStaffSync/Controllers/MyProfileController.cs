@@ -89,7 +89,36 @@ namespace WebStaffSync.Controllers
 
                 await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
                 using var json = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
+
+                var root = json.RootElement;
+                _logger.LogInformation("IntegrationService response properties: {Properties}", string.Join(", ", root.EnumerateObject().Select(p => p.Name)));
+
                 model = MapProfile(json.RootElement, User.Identity?.Name ?? "Employee", employeeId);
+
+                _logger.LogInformation(
+                    "Salary Profile mapped row count: {Count}",
+                    model.SalaryComponents.Count);
+
+                if (model.SalaryComponents.Count > 0)
+                {
+                    _logger.LogInformation(
+                        "Salary Profile mapped column names: {Columns}",
+                        string.Join(", ", model.SalaryComponents[0].Values.Keys));
+
+                    foreach (var column in model.SalaryComponents[0].Values)
+                    {
+                        _logger.LogInformation(
+                            "Salary Profile value: {Column} = {Value}",
+                            column.Key,
+                            column.Value);
+                    }
+                }
+
+                _logger.LogInformation(
+                    "Salary Profile metadata: {Metadata}",
+                    string.Join(", ", model.SalaryComponentColumns.Select(
+                        x => $"{x.SourceName} | {x.Title} | Visible={x.Visible}")));
+
                 return View(model);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
@@ -139,6 +168,7 @@ namespace WebStaffSync.Controllers
                 Documents = Rows(Get(root, "documents")),
                 LeaveBalances = Rows(Get(Get(root, "leaveSummary"), "leaveEntitlements")),
                 SalaryComponents = Rows(Get(root, "salaryComponents")),
+                SalaryComponentColumns = GridColumns(Get(root, "salaryComponentsGridColumns")),
                 TaxScheme = FirstText(Get(root, "taxScheme"), "TaxSchemeName", "TaxScheme", "SchemeName") ?? Scalar(Get(root, "taxScheme")),
                 EffectiveFrom = FirstText(Get(root, "taxScheme"), "EffectDateFrom", "EffectiveFrom"),
                 WeeklyOff = FirstText(Get(root, "weeklyOff"), "WeeklyOffTitle", "WeeklyOffName", "WeeklyOff") ?? Scalar(Get(root, "weeklyOff"))
@@ -152,6 +182,48 @@ namespace WebStaffSync.Controllers
             if (model.PersonalInfo.Count == 0 && model.ProfessionalInfo.Count == 0)
                 throw new InvalidOperationException("The profile API response contained no employee or personal data.");
             return model;
+        }
+
+
+
+        private static bool ReadBoolean(JsonElement element, string propertyName, bool defaultValue)
+        {
+            if (!TryGet(element, propertyName, out var value)) return defaultValue;
+            if (value.ValueKind == JsonValueKind.True) return true;
+            if (value.ValueKind == JsonValueKind.False) return false;
+            if (value.ValueKind == JsonValueKind.String &&
+                bool.TryParse(value.GetString(), out var parsed)) return parsed;
+            return defaultValue;
+        }
+
+        private static List<ProfileGridColumn> GridColumns(JsonElement element)
+        {
+            var result = new List<ProfileGridColumn>();
+            if (element.ValueKind != JsonValueKind.Array) return result;
+
+            foreach (var item in element.EnumerateArray())
+            {
+                if (item.ValueKind != JsonValueKind.Object) continue;
+                var field = FirstText(item, "field");
+                if (string.IsNullOrWhiteSpace(field)) continue;
+
+                var widthText = FirstText(item, "width");
+                int.TryParse(widthText, out var width);
+                var visible = ReadBoolean(item, "visible", true);
+
+                result.Add(new ProfileGridColumn
+                {
+                    Field = field,
+                    SourceName = FirstText(item, "sourceName") ?? field,
+                    Title = FirstText(item, "title") ?? field,
+                    Visible = visible,
+                    Width = width > 0 ? width : 150,
+                    Alignment = FirstText(item, "alignment") ?? "left",
+                    Format = FirstText(item, "format"),
+                    DataType = FirstText(item, "dataType") ?? "string"
+                });
+            }
+            return result;
         }
 
         private static List<ProfileField> MergeAddressFields(JsonElement current, JsonElement permanent, JsonElement personal)

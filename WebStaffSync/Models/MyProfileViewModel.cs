@@ -21,6 +21,7 @@ namespace WebStaffSync.Models
         public List<ProfileRow> Documents { get; set; } = new();
         public List<ProfileRow> LeaveBalances { get; set; } = new();
         public List<ProfileRow> SalaryComponents { get; set; } = new();
+        public List<ProfileGridColumn> SalaryComponentColumns { get; set; } = new();
         public string? TaxScheme { get; set; }
         public string? EffectiveFrom { get; set; }
         public string? WeeklyOff { get; set; }
@@ -37,5 +38,25 @@ namespace WebStaffSync.Models
     public sealed class ProfileRow
     {
         public Dictionary<string, string> Values { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+    }
+}
+
+
+namespace WebStaffSync.Models
+{
+    /// <summary>
+    /// Client-side Kendo Grid settings emitted by IntegrationService from
+    /// ModelStaffSync GridColumn attributes.
+    /// </summary>
+    public sealed class ProfileGridColumn
+    {
+        public string Field { get; set; } = "";
+        public string SourceName { get; set; } = "";
+        public string Title { get; set; } = "";
+        public bool Visible { get; set; } = true;
+        public int Width { get; set; } = 150;
+        public string Alignment { get; set; } = "left";
+        public string? Format { get; set; }
+        public string DataType { get; set; } = "string";
     }
 }

@@ -28,22 +28,26 @@ namespace ModelStaffSync
         public string CalcFormula { get; set; }
 
         [DisplayName("Calc. Formula1")]
-        [GridColumn(Visible = false, Width = 200)]
+        [GridColumn(Visible = false, Width = 200, Alignment = "right" )]
         public string CalcFormula1 { get; set; }
 
         [GridColumn(Visible = false, Width = 200)]
         public bool IsFixed { get; set; }
 
         [DisplayName("Actual Amount")]
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public decimal ActualAmount { get; set; }
 
         [DisplayName("Allowance Amount")]
+        [GridColumn(Visible = true, Width = 200, Alignment = "right")] 
         public decimal AllowanceAmount { get; set; }
 
         [DisplayName("Deduction Amount")]
+        [GridColumn(Visible = true, Width = 200, Alignment = "right")] 
         public decimal DeductionAmount { get; set; }
 
         [DisplayName("Reimbursment Amount")]
+        [GridColumn(Visible = true, Width = 200, Alignment = "right")] 
         public decimal ReimbursmentAmount { get; set; }
 
         [GridColumn(Visible = false, Width = 200)] 

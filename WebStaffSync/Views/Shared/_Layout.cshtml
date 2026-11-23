@@ -127,6 +127,8 @@
     </div>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @* Shared helper is loaded globally so every page can use the same Kendo Grid metadata rules. *@
+    <script src="~/js/staffsync-kendo-grid.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

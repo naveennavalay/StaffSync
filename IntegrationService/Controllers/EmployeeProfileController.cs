@@ -1,7 +1,5 @@
+﻿
 using System;
-using System.Reflection;
-using System.Data;
-using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Http;
 using DALStaffSync;
+using IntegrationService.Infrastructure;
 using ModelStaffSync;
 
 namespace IntegrationService.Controllers
@@ -30,13 +29,45 @@ namespace IntegrationService.Controllers
                 return BadRequest("A valid employee identity is required.");
 
             if (!IsTrustedWebStaffSyncRequest())
-                return ResponseMessage(Request.CreateResponse(HttpStatusCode.Unauthorized,
-                    new { success = false, message = "The profile request is not authorised." }));
+            {
+                return ResponseMessage(Request.CreateResponse(
+                    HttpStatusCode.Unauthorized,
+                    new
+                    {
+                        success = false,
+                        message = "The profile request is not authorised."
+                    }));
+            }
 
             try
             {
-                // Reuse the same DAL classes and retrieval methods used by
-                // frmEmployeeMaster.UpdateUIWithSelectedEmployeeDetails().
+                // Generate grid metadata from the ModelStaffSync class.
+                // GridColumnAttribute settings are read by the metadata provider.
+                var salaryComponentsGridColumns =
+                    GridColumnMetadataProvider.GetColumns(
+                        typeof(SalaryProfileInfo));
+
+                // Diagnostic logging to verify the attribute values.
+                Trace.TraceInformation(
+                    "Salary profile grid metadata generated. Column count: {0}",
+                    salaryComponentsGridColumns == null
+                        ? 0
+                        : salaryComponentsGridColumns.Count);
+
+                if (salaryComponentsGridColumns != null)
+                {
+                    foreach (var column in salaryComponentsGridColumns)
+                    {
+                        Trace.TraceInformation(
+                            "Salary grid column: {0}; Visible: {1}; Width: {2}; Alignment: {3}",
+                            column.Field,
+                            column.Visible,
+                            column.Width,
+                            column.Alignment);
+                    }
+                }
+
+                // Existing DAL objects.
                 var employeeDal = new clsEmployeeMaster();
                 var personalDal = new clsEmployeePersonalInfo();
                 var addressDal = new clsAddressInfo();
@@ -58,69 +89,127 @@ namespace IntegrationService.Controllers
                 var bankDal = new clsBankMas();
                 var salaryDal = new clsSalaryProfile();
 
-                var employee = employeeDal.GetSelectedEmployeeInfo(employeeId);
+                var employee =
+                    employeeDal.GetSelectedEmployeeInfo(employeeId);
+
                 if (employee == null)
                     return NotFound();
 
-                var personal = personalDal.GetEmpPersonalPersonalInfo(employeeId);
+                var personal =
+                    personalDal.GetEmpPersonalPersonalInfo(employeeId);
+
+                // Keep metadata available even when personal information
+                // has not been configured for the employee.
                 if (personal == null)
-                    return Ok(new { success = true, employee = employee });
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        employeeId = employeeId,
+                        employee = employee,
+                        salaryComponentsGridColumns =
+                            salaryComponentsGridColumns
+                    });
+                }
 
                 var currentAddress = personal.CurAddressID > 0
-                    ? addressDal.GetAddressInfo(Convert.ToInt32(personal.CurAddressID)) : null;
+                    ? addressDal.GetAddressInfo(
+                        Convert.ToInt32(personal.CurAddressID))
+                    : null;
+
                 var permanentAddress = personal.PerAddressID > 0
-                    ? addressDal.GetAddressInfo(Convert.ToInt32(personal.PerAddressID)) : null;
+                    ? addressDal.GetAddressInfo(
+                        Convert.ToInt32(personal.PerAddressID))
+                    : null;
 
                 var reportingManager = employee.EmpRepManID > 0
-                    ? employeeDal.GetReportingManagerInfo(employee.EmpRepManID) : null;
+                    ? employeeDal.GetReportingManagerInfo(
+                        employee.EmpRepManID)
+                    : null;
 
                 var photo = photoDal.getEmployeePhoto(employeeId);
+
                 var contact = personal.ContactID1 > 0
-                    ? contactDal.GetContactInfo(personal.ContactID1) : null;
-                var nominee = nomineeDal.GetNomineeInfo(employeeId);
-                var statutory = statutoryDal.GetEmpPersonalIDInfo(personal.PersonalInfoID);
-
-                var family = familyDal.GetEmpPersonalFamilyMemberInfo(personal.PersonalInfoID);
-
-                // Match frmEmployeeMaster: bind the master lists, then select the
-                // employee's checked IDs. The web profile needs the corresponding
-                // readable titles, not ID-only relation records.
-                var educationSelections = educationDal.GetEduQualListInfo(employeeId);
-                var skillSelections = skillsDal.GetSkillsListInfo(employeeId);
-                var educationMaster = new clsEduQalification().GetEduQualMasList();
-                var skillsMaster = new clsSkillsMas().GetSkillList();
-
-                var education = ResolveSelectedTitles(
-                    educationSelections, educationMaster, "EduQualID",
-                    new[] { "EduQualID", "EducationID", "ID" },
-                    new[] { "EduQualTitle", "EducationTitle", "Title", "Name" });
-
-                var skills = ResolveSelectedTitles(
-                    skillSelections, skillsMaster, "SkillID",
-                    new[] { "SkillID", "ID" },
-                    new[] { "SkillTitle", "SkillName", "Title", "Name" });
-                var experience = experienceDal.GetWorkExpListInfo(employeeId);
-                var employment = employmentDal.getEmployeeSpecificEmploymentTypeInfo(employeeId);
-                var shift = shiftDal.getEmployeeSpecificShiftInfo(employeeId);
-                var taxScheme = taxDal.getEmployeeSpecificTaxSchemeModel(employeeId);
-                var weeklyOffHistory = weeklyOffDal.getEmployeeSpecificWeeklyOffMasterInfo(employeeId);
-                var weeklyOff = weeklyOffHistory == null ? null :
-                    weeklyOffHistory.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault();
-
-                int leaveMasId = leaveDal.getMaxLeaveMasID(employeeId);
-                var leaveEntitlements = leaveMasId > 0
-                    ? leaveEntitlementDal.getEmployeeLeaveEntitilementList(employeeId, leaveMasId)
+                    ? contactDal.GetContactInfo(personal.ContactID1)
                     : null;
-                var leaveTransactions = leaveDal.getEmployeeLeaveTRList(employeeId);
-                var documents = documentsDal.getEmployeeSpecificDocumentsList(employeeId);
-                var bank = bankDal.GetEmployeeSpecificBankInfo(employeeId);
-                var salaryProfile = salaryDal.getEmployeeSpecificSalaryProfile(employeeId);
-                var salaryComponents = salaryDal.GetEmployeeSpecificSalaryProfileInfo(employeeId);
+
+                var nominee = nomineeDal.GetNomineeInfo(employeeId);
+
+                var statutory =
+                    statutoryDal.GetEmpPersonalIDInfo(
+                        personal.PersonalInfoID);
+
+                var family =
+                    familyDal.GetEmpPersonalFamilyMemberInfo(
+                        personal.PersonalInfoID);
+
+                var education =
+                    educationDal.GetEduQualListInfo(employeeId);
+
+                var skills =
+                    skillsDal.GetSkillsListInfo(employeeId);
+
+                var experience =
+                    experienceDal.GetWorkExpListInfo(employeeId);
+
+                var employment =
+                    employmentDal.getEmployeeSpecificEmploymentTypeInfo(
+                        employeeId);
+
+                var shift =
+                    shiftDal.getEmployeeSpecificShiftInfo(employeeId);
+
+                var taxScheme =
+                    taxDal.getEmployeeSpecificTaxSchemeModel(employeeId);
+
+                var weeklyOffHistory =
+                    weeklyOffDal.getEmployeeSpecificWeeklyOffMasterInfo(
+                        employeeId);
+
+                var weeklyOff = weeklyOffHistory == null
+                    ? null
+                    : weeklyOffHistory
+                        .OrderByDescending(x => x.EffectDateFrom)
+                        .FirstOrDefault();
+
+                int leaveMasId =
+                    leaveDal.getMaxLeaveMasID(employeeId);
+
+                var leaveEntitlements = leaveMasId > 0
+                    ? leaveEntitlementDal
+                        .getEmployeeLeaveEntitilementList(
+                            employeeId, leaveMasId)
+                    : null;
+
+                var leaveTransactions =
+                    leaveDal.getEmployeeLeaveTRList(employeeId);
+
+                var documents =
+                    documentsDal.getEmployeeSpecificDocumentsList(
+                        employeeId);
+
+                var bank =
+                    bankDal.GetEmployeeSpecificBankInfo(employeeId);
+
+                var salaryProfile =
+                    salaryDal.getEmployeeSpecificSalaryProfile(
+                        employeeId);
+
+                var salaryComponents =
+                    salaryDal.GetEmployeeSpecificSalaryProfileInfo(
+                        employeeId);
 
                 string photoBase64 = null;
-                if (photo != null && photo.EmpPhoto != null && photo.EmpPhoto.Length > 0)
-                    photoBase64 = Convert.ToBase64String(photo.EmpPhoto);
 
+                if (photo != null &&
+                    photo.EmpPhoto != null &&
+                    photo.EmpPhoto.Length > 0)
+                {
+                    photoBase64 =
+                        Convert.ToBase64String(photo.EmpPhoto);
+                }
+
+                // Complete API response.
                 return Ok(new
                 {
                     success = true,
@@ -143,121 +232,89 @@ namespace IntegrationService.Controllers
                     taxScheme = taxScheme,
                     weeklyOff = weeklyOff,
                     weeklyOffHistory = weeklyOffHistory,
+
                     leaveSummary = new
                     {
-                        totalBalance = leaveDal.getBalanceLeave(employeeId),
+                        totalBalance =
+                            leaveDal.getBalanceLeave(employeeId),
+
                         leaveEntitlements = leaveEntitlements,
                         leaveTransactions = leaveTransactions
                     },
+
                     documents = documents,
                     bank = bank,
                     salaryProfile = salaryProfile,
-                    salaryComponents = salaryComponents
+                    salaryComponents = salaryComponents,
+
+                    // IMPORTANT:
+                    // This was missing from the actual API response.
+                    // WebStaffSync requires this metadata to configure
+                    // Kendo Grid visibility, width and alignment.
+                    salaryComponentsGridColumns =
+                        salaryComponentsGridColumns
                 });
             }
             catch (Exception ex)
             {
-                Trace.TraceError("Employee profile retrieval failed for EmpID {0}: {1}", employeeId, ex);
-                return Content(HttpStatusCode.InternalServerError, new
-                {
-                    success = false,
-                    message = "Employee profile information could not be retrieved. Please check the IntegrationService and DALStaffSync configuration."
-                });
+                Trace.TraceError(
+                    "Employee profile retrieval failed for EmpID {0}: {1}",
+                    employeeId,
+                    ex);
+
+                return Content(
+                    HttpStatusCode.InternalServerError,
+                    new
+                    {
+                        success = false,
+                        message =
+                            "Employee profile information could not be retrieved. Please check the IntegrationService and DALStaffSync configuration."
+                    });
             }
-        }
-
-        private static System.Collections.Generic.List<string> ResolveSelectedTitles(
-            DataTable selectedRows,
-            IEnumerable masterRows,
-            string selectedIdColumn,
-            string[] masterIdPropertyNames,
-            string[] masterTitlePropertyNames)
-        {
-            var selectedIds = new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            if (selectedRows != null && selectedRows.Columns.Contains(selectedIdColumn))
-            {
-                foreach (DataRow row in selectedRows.Rows)
-                {
-                    var id = Convert.ToString(row[selectedIdColumn], System.Globalization.CultureInfo.InvariantCulture);
-                    if (!string.IsNullOrWhiteSpace(id))
-                        selectedIds.Add(id.Trim());
-                }
-            }
-
-            var titles = new System.Collections.Generic.List<string>();
-            if (masterRows == null || selectedIds.Count == 0)
-                return titles;
-
-            foreach (var masterItem in masterRows)
-            {
-                if (masterItem == null) continue;
-
-                var id = ReadMember(masterItem, masterIdPropertyNames);
-                if (string.IsNullOrWhiteSpace(id) || !selectedIds.Contains(id.Trim()))
-                    continue;
-
-                var title = ReadMember(masterItem, masterTitlePropertyNames);
-                if (!string.IsNullOrWhiteSpace(title) &&
-                    !titles.Contains(title.Trim(), StringComparer.OrdinalIgnoreCase))
-                    titles.Add(title.Trim());
-            }
-
-            return titles;
-        }
-
-        private static string ReadMember(object instance, string[] candidateNames)
-        {
-            var type = instance.GetType();
-
-            foreach (var candidate in candidateNames)
-            {
-                var property = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                    .FirstOrDefault(p => string.Equals(p.Name, candidate, StringComparison.OrdinalIgnoreCase));
-
-                if (property != null)
-                {
-                    var value = property.GetValue(instance, null);
-                    if (value != null)
-                        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
-                }
-
-                var field = type.GetFields(BindingFlags.Instance | BindingFlags.Public)
-                    .FirstOrDefault(f => string.Equals(f.Name, candidate, StringComparison.OrdinalIgnoreCase));
-
-                if (field != null)
-                {
-                    var value = field.GetValue(instance);
-                    if (value != null)
-                        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
-                }
-            }
-
-            return null;
         }
 
         private bool IsTrustedWebStaffSyncRequest()
         {
-            string configuredKey = ConfigurationManager.AppSettings["WebStaffSyncProfileApiKey"];
+            string configuredKey =
+                ConfigurationManager.AppSettings[
+                    "WebStaffSyncProfileApiKey"];
+
             string suppliedKey = null;
 
-            if (Request.Headers.Contains("X-StaffSync-Profile-Key"))
-                suppliedKey = Request.Headers.GetValues("X-StaffSync-Profile-Key").FirstOrDefault();
+            if (Request.Headers.Contains(
+                "X-StaffSync-Profile-Key"))
+            {
+                suppliedKey = Request.Headers
+                    .GetValues("X-StaffSync-Profile-Key")
+                    .FirstOrDefault();
+            }
 
             if (string.IsNullOrWhiteSpace(configuredKey) ||
-                configuredKey == "REPLACE_WITH_A_LONG_RANDOM_SECRET" ||
+                configuredKey ==
+                    "REPLACE_WITH_A_LONG_RANDOM_SECRET" ||
                 string.IsNullOrWhiteSpace(suppliedKey))
+            {
                 return false;
+            }
 
             // Compare fixed-length SHA-256 digests to avoid a simple
             // character-by-character secret comparison.
             using (var sha = SHA256.Create())
             {
-                byte[] expected = sha.ComputeHash(Encoding.UTF8.GetBytes(configuredKey));
-                byte[] actual = sha.ComputeHash(Encoding.UTF8.GetBytes(suppliedKey));
-                int difference = expected.Length ^ actual.Length;
+                byte[] expected = sha.ComputeHash(
+                    Encoding.UTF8.GetBytes(configuredKey));
+
+                byte[] actual = sha.ComputeHash(
+                    Encoding.UTF8.GetBytes(suppliedKey));
+
+                int difference =
+                    expected.Length ^ actual.Length;
+
                 for (int i = 0; i < expected.Length; i++)
+                {
                     difference |= expected[i] ^ actual[i];
+                }
+
                 return difference == 0;
             }
         }

@@ -27,18 +27,44 @@ namespace ModelStaffSync
 
         [DisplayName("Total Utilised Leaves")]
         public decimal UsedLeaves { get; set; }
+
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")]        
         public int OrderID { get; set; }
+
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")]        
         public bool IsCarryForwardAllowed { get; set; }
+
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")]        
         public int MaxCarryForwardAllowed { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public int CarryForwardExpiryMonths { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsCarryForwardExpiryApplicable { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsEncashmentAllowed { get; set; }
+
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public int MaxLeaveDaysAllowedToEncash { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsEncashmentDuringEmploymentAllowed { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsEncashmentAtResignationAllowed { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsLeaveAccrualApplicable { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public int AccrualFrequency { get; set; }
+        
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsApplicableDuringProbation { get; set; }
+
+        [GridColumn(Visible = false, Width = 200, Alignment = "right")] 
         public bool IsApplicableDuringNoticePeriod { get; set; }
     }
 
