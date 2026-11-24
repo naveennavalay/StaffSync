@@ -232,7 +232,7 @@
         }
 
         /* Explicit ListBox layout for the current Kendo theme/build.
-                                   Some older Kendo bundles do not apply the expected flex layout. */
+                                           Some older Kendo bundles do not apply the expected flex layout. */
         .profile-demo-card .k-listbox {
             display: flex !important;
             flex-direction: row !important;
@@ -397,10 +397,10 @@
             }
 
         /*         @@ media (max-width: 700px) {
-                                            .profile-demo-grid {
-                                                grid-template-columns: 1fr;
-                                            }
-                                        } */
+                                                    .profile-demo-grid {
+                                                        grid-template-columns: 1fr;
+                                                    }
+                                                } */
 
         /* Calm, low-contrast profile grids: soft sage/blue surfaces and readable typography. */
         .profile-workspace,
@@ -449,6 +449,49 @@
                     background: #ffffff;
                     color: #294c3e;
                 }
+
+        .profile-bank-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: .75rem;
+            border: 1px solid #d9e1ea;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .profile-bank-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+            .profile-bank-table th,
+            .profile-bank-table td {
+                padding: .65rem .8rem;
+                border-bottom: 1px solid #e5eaf0;
+                text-align: left;
+                vertical-align: top;
+                overflow-wrap: anywhere;
+                font-size: .9rem;
+            }
+
+            .profile-bank-table thead th {
+                background: #f3f5f7;
+                color: #334155;
+                font-weight: 600;
+            }
+
+            .profile-bank-table tbody th {
+                width: 38%;
+                background: #fafbfc;
+                color: #334155;
+                font-weight: 500;
+            }
+
+            .profile-bank-table tbody tr:last-child th,
+            .profile-bank-table tbody tr:last-child td {
+                border-bottom: 0;
+            }
     </style>
 }
 
@@ -769,9 +812,14 @@
             <div class="profile-summary-grid">@Fields(Model.LeaveSummary)</div>
         </div>
 
-        <div>
-            <div class="profile-section-heading"><div><h2>Bank Account Information</h2><p>Bank details registered for salary processing</p></div></div>
-            @Fields(Model.BankInfo)
+        <div class="profile-bank-section">
+            <div class="profile-section-heading">
+                <div>
+                    <h2>Bank Account Information</h2>
+                    <p>Bank details registered for salary processing</p>
+                </div>
+            </div>
+            @BankInformationTable(Model.BankInfo)
         </div>
 
         <div>
@@ -805,6 +853,55 @@
 
 
 @functions {
+    // Render bank information directly as HTML instead of creating a Kendo Grid.
+    // This avoids relying on the client-side Kendo initialization for this small section.
+    private Microsoft.AspNetCore.Html.IHtmlContent BankInformationTable(
+        IEnumerable<WebStaffSync.Models.ProfileField>? fields)
+    {
+        var source = fields?.ToList() ?? new List<WebStaffSync.Models.ProfileField>();
+
+        string Normalize(string? value) => new string(
+            (value ?? string.Empty).Where(char.IsLetterOrDigit).ToArray());
+
+        string FindValue(params string[] aliases)
+        {
+            foreach (var alias in aliases)
+            {
+                var expected = Normalize(alias);
+                var match = source.FirstOrDefault(f =>
+                    string.Equals(Normalize(f.Label), expected, StringComparison.OrdinalIgnoreCase));
+
+                if (match != null && !string.IsNullOrWhiteSpace(match.Value))
+                    return match.Value.Trim();
+            }
+
+            return "—";
+        }
+
+        var rows = new[]
+        {
+            new { Label = "Bank Name", Value = FindValue("BankName", "Bank Name") },
+            new { Label = "Bank Address", Value = FindValue("BankAddress", "Bank Address") },
+            new { Label = "Account Number", Value = FindValue("EmpACNumber", "AccountNumber", "EmpAccountNumber", "Account Number") }
+        };
+
+        var encoder = System.Text.Encodings.Web.HtmlEncoder.Default;
+        var html = new System.Text.StringBuilder();
+        html.Append("<div class=\"profile-bank-table-wrap\"><table class=\"profile-bank-table\"><thead><tr><th>Attribute</th><th>Value</th></tr></thead><tbody>");
+
+        foreach (var row in rows)
+        {
+            html.Append("<tr><th scope=\"row\">")
+                .Append(encoder.Encode(row.Label))
+                .Append("</th><td>")
+                .Append(encoder.Encode(row.Value))
+                .Append("</td></tr>");
+        }
+
+        html.Append("</tbody></table></div>");
+        return new Microsoft.AspNetCore.Html.HtmlString(html.ToString());
+    }
+
     private Microsoft.AspNetCore.Html.IHtmlContent Fields(IEnumerable<WebStaffSync.Models.ProfileField>? fields)
     {
         var items = fields?.Select(f => new { Label = f.Label, Value = string.IsNullOrWhiteSpace(f.Value) ? "—" : f.Value }).ToList();

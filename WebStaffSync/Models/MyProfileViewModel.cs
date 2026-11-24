@@ -11,6 +11,7 @@ namespace WebStaffSync.Models
         public List<ProfileField> ContactInfo { get; set; } = new();
         public List<ProfileField> NominationInfo { get; set; } = new();
         public List<ProfileField> BankInfo { get; set; } = new();
+        public List<ProfileField> EmployeeSpecificBankInfo { get; set; } = new();
         public List<ProfileField> StatutoryInfo { get; set; } = new();
         public List<ProfileField> SalarySummary { get; set; } = new();
         public List<ProfileField> LeaveSummary { get; set; } = new();

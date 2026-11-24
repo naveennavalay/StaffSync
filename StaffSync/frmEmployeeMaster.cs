@@ -185,15 +185,17 @@ namespace StaffSync
             cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
             cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
 
-            chkEduQualList.ColumnWidth = 300;
-            ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
-            ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
-            ((ListBox)chkEduQualList).ValueMember = "EduQualID";
+            //chkEduQualList.Items.Clear();
+            //chkEduQualList.ColumnWidth = 300;
+            //((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
+            //((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
+            //((ListBox)chkEduQualList).ValueMember = "EduQualID";
 
-            chkSkillsList.ColumnWidth = 300;
-            ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
-            ((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
-            ((ListBox)chkSkillsList).ValueMember = "SkillID";
+            //chkSkillsList.Items.Clear(); 
+            //chkSkillsList.ColumnWidth = 300;
+            //((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
+            //((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
+            //((ListBox)chkSkillsList).ValueMember = "SkillID";
 
             RefreshFamilyMembersInformation();
 
@@ -440,15 +442,8 @@ namespace StaffSync
             cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
             cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
 
-            chkEduQualList.ColumnWidth = 300;
-            ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
-            ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
-            ((ListBox)chkEduQualList).ValueMember = "EduQualID";
-
-            chkSkillsList.ColumnWidth = 300;
-            ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
-            ((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
-            ((ListBox)chkSkillsList).ValueMember = "SkillID";
+            listOutEducationQualifiationList();
+            listOutSkilsList();
 
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
@@ -643,18 +638,8 @@ namespace StaffSync
 
             cmbGender.DataSource = null;
 
-            chkEduQualList.DataSource = null;
-            chkSkillsList.DataSource = null;
-
-            chkEduQualList.ColumnWidth = 300;
-            ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
-            ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
-            ((ListBox)chkEduQualList).ValueMember = "EduQualID";
-
-            chkSkillsList.ColumnWidth = 300;
-            ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
-            ((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
-            ((ListBox)chkSkillsList).ValueMember = "SkillID";
+            listOutEducationQualifiationList();
+            listOutSkilsList();
 
             lblBankID.Text = "0";
             txtBankAccountNumber.Text = "";
@@ -766,8 +751,8 @@ namespace StaffSync
             cmbNomineeRelationship.Enabled = true;
             txtNomineeContactNumber.Enabled = true;
 
-            chkEduQualList.Enabled = true;
-            chkSkillsList.Enabled = true;
+            chkEduQualList1.Enabled = true;
+            chkSkillsList1.Enabled = true;
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
@@ -868,8 +853,8 @@ namespace StaffSync
             txtPANCardNumber.Enabled = false;
             txtAdditonalCardNumber.Enabled = false;
 
-            chkEduQualList.Enabled = false;
-            chkSkillsList.Enabled = false;
+            chkEduQualList1.Enabled = false;
+            chkSkillsList1.Enabled = false;
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
@@ -995,15 +980,8 @@ namespace StaffSync
             cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
             cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
 
-            chkEduQualList.ColumnWidth = 300;
-            ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
-            ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
-            ((ListBox)chkEduQualList).ValueMember = "EduQualID";
-
-            chkSkillsList.ColumnWidth = 300;
-            ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
-            ((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
-            ((ListBox)chkSkillsList).ValueMember = "SkillID";
+            listOutEducationQualifiationList();
+            listOutSkilsList();
 
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
@@ -1211,8 +1189,6 @@ namespace StaffSync
                         }
                     }
 
-
-
                     if (tabPreviousExperience1.Visible == true)
                     {
                         //foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
@@ -1302,9 +1278,9 @@ namespace StaffSync
                     if (tabEducationalInfo1.Visible == true)
                     {
                         int deletedEduQualCount = objEmpEduQualInfo.DeleteEmpEduQualInfo(employeeID);
-                        for (int iEduQualCounter = 0; iEduQualCounter < chkEduQualList.Items.Count - 1; iEduQualCounter++)
+                        for (int iEduQualCounter = 0; iEduQualCounter < chkEduQualList1.Items.Count - 1; iEduQualCounter++)
                         {
-                            if (chkEduQualList.GetItemChecked(iEduQualCounter) == true)
+                            if (chkEduQualList1.GetItemChecked(iEduQualCounter) == true)
                             {
                                 objEmpEduQualInfo.InsertEmpEduQualInfo(employeeID, iEduQualCounter + 1, 5);
                                 //Thread.Sleep(100);
@@ -1315,9 +1291,9 @@ namespace StaffSync
                     if (tabSkils.Visible == true)
                     {
                         int deletedSkillsCount = objEmpSkillMas.DeleteSkillsInfo(employeeID);
-                        for (int iSkillCounter = 0; iSkillCounter < chkSkillsList.Items.Count - 1; iSkillCounter++)
+                        for (int iSkillCounter = 0; iSkillCounter < chkSkillsList1.Items.Count - 1; iSkillCounter++)
                         {
-                            if (chkSkillsList.GetItemChecked(iSkillCounter) == true)
+                            if (chkSkillsList1.GetItemChecked(iSkillCounter) == true)
                             {
                                 objEmpSkillMas.InsertEmpSkillsInfo(employeeID, iSkillCounter + 1, 5);
                                 //Thread.Sleep(100);
@@ -1446,9 +1422,9 @@ namespace StaffSync
                     }
 
                     int deletedEduQualCount = objEmpEduQualInfo.DeleteEmpEduQualInfo(employeeID);
-                    for (int iEduQualCounter = 0; iEduQualCounter < chkEduQualList.Items.Count; iEduQualCounter++)
+                    for (int iEduQualCounter = 0; iEduQualCounter < chkEduQualList1.Items.Count; iEduQualCounter++)
                     {
-                        if (chkEduQualList.GetItemChecked(iEduQualCounter) == true)
+                        if (chkEduQualList1.GetItemChecked(iEduQualCounter) == true)
                         {
                             objEmpEduQualInfo.InsertEmpEduQualInfo(employeeID, iEduQualCounter + 1, 5);
                             //Thread.Sleep(100);
@@ -1456,9 +1432,9 @@ namespace StaffSync
                     }
 
                     int deletedSkillsCount = objEmpSkillMas.DeleteSkillsInfo(employeeID);
-                    for (int iSkillCounter = 0; iSkillCounter < chkSkillsList.Items.Count; iSkillCounter++)
+                    for (int iSkillCounter = 0; iSkillCounter < chkSkillsList1.Items.Count; iSkillCounter++)
                     {
-                        if (chkSkillsList.GetItemChecked(iSkillCounter) == true)
+                        if (chkSkillsList1.GetItemChecked(iSkillCounter) == true)
                         {
                             objEmpSkillMas.InsertEmpSkillsInfo(employeeID, iSkillCounter + 1, 5);
                             //Thread.Sleep(100);
@@ -1608,10 +1584,8 @@ namespace StaffSync
                 cmbPermanentCountry.DisplayMember = "CountryTitle";
                 cmbPermanentCountry.ValueMember = "CountryID";
 
-                chkSkillsList.ColumnWidth = 300;
-                ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
-                ((ListBox)chkSkillsList).DisplayMember = "SkillTitle";
-                ((ListBox)chkSkillsList).ValueMember = "SkillID";
+                listOutEducationQualifiationList();
+                listOutSkilsList();
 
                 cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
                 cmbSalProfile.DisplayMember = "SalProfileTitle";
@@ -1690,6 +1664,34 @@ namespace StaffSync
             cmbPermanentState.Enabled = chkSamePerAddAsCurAdd.Checked;
             txtPermanentPIN.ReadOnly = chkSamePerAddAsCurAdd.Checked;
             cmbPermanentCountry.Enabled = chkSamePerAddAsCurAdd.Checked;
+        }
+
+        public void listOutEducationQualifiationList()
+        {
+            chkEduQualList1.Items.Clear();
+            List<EduQualTitleModel> eduQualList = objEduQualMas.GetEduQualMasList();
+
+            if (eduQualList != null)
+            {
+                foreach (EduQualTitleModel indEduQualTitleModel in eduQualList)
+                {
+                    chkEduQualList1.Items.Add(indEduQualTitleModel.EduQualTitle);
+                }
+            }
+        }
+
+        public void listOutSkilsList()
+        {
+            chkSkillsList1.Items.Clear();
+            List<SkillModel> skillList = objSkills.GetSkillList();
+
+            if (skillList != null)
+            {
+                foreach (SkillModel indSkillModel in skillList)
+                {
+                    chkSkillsList1.Items.Add(indSkillModel.SkillTitle);
+                }
+            }
         }
 
         public bool ValidateValuesOnUI()
@@ -2340,18 +2342,18 @@ namespace StaffSync
                 }
             }
 
-            if (chkEduQualList.CheckedItems.Count == 0)
+            if (chkEduQualList1.CheckedItems.Count == 0)
             {
                 validationStatus = false;
-                chkEduQualList.Focus();
-                errValidator.SetError(chkEduQualList, "Please select at least one Education Qualification.");
+                chkEduQualList1.Focus();
+                errValidator.SetError(chkEduQualList1, "Please select at least one Education Qualification.");
             }
 
-            if (chkSkillsList.CheckedItems.Count == 0)
+            if (chkSkillsList1.CheckedItems.Count == 0)
             {
                 validationStatus = false;
-                chkSkillsList.Focus();
-                errValidator.SetError(chkSkillsList, "Please select at least one Skill.");
+                chkSkillsList1.Focus();
+                errValidator.SetError(chkSkillsList1, "Please select at least one Skill.");
             }
 
             if (lstLDocumentsList.Items.Count == 0)
@@ -2554,28 +2556,37 @@ namespace StaffSync
             txtESINumber.Text = objEmpPersonalIDInfo.ESIAccNumber.ToString();
             txtESIDispName.Text = objEmpPersonalIDInfo.ESIDispensary.ToString();
 
-
             RefreshFamilyMembersInformation();
 
-            chkEduQualList.ColumnWidth = 300;
-            ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
+            //chkEduQualList.Items.Clear();
+            //chkEduQualList.ColumnWidth = 300;
+            //((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
+
+            //chkEduQualList1.DataSource = objEduQualMas.GetEduQualMasList();
+            //chkEduQualList1.DisplayMember = "EduQualTitle";
+            //chkEduQualList1.ValueMember = "EduQualID";
 
             string DataTableToJSon = "";
             DataTableToJSon = JsonConvert.SerializeObject(objEmpEduQualInfo.GetEduQualListInfo(EmployeeID));
             List<EmpEduQualInfo> empEduQualInfoList = JsonConvert.DeserializeObject<List<EmpEduQualInfo>>(DataTableToJSon);
             foreach (var indEduQual in empEduQualInfoList)
             {
-                chkEduQualList.SetItemChecked(indEduQual.EduQualID - 1, true);
+                chkEduQualList1.SetItemChecked(indEduQual.EduQualID - 1, true);
             }
 
-            chkSkillsList.ColumnWidth = 300;
-            ((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
+            //chkSkillsList.Items.Clear(); 
+            //chkSkillsList.ColumnWidth = 300;
+            //((ListBox)chkSkillsList).DataSource = objSkills.GetSkillList();
+
+            //chkSkillsList1.DataSource = objSkills.GetSkillList();
+            //chkSkillsList1.DisplayMember = "SkillTitle";
+            //chkSkillsList1.ValueMember = "SkillID";
 
             DataTableToJSon = JsonConvert.SerializeObject(objEmpSkillMas.GetSkillsListInfo(EmployeeID));
             List<SkillsInfo> empSkillsInfoList = JsonConvert.DeserializeObject<List<SkillsInfo>>(DataTableToJSon);
             foreach (var indSkill in empSkillsInfoList)
             {
-                chkSkillsList.SetItemChecked(indSkill.SkillID - 1, true);
+                chkSkillsList1.SetItemChecked(indSkill.SkillID - 1, true);
             }
 
             dtgPreviousWorkExp.DataSource = objEmpWorkExperienceInfo.GetWorkExpListInfo(EmployeeID);

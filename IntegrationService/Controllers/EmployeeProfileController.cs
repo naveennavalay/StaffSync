@@ -87,6 +87,7 @@ namespace IntegrationService.Controllers
                 var leaveEntitlementDal = new clsEmpLeaveEntitlementInfo();
                 var documentsDal = new clsUploadDocuments();
                 var bankDal = new clsBankMas();
+                var empBankDetails = new clsEmployeeBankACInfo();
                 var salaryDal = new clsSalaryProfile();
 
                 var employee =
@@ -188,8 +189,10 @@ namespace IntegrationService.Controllers
                     documentsDal.getEmployeeSpecificDocumentsList(
                         employeeId);
 
-                var bank =
-                    bankDal.GetEmployeeSpecificBankInfo(employeeId);
+                //var bank =
+                //    bankDal.GetEmployeeSpecificBankInfo(employeeId);
+
+                var bank = empBankDetails.getEmployeeSpecificBankAccountInfo(employeeId);                
 
                 var salaryProfile =
                     salaryDal.getEmployeeSpecificSalaryProfile(

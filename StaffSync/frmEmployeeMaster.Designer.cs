@@ -155,9 +155,7 @@
             this.picPrevExperience = new System.Windows.Forms.PictureBox();
             this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
             this.tabSkils = new Krypton.Navigator.KryptonPage();
-            this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
             this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
-            this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabDocuments1 = new Krypton.Navigator.KryptonPage();
             this.btnUploadDocument = new Krypton.Toolkit.KryptonButton();
             this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
@@ -298,6 +296,8 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.chkSkillsList1 = new Krypton.Toolkit.KryptonCheckedListBox();
+            this.chkEduQualList1 = new Krypton.Toolkit.KryptonCheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -2141,7 +2141,7 @@
             // tabSkils
             // 
             this.tabSkils.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabSkils.Controls.Add(this.chkSkillsList);
+            this.tabSkils.Controls.Add(this.chkSkillsList1);
             this.tabSkils.Flags = 65534;
             this.tabSkils.LastVisibleSet = true;
             this.tabSkils.MinimumSize = new System.Drawing.Size(150, 50);
@@ -2151,22 +2151,10 @@
             this.tabSkils.ToolTipTitle = "Page ToolTip";
             this.tabSkils.UniqueName = "b3f0a1ca71964440a67a8ee906695a52";
             // 
-            // chkSkillsList
-            // 
-            this.chkSkillsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chkSkillsList.CheckOnClick = true;
-            this.chkSkillsList.FormattingEnabled = true;
-            this.chkSkillsList.Location = new System.Drawing.Point(16, 19);
-            this.chkSkillsList.MultiColumn = true;
-            this.chkSkillsList.Name = "chkSkillsList";
-            this.chkSkillsList.Size = new System.Drawing.Size(1195, 466);
-            this.chkSkillsList.TabIndex = 1;
-            // 
             // tabEducationalInfo1
             // 
             this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList);
+            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList1);
             this.tabEducationalInfo1.Flags = 65534;
             this.tabEducationalInfo1.LastVisibleSet = true;
             this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
@@ -2175,18 +2163,6 @@
             this.tabEducationalInfo1.Text = "Educational Info";
             this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
             this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
-            // 
-            // chkEduQualList
-            // 
-            this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chkEduQualList.CheckOnClick = true;
-            this.chkEduQualList.FormattingEnabled = true;
-            this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
-            this.chkEduQualList.MultiColumn = true;
-            this.chkEduQualList.Name = "chkEduQualList";
-            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
-            this.chkEduQualList.TabIndex = 2;
             // 
             // tabDocuments1
             // 
@@ -3839,6 +3815,30 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // chkSkillsList1
+            // 
+            this.chkSkillsList1.CheckOnClick = true;
+            this.chkSkillsList1.Location = new System.Drawing.Point(14, 16);
+            this.chkSkillsList1.Name = "chkSkillsList1";
+            this.chkSkillsList1.Size = new System.Drawing.Size(1219, 485);
+            this.chkSkillsList1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkSkillsList1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkSkillsList1.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkSkillsList1.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkSkillsList1.TabIndex = 5;
+            // 
+            // chkEduQualList1
+            // 
+            this.chkEduQualList1.CheckOnClick = true;
+            this.chkEduQualList1.Location = new System.Drawing.Point(14, 16);
+            this.chkEduQualList1.Name = "chkEduQualList1";
+            this.chkEduQualList1.Size = new System.Drawing.Size(1219, 485);
+            this.chkEduQualList1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList1.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList1.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList1.TabIndex = 6;
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -4079,8 +4079,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.CheckBox chkSamePerAddAsCurAdd;
-        private System.Windows.Forms.CheckedListBox chkEduQualList;
-        private System.Windows.Forms.CheckedListBox chkSkillsList;
         private System.Windows.Forms.ListView lstLDocumentsList;
         private System.Windows.Forms.ColumnHeader DocID;
         private System.Windows.Forms.ColumnHeader DocCode;
@@ -4256,5 +4254,7 @@
         private System.Windows.Forms.CheckBox chkGoldProfile;
         private Krypton.Toolkit.KryptonComboBox cmbGoldProfileCategory;
         private System.Windows.Forms.Label label75;
+        private Krypton.Toolkit.KryptonCheckedListBox chkSkillsList1;
+        private Krypton.Toolkit.KryptonCheckedListBox chkEduQualList1;
     }
 }

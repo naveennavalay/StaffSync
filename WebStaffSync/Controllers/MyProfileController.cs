@@ -94,31 +94,6 @@ namespace WebStaffSync.Controllers
                 _logger.LogInformation("IntegrationService response properties: {Properties}", string.Join(", ", root.EnumerateObject().Select(p => p.Name)));
 
                 model = MapProfile(json.RootElement, User.Identity?.Name ?? "Employee", employeeId);
-
-                _logger.LogInformation(
-                    "Salary Profile mapped row count: {Count}",
-                    model.SalaryComponents.Count);
-
-                if (model.SalaryComponents.Count > 0)
-                {
-                    _logger.LogInformation(
-                        "Salary Profile mapped column names: {Columns}",
-                        string.Join(", ", model.SalaryComponents[0].Values.Keys));
-
-                    foreach (var column in model.SalaryComponents[0].Values)
-                    {
-                        _logger.LogInformation(
-                            "Salary Profile value: {Column} = {Value}",
-                            column.Key,
-                            column.Value);
-                    }
-                }
-
-                _logger.LogInformation(
-                    "Salary Profile metadata: {Metadata}",
-                    string.Join(", ", model.SalaryComponentColumns.Select(
-                        x => $"{x.SourceName} | {x.Title} | Visible={x.Visible}")));
-
                 return View(model);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
@@ -157,7 +132,7 @@ namespace WebStaffSync.Controllers
                 ProfessionalInfo = Fields(employee),
                 ContactInfo = MergeAddressFields(Get(root, "currentAddress"), Get(root, "permanentAddress"), personal),
                 NominationInfo = Fields(Get(root, "nominee")),
-                BankInfo = Fields(Get(root, "bank")),
+                BankInfo = BankFields(Get(root, "bank")),
                 StatutoryInfo = Fields(Get(root, "statutory")),
                 SalarySummary = Fields(Get(root, "salaryProfile")),
                 LeaveSummary = Fields(Get(root, "leaveSummary")),
@@ -263,6 +238,47 @@ namespace WebStaffSync.Controllers
                 result.Add(new ProfileField { Label = prefix + Humanize(p.Name), Value = value });
             }
             return result;
+        }
+
+        private static List<ProfileField> BankFields(JsonElement bankElement)
+        {
+            var result = new List<ProfileField>();
+
+            // EmployeeProfileController returns bank details as an array.
+            // Fields(JsonElement) expects an object, so unwrap the first record.
+            JsonElement bankRecord = bankElement;
+
+            if (bankElement.ValueKind == JsonValueKind.Array)
+            {
+                if (bankElement.GetArrayLength() == 0)
+                    return result;
+
+                bankRecord = bankElement[0];
+            }
+
+            if (bankRecord.ValueKind != JsonValueKind.Object)
+                return result;
+
+            var bankName = FirstText(bankRecord, "BankName");
+            var bankAddress = FirstText(bankRecord, "BankAddress");
+            var accountNumber = FirstText(
+                bankRecord, "EmpACNumber", "AccountNumber", "EmpAccountNumber");
+
+            AddBankField(result, "Bank Name", bankName);
+            AddBankField(result, "Bank Address", bankAddress);
+            AddBankField(result, "Account Number", accountNumber);
+
+            return result;
+        }
+
+        private static void AddBankField(
+            List<ProfileField> fields, string label, string? value)
+        {
+            fields.Add(new ProfileField
+            {
+                Label = label,
+                Value = string.IsNullOrWhiteSpace(value) ? "—" : value
+            });
         }
 
         private static List<ProfileRow> Rows(JsonElement element)

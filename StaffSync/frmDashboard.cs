@@ -7982,8 +7982,8 @@ namespace StaffSync
             if (_isClosing || IsDisposed || Disposing) return;
             await displayApprovalPendingReimbursementData();
             if (_isClosing || IsDisposed || Disposing) return;
-            await displayPendingAssetRequestData();
-            if (_isClosing || IsDisposed || Disposing) return;
+            //await displayPendingAssetRequestData();
+            //if (_isClosing || IsDisposed || Disposing) return;
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
