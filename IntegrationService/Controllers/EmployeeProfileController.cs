@@ -44,8 +44,11 @@ namespace IntegrationService.Controllers
                 // Generate grid metadata from the ModelStaffSync class.
                 // GridColumnAttribute settings are read by the metadata provider.
                 var salaryComponentsGridColumns =
-                    GridColumnMetadataProvider.GetColumns(
-                        typeof(SalaryProfileInfo));
+                    GridColumnMetadataProvider.GetColumns(typeof(SalaryProfileInfo));
+                var familyMembersGridColumns =
+                    GridColumnMetadataProvider.GetColumns(typeof(EmpPersonalFamilyMemberInfo));
+                var documentsGridColumns =
+                    GridColumnMetadataProvider.GetColumns(typeof(EmployeeDocumentInfo));
 
                 // Diagnostic logging to verify the attribute values.
                 Trace.TraceInformation(
@@ -108,8 +111,9 @@ namespace IntegrationService.Controllers
                         success = true,
                         employeeId = employeeId,
                         employee = employee,
-                        salaryComponentsGridColumns =
-                            salaryComponentsGridColumns
+                        salaryComponentsGridColumns = salaryComponentsGridColumns,
+                        familyMembersGridColumns = familyMembersGridColumns,
+                        documentsGridColumns = documentsGridColumns
                     });
                 }
 
@@ -192,7 +196,7 @@ namespace IntegrationService.Controllers
                 //var bank =
                 //    bankDal.GetEmployeeSpecificBankInfo(employeeId);
 
-                var bank = empBankDetails.getEmployeeSpecificBankAccountInfo(employeeId);                
+                var bank = empBankDetails.getEmployeeSpecificBankAccountInfo(employeeId);
 
                 var salaryProfile =
                     salaryDal.getEmployeeSpecificSalaryProfile(
@@ -254,8 +258,9 @@ namespace IntegrationService.Controllers
                     // This was missing from the actual API response.
                     // WebStaffSync requires this metadata to configure
                     // Kendo Grid visibility, width and alignment.
-                    salaryComponentsGridColumns =
-                        salaryComponentsGridColumns
+                    salaryComponentsGridColumns = salaryComponentsGridColumns,
+                    familyMembersGridColumns = familyMembersGridColumns,
+                    documentsGridColumns = documentsGridColumns
                 });
             }
             catch (Exception ex)

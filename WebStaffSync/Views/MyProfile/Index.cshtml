@@ -772,7 +772,27 @@
 
         <div>
             <div class="profile-section-heading"><div><h2>Family Members</h2><p>Family information recorded in your employee profile</p></div></div>
-            @Table(Model.FamilyMembers, new[] { "Member Name", "DOB", "Age", "Relationship", "Address 1", "Address 2", "Area" })
+            @Table(
+                Model.FamilyMembers,
+                new[]
+                {
+                    "Member Name",
+                    "Date Of Birth",
+                    "Age",
+                    "Relationship",
+                    "Address 01",
+                    "Address 02",
+                    "Area",
+                    "City",
+                    "State",
+                    "PIN",
+                    "Country",
+                    "Contact Number",
+                    "Mail ID",
+                    "Blood Group",
+                    "Is Insured?"
+                },
+                Model.FamilyMemberColumns)
         </div>
 
         <div>
@@ -792,7 +812,7 @@
 
         <div>
             <div class="profile-section-heading"><div><h2>Documents</h2><p>Documents associated with your employee record</p></div></div>
-            @Table(Model.Documents, new[] { "Document Name", "Document Type", "Description", "Uploaded On", "Status" })
+            @Table(Model.Documents, new[] { "Document Name", "Document Type", "Description", "Uploaded On", "Status" }, Model.DocumentColumns)
         </div>
 
         <div>
@@ -1026,7 +1046,19 @@
                 width = c.Width,
                 alignment = c.Alignment,
                 format = c.Format,
-                dataType = c.DataType
+                dataType = c.DataType,
+                sortable = c.Sortable,
+                filterable = c.Filterable,
+                groupable = c.Groupable,
+                resizable = c.Resizable,
+                reorderable = c.Reorderable,
+                sortOrder = c.SortOrder,
+                sortDirection = c.SortDirection,
+                groupOrder = c.GroupOrder,
+                locked = c.Locked,
+                lockable = c.Lockable,
+                exportable = c.Exportable,
+                kendoOptionsJson = c.KendoOptionsJson
             })
             .ToList();
 
@@ -1053,9 +1085,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
 
-    <script src="https://kendo.cdn.telerik.com/2017.3.1026/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/js/staffsync-kendo-grid.js" asp-append-version="true"></script>
 
     <script>
         (function ($, kendo) {
@@ -1068,7 +1100,7 @@
 
             if (!$.fn || typeof $.fn.kendoTabStrip !== "function" ||
                 typeof $.fn.kendoGrid !== "function") {
-                console.error("Kendo TabStrip/Grid widgets are unavailable. Check that the Kendo 2026 bundle loaded after jQuery.");
+                console.error("Kendo TabStrip/Grid widgets are unavailable. Check that the Kendo bundle loaded after jQuery.");
                 return;
             }
 
@@ -1586,214 +1618,13 @@
             }
 
 
-        // Repeating profile records use Kendo Grid with sorting, filtering and paging.
-        $(".profile-records-grid").each(function () {
-            try {
-                var rawPayload = this.getAttribute("data-grid") || "{}";
-                var payload = JSON.parse(rawPayload);
-
-                var sourceRows = Array.isArray(payload.data) ? payload.data : [];
-                var sourceFields = Array.isArray(payload.columns) ? payload.columns : [];
-                var columnMetadata = Array.isArray(payload.columnMetadata)
-                    ? payload.columnMetadata
-                    : [];
-
-                if (!sourceFields.length && sourceRows.length) {
-                    sourceFields = Object.keys(sourceRows[0]);
-                }
-
-                // Match metadata against the original source column caption.
-                function findColumnMetadata(sourceName) {
-                    var normalized = String(sourceName || "").trim().toLowerCase();
-
-                    return columnMetadata.find(function (item) {
-                        return String(item.sourceName || "").trim().toLowerCase() === normalized ||
-                            String(item.field || "").trim().toLowerCase() === normalized;
-                    }) || null;
-                }
-
-                var fieldNames = [];
-
-                sourceFields.forEach(function (name) {
-                    var caption = String(name == null ? "" : name).trim();
-
-                    if (caption && !fieldNames.some(function (existing) {
-                        return existing.toLowerCase() === caption.toLowerCase();
-                    })) {
-                        fieldNames.push(caption);
-                    }
-                });
-
-                if (!fieldNames.length) {
-                    $(this).replaceWith(
-                        $("<div/>", {
-                            "class": "profile-empty",
-                            text: "No information available for this employee."
-                        })
-                    );
-                    return;
-                }
-
-                // Use safe Kendo field names while retaining original source captions.
-                var safeColumns = fieldNames.map(function (caption, index) {
-                    var metadata = findColumnMetadata(caption);
-
-                    return {
-                        sourceName: caption,
-                        field: "field" + index,
-                        title: metadata && metadata.title
-                            ? metadata.title
-                            : caption,
-                        metadata: metadata,
-                        decimalDisplay: payload.formatPreferredColumnsAsDecimal === true &&
-                            ["Total Leaves Allotted", "Balance Leaves", "Used Leaves"]
-                                .some(function (name) {
-                                    return name.toLowerCase() === caption.toLowerCase() ||
-                                        (metadata && String(metadata.title || "").toLowerCase() === name.toLowerCase());
-                                })
-                    };
-                });
-
-                var safeRows = sourceRows.map(function (sourceRow) {
-                    var safeRow = {};
-
-                    safeColumns.forEach(function (column) {
-                        var value = null;
-
-                        if (sourceRow &&
-                            Object.prototype.hasOwnProperty.call(
-                                sourceRow, column.sourceName)) {
-
-                            value = sourceRow[column.sourceName];
-                        } else if (sourceRow) {
-                            var matchingKey = Object.keys(sourceRow).find(
-                                function (key) {
-                                    return key.toLowerCase() ===
-                                        column.sourceName.toLowerCase();
-                                });
-
-                            if (matchingKey !== undefined) {
-                                value = sourceRow[matchingKey];
-                            }
-                        }
-
-                        if (column.decimalDisplay) {
-                            if (value == null || String(value).trim() === "") {
-                                safeRow[column.field] = null;
-                            } else {
-                                var numericValue = Number(String(value).replace(/,/g, "").trim());
-                                safeRow[column.field] = Number.isFinite(numericValue)
-                                    ? numericValue
-                                    : null;
-                            }
-                        } else {
-                            safeRow[column.field] =
-                                value == null || String(value).trim() === ""
-                                    ? "—"
-                                    : String(value);
-                        }
-                    });
-
-                    return safeRow;
-                });
-
-                // Apply metadata visibility, width and alignment.
-                var gridColumns = safeColumns.map(function (column) {
-                    var metadata = column.metadata;
-
-                    var gridColumn = {
-                        field: column.field,
-                        title: column.title,
-                        minResizableWidth: 120,
-                        encoded: true
-                    };
-
-                    if (column.decimalDisplay) {
-                        gridColumn.format = "{0:0.00}";
-                        gridColumn.template = function (fieldName) {
-                            return function (item) {
-                                var value = item[fieldName];
-                                return value == null
-                                    ? "—"
-                                    : kendo.toString(value, "0.00");
-                            };
-                        }(column.field);
-                        gridColumn.attributes = { style: "text-align:right" };
-                        gridColumn.headerAttributes = { style: "text-align:right" };
-                    }
-
-                    if (metadata) {
-                        gridColumn.hidden = metadata.visible === false;
-
-                        if (metadata.width > 0) {
-                            gridColumn.width = metadata.width;
-                        }
-
-                        var alignment = String(
-                            metadata.alignment || "left"
-                        ).toLowerCase();
-
-                        if (["left", "center", "right"].indexOf(alignment) >= 0) {
-                            gridColumn.attributes = {
-                                style: "text-align:" + alignment
-                            };
-
-                            gridColumn.headerAttributes = {
-                                style: "text-align:" + alignment
-                            };
-                        }
-                    }
-
-                    return gridColumn;
-                });
-
-                $(this).kendoGrid({
-                    dataSource: {
-                        data: safeRows,
-                        pageSize: 10,
-                        schema: {
-                            model: {
-                                fields: safeColumns.reduce(function (result, column) {
-                                    result[column.field] = {
-                                        type: column.decimalDisplay ? "number" : "string"
-                                    };
-                                    return result;
-                                }, {})
-                            }
-                        }
-                    },
-
-                    columns: gridColumns,
-
-                    sortable: true,
-                    filterable: true,
-
-                    pageable: {
-                        refresh: true,
-                        pageSizes: [10, 20, 50],
-                        buttonCount: 5
-                    },
-
-                    resizable: true,
-                    reorderable: true,
-                    scrollable: true,
-
-                    noRecords: {
-                        template: "No information available for this employee."
-                    }
-                });
-
-            } catch (gridError) {
-                console.error(
-                    "Profile records grid could not be initialized:",
-                    gridError
-                );
-
-                $(this).text(
-                    "Unable to display this section. Please check the browser console."
-                );
-            }
-        });
+        // All repeating profile grids use the shared attribute-driven initializer.
+        // Each element carries its own data and metadata payload, so grids remain independent.
+        if (!window.StaffSyncKendoGrid || typeof window.StaffSyncKendoGrid.initializeAll !== "function") {
+            console.error("StaffSync generic Kendo Grid framework was not loaded.");
+        } else {
+            window.StaffSyncKendoGrid.initializeAll(".profile-records-grid");
+        }
 
 
             // Skills and qualifications are rendered as escaped, read-only tags

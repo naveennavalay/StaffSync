@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace WebStaffSync.Models
 {
     public sealed class MyProfileViewModel
@@ -6,6 +9,7 @@ namespace WebStaffSync.Models
         public string? EmployeeName { get; set; }
         public string? Status { get; set; }
         public string? PhotoDataUrl { get; set; }
+
         public List<ProfileField> PersonalInfo { get; set; } = new();
         public List<ProfileField> ProfessionalInfo { get; set; } = new();
         public List<ProfileField> ContactInfo { get; set; } = new();
@@ -15,6 +19,7 @@ namespace WebStaffSync.Models
         public List<ProfileField> StatutoryInfo { get; set; } = new();
         public List<ProfileField> SalarySummary { get; set; } = new();
         public List<ProfileField> LeaveSummary { get; set; } = new();
+
         public List<ProfileRow> FamilyMembers { get; set; } = new();
         public List<ProfileRow> PreviousExperience { get; set; } = new();
         public List<string> Skills { get; set; } = new();
@@ -22,7 +27,12 @@ namespace WebStaffSync.Models
         public List<ProfileRow> Documents { get; set; } = new();
         public List<ProfileRow> LeaveBalances { get; set; } = new();
         public List<ProfileRow> SalaryComponents { get; set; } = new();
+
+        // Attribute-driven metadata for each independent grid.
+        public List<ProfileGridColumn> FamilyMemberColumns { get; set; } = new();
+        public List<ProfileGridColumn> DocumentColumns { get; set; } = new();
         public List<ProfileGridColumn> SalaryComponentColumns { get; set; } = new();
+
         public string? TaxScheme { get; set; }
         public string? EffectiveFrom { get; set; }
         public string? WeeklyOff { get; set; }
@@ -40,15 +50,8 @@ namespace WebStaffSync.Models
     {
         public Dictionary<string, string> Values { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     }
-}
 
-
-namespace WebStaffSync.Models
-{
-    /// <summary>
-    /// Client-side Kendo Grid settings emitted by IntegrationService from
-    /// ModelStaffSync GridColumn attributes.
-    /// </summary>
+    /// <summary>Client-side metadata emitted by IntegrationService.</summary>
     public sealed class ProfileGridColumn
     {
         public string Field { get; set; } = "";
@@ -59,5 +62,19 @@ namespace WebStaffSync.Models
         public string Alignment { get; set; } = "left";
         public string? Format { get; set; }
         public string DataType { get; set; } = "string";
+
+        public int Order { get; set; } = -1;
+        public bool Sortable { get; set; } = true;
+        public bool Filterable { get; set; } = true;
+        public bool Groupable { get; set; }
+        public bool Resizable { get; set; } = true;
+        public bool Reorderable { get; set; } = true;
+        public bool Locked { get; set; }
+        public bool Lockable { get; set; } = true;
+        public bool Exportable { get; set; } = true;
+        public string? SortDirection { get; set; }
+        public int SortOrder { get; set; } = -1;
+        public int GroupOrder { get; set; } = -1;
+        public string? KendoOptionsJson { get; set; }
     }
 }

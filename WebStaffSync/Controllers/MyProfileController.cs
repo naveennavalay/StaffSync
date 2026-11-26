@@ -144,6 +144,8 @@ namespace WebStaffSync.Controllers
                 LeaveBalances = Rows(Get(Get(root, "leaveSummary"), "leaveEntitlements")),
                 SalaryComponents = Rows(Get(root, "salaryComponents")),
                 SalaryComponentColumns = GridColumns(Get(root, "salaryComponentsGridColumns")),
+                FamilyMemberColumns = GridColumns(Get(root, "familyMembersGridColumns")),
+                DocumentColumns = GridColumns(Get(root, "documentsGridColumns")),
                 TaxScheme = FirstText(Get(root, "taxScheme"), "TaxSchemeName", "TaxScheme", "SchemeName") ?? Scalar(Get(root, "taxScheme")),
                 EffectiveFrom = FirstText(Get(root, "taxScheme"), "EffectDateFrom", "EffectiveFrom"),
                 WeeklyOff = FirstText(Get(root, "weeklyOff"), "WeeklyOffTitle", "WeeklyOffName", "WeeklyOff") ?? Scalar(Get(root, "weeklyOff"))
@@ -154,7 +156,7 @@ namespace WebStaffSync.Controllers
             var contactPerson = Fields(Get(root, "contactPerson"), "Contact Person - ");
             model.ContactInfo.AddRange(contactPerson);
             model.SameAsCurrentAddress = "false";
-            if (model.PersonalInfo.Count == 0 && model.ProfessionalInfo.Count == 0)
+             if (model.PersonalInfo.Count == 0 && model.ProfessionalInfo.Count == 0)
                 throw new InvalidOperationException("The profile API response contained no employee or personal data.");
             return model;
         }
@@ -168,6 +170,15 @@ namespace WebStaffSync.Controllers
             if (value.ValueKind == JsonValueKind.False) return false;
             if (value.ValueKind == JsonValueKind.String &&
                 bool.TryParse(value.GetString(), out var parsed)) return parsed;
+            return defaultValue;
+        }
+
+
+        private static int ReadInt(JsonElement element, string propertyName, int defaultValue)
+        {
+            if (!TryGet(element, propertyName, out var value)) return defaultValue;
+            if (value.ValueKind == JsonValueKind.Number && value.TryGetInt32(out var number)) return number;
+            if (value.ValueKind == JsonValueKind.String && int.TryParse(value.GetString(), out number)) return number;
             return defaultValue;
         }
 
@@ -195,7 +206,20 @@ namespace WebStaffSync.Controllers
                     Width = width > 0 ? width : 150,
                     Alignment = FirstText(item, "alignment") ?? "left",
                     Format = FirstText(item, "format"),
-                    DataType = FirstText(item, "dataType") ?? "string"
+                    DataType = FirstText(item, "dataType") ?? "string",
+                    Order = ReadInt(item, "order", -1),
+                    Sortable = ReadBoolean(item, "sortable", true),
+                    Filterable = ReadBoolean(item, "filterable", true),
+                    Groupable = ReadBoolean(item, "groupable", false),
+                    Resizable = ReadBoolean(item, "resizable", true),
+                    Reorderable = ReadBoolean(item, "reorderable", true),
+                    Locked = ReadBoolean(item, "locked", false),
+                    Lockable = ReadBoolean(item, "lockable", true),
+                    Exportable = ReadBoolean(item, "exportable", true),
+                    SortDirection = FirstText(item, "sortDirection"),
+                    SortOrder = ReadInt(item, "sortOrder", -1),
+                    GroupOrder = ReadInt(item, "groupOrder", -1),
+                    KendoOptionsJson = FirstText(item, "kendoOptionsJson")
                 });
             }
             return result;

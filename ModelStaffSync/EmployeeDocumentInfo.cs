@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +39,7 @@ namespace ModelStaffSync
         [GridColumn(Visible = false, Width = 200, Alignment = "left")]
         public string DocPath { get; set; }
 
-        [GridColumn(Visible = true, Width = 200, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 200, Alignment = "left")]
         public bool DocUploadStatus { get; set; }
     }
 }
