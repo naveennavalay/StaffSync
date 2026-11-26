@@ -38,7 +38,7 @@ namespace ModelStaffSync
         [DisplayName("Department")]
         public string DepartmentTitle { get; set; }
 
-        [ReportColumnAttribute(Header = "Total Leaves", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]        
+        [ReportColumnAttribute(Header = "Total Leaves", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         [DisplayName("Total Leaves")]
         public float TotalLeaves { get; set; }
 

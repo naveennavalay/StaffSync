@@ -13,6 +13,7 @@ namespace ModelStaffSync
         public int EmpID { get; set; }
         public int TaxSchemeID { get; set; }
         public DateTime EffectiveDate { get; set; }
-
+        public string TaxCode { get; set; }
+        public string TaxTitle { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace IntegrationService.Infrastructure
             public string Alignment { get; set; }
             public string Format { get; set; }
             public string DataType { get; set; }
+            public string TrueText { get; set; }
+            public string FalseText { get; set; }
             public int Order { get; set; }
             public bool Sortable { get; set; }
             public bool Filterable { get; set; }
@@ -58,25 +60,57 @@ namespace IntegrationService.Infrastructure
                 .ToList();
         }
 
+        //private static GridColumnMetadata CreateColumn(PropertyInfo property)
+        //{
+        //    var attribute = property.GetCustomAttributes(typeof(GridColumnAttribute), true)
+        //        .Cast<GridColumnAttribute>().FirstOrDefault();
+        //    var display = property.GetCustomAttributes(typeof(DisplayNameAttribute), true)
+        //        .Cast<DisplayNameAttribute>().FirstOrDefault();
+
+        //    return new GridColumnMetadata
+        //    {
+        //        Field = property.Name,
+        //        SourceName = Humanize(property.Name),
+        //        Title = display != null && !string.IsNullOrWhiteSpace(display.DisplayName) ? display.DisplayName : Humanize(property.Name),
+        //        Visible = attribute == null || attribute.Visible,
+        //        Width = attribute != null && attribute.Width > 0 ? attribute.Width : 150,
+        //        Alignment = attribute != null && !string.IsNullOrWhiteSpace(attribute.Alignment) ? attribute.Alignment : "left",
+        //        Format = attribute == null ? null : attribute.Format,
+        //        DataType = GetDataType(property.PropertyType),
+        //        Order = attribute == null ? -1 : attribute.Order,
+        //        Sortable = attribute == null || attribute.Sortable,
+        //        Filterable = attribute == null || attribute.Filterable,
+        //        Groupable = attribute != null && attribute.Groupable,
+        //        Resizable = attribute == null || attribute.Resizable,
+        //        Reorderable = attribute == null || attribute.Reorderable,
+        //        Locked = attribute != null && attribute.Locked,
+        //        Lockable = attribute == null || attribute.Lockable,
+        //        Exportable = attribute == null || attribute.Exportable,
+        //        SortDirection = attribute == null ? null : NormalizeSortDirection(attribute.SortDirection),
+        //        SortOrder = attribute == null ? -1 : attribute.SortOrder,
+        //        GroupOrder = attribute == null ? -1 : attribute.GroupOrder,
+        //        KendoOptionsJson = attribute == null ? null : attribute.KendoOptionsJson
+        //    };
+        //}
+
         private static GridColumnMetadata CreateColumn(PropertyInfo property)
         {
-            var attribute = property.GetCustomAttributes(typeof(GridColumnAttribute), true)
-                .Cast<GridColumnAttribute>().FirstOrDefault();
-            var display = property.GetCustomAttributes(typeof(DisplayNameAttribute), true)
-                .Cast<DisplayNameAttribute>().FirstOrDefault();
+            var attribute = property.GetCustomAttributes(typeof(GridColumnAttribute), true).Cast<GridColumnAttribute>().FirstOrDefault();
+
+            var display = property.GetCustomAttributes(typeof(DisplayNameAttribute), true).Cast<DisplayNameAttribute>().FirstOrDefault();
 
             return new GridColumnMetadata
             {
                 Field = property.Name,
                 SourceName = Humanize(property.Name),
-                Title = display != null && !string.IsNullOrWhiteSpace(display.DisplayName)
-                    ? display.DisplayName : Humanize(property.Name),
+                Title = display != null && !string.IsNullOrWhiteSpace(display.DisplayName) ? display.DisplayName : Humanize(property.Name),
                 Visible = attribute == null || attribute.Visible,
                 Width = attribute != null && attribute.Width > 0 ? attribute.Width : 150,
-                Alignment = attribute != null && !string.IsNullOrWhiteSpace(attribute.Alignment)
-                    ? attribute.Alignment : "left",
+                Alignment = attribute != null && !string.IsNullOrWhiteSpace(attribute.Alignment) ? attribute.Alignment : "left",
                 Format = attribute == null ? null : attribute.Format,
-                DataType = GetDataType(property.PropertyType),
+                DataType = GetDataType(property.PropertyType),                
+                TrueText = attribute == null || string.IsNullOrWhiteSpace(attribute.TrueText) ? "Yes" : attribute.TrueText,
+                FalseText = attribute == null || string.IsNullOrWhiteSpace(attribute.FalseText) ? "No" : attribute.FalseText,
                 Order = attribute == null ? -1 : attribute.Order,
                 Sortable = attribute == null || attribute.Sortable,
                 Filterable = attribute == null || attribute.Filterable,

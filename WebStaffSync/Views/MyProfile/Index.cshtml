@@ -232,7 +232,7 @@
         }
 
         /* Explicit ListBox layout for the current Kendo theme/build.
-                                           Some older Kendo bundles do not apply the expected flex layout. */
+                                                   Some older Kendo bundles do not apply the expected flex layout. */
         .profile-demo-card .k-listbox {
             display: flex !important;
             flex-direction: row !important;
@@ -397,10 +397,10 @@
             }
 
         /*         @@ media (max-width: 700px) {
-                                                    .profile-demo-grid {
-                                                        grid-template-columns: 1fr;
-                                                    }
-                                                } */
+                                                            .profile-demo-grid {
+                                                                grid-template-columns: 1fr;
+                                                            }
+                                                        } */
 
         /* Calm, low-contrast profile grids: soft sage/blue surfaces and readable typography. */
         .profile-workspace,
@@ -773,26 +773,26 @@
         <div>
             <div class="profile-section-heading"><div><h2>Family Members</h2><p>Family information recorded in your employee profile</p></div></div>
             @Table(
-                Model.FamilyMembers,
-                new[]
-                {
-                    "Member Name",
-                    "Date Of Birth",
-                    "Age",
-                    "Relationship",
-                    "Address 01",
-                    "Address 02",
-                    "Area",
-                    "City",
-                    "State",
-                    "PIN",
-                    "Country",
-                    "Contact Number",
-                    "Mail ID",
-                    "Blood Group",
-                    "Is Insured?"
-                },
-                Model.FamilyMemberColumns)
+            Model.FamilyMembers,
+                        new[]
+                        {
+                        "Member Name",
+                        "Date Of Birth",
+                        "Age",
+                        "Relationship",
+                        "Address 01",
+                        "Address 02",
+                        "Area",
+                        "City",
+                        "State",
+                        "PIN",
+                        "Country",
+                        "Contact Number",
+                        "Mail ID",
+                        "Blood Group",
+                        "Is Insured?"
+                        },
+                        Model.FamilyMemberColumns)
         </div>
 
         <div>
@@ -819,7 +819,7 @@
             <div class="profile-section-heading"><div><h2>Leave Information</h2><p>Your weekly off and leave balances</p></div></div>
             @Fields(new List<WebStaffSync.Models.ProfileField> { new() { Label = "Weekly Off", Value = Model.WeeklyOff ?? "—" } })
             @Table(
-            Model.LeaveBalances,
+                        Model.LeaveBalances,
                         new[]
                         {
                         "Leave Type",
@@ -850,8 +850,7 @@
         <div>
             <div class="profile-section-heading"><div><h2>Salary Profile</h2><p>Your configured salary components and tax scheme</p></div></div>
             @Fields(new List<WebStaffSync.Models.ProfileField> {
-                        new() { Label = "Tax Scheme", Value = Model.TaxScheme ?? "—" },
-                        new() { Label = "Effective From", Value = Model.EffectiveFrom ?? "—" }
+                        new() { Label = "Tax Scheme", Value = Model.TaxScheme ?? "—" }
                         })
             @Table(
                         Model.SalaryComponents,
@@ -1016,6 +1015,70 @@
                     !matchedPreferred.Contains(k, StringComparer.OrdinalIgnoreCase)))
                 .ToList();
 
+        // The Leave Balances grid is built from ProfileRow values rather than
+        // a dedicated typed Leave model. When decimal formatting is requested,
+        // add metadata for its selected numeric columns here so the generic
+        // Kendo grid can format them and right-align their values.
+        var gridMetadata = metadataItems.ToList();
+
+
+        if (formatPreferredColumnsAsDecimal)
+        {
+            foreach (var columnName in columns)
+            {
+                var existingMetadata = gridMetadata.FirstOrDefault(m =>
+                    string.Equals(m.Field, columnName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(m.SourceName, columnName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(m.Title, columnName, StringComparison.OrdinalIgnoreCase));
+
+                if (existingMetadata != null)
+                    continue;
+
+                // Apply decimal formatting only when the column contains numeric values.
+                // Text columns such as Leave Type must remain string fields.
+                var nonEmptyValues = items
+                    .Select(row =>
+                        row.Values.TryGetValue(columnName, out var value)
+                            ? value?.Trim()
+                            : null)
+                    .Where(value => !string.IsNullOrWhiteSpace(value))
+                    .ToList();
+
+                var isNumericColumn = nonEmptyValues.Count > 0 &&
+                    nonEmptyValues.All(value =>
+                        decimal.TryParse(
+                            value,
+                            System.Globalization.NumberStyles.Number,
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            out _));
+
+                gridMetadata.Add(new WebStaffSync.Models.ProfileGridColumn
+                {
+                    Field = columnName,
+                    SourceName = columnName,
+                    Title = columnName,
+                    Visible = true,
+                    Width = 180,
+                    Alignment = isNumericColumn ? "right" : "left",
+                    Format = isNumericColumn ? "0.00" : null,
+                    DataType = isNumericColumn ? "number" : "string",
+                    TrueText = "Yes",
+                    FalseText = "No",
+                    Sortable = true,
+                    Filterable = true,
+                    Groupable = false,
+                    Resizable = true,
+                    Reorderable = true,
+                    Locked = false,
+                    Lockable = true,
+                    Exportable = true,
+                    Order = -1,
+                    SortOrder = -1,
+                    GroupOrder = -1
+                });
+            }
+        }
+
         var data = items.Select(row =>
         {
             var record = new Dictionary<string, string>(
@@ -1036,7 +1099,7 @@
         }).ToList();
 
         // Serialize metadata using predictable camelCase property names.
-        var metadata = metadataItems
+        var metadata = gridMetadata
             .Select(c => new
             {
                 field = c.Field,
@@ -1047,6 +1110,8 @@
                 alignment = c.Alignment,
                 format = c.Format,
                 dataType = c.DataType,
+                trueText = c.TrueText,
+                falseText = c.FalseText,
                 sortable = c.Sortable,
                 filterable = c.Filterable,
                 groupable = c.Groupable,

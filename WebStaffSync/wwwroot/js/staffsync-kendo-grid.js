@@ -8,8 +8,6 @@
             .replace(/[^a-z0-9]/g, "");
     }
 
-    // Kendo compiles field paths as JavaScript expressions.
-    // Display captions such as "Leave Type" need safe internal names.
     function makeSafeFieldName(value) {
         var safe = String(value == null ? "" : value)
             .replace(/[^A-Za-z0-9_$]/g, "");
@@ -69,6 +67,89 @@
         }
     }
 
+    function normalizeDataType(value) {
+        var type = String(value || "string").toLowerCase();
+
+        if (["date", "datetime", "time"].indexOf(type) >= 0)
+            return type;
+
+        if (["number", "numeric", "currency", "amount"].indexOf(type) >= 0)
+            return "number";
+
+        if (["boolean", "bool"].indexOf(type) >= 0)
+            return "boolean";
+
+        return "string";
+    }
+
+    function parseDateValue(value, meta) {
+        if (value === null || value === undefined || value === "")
+            return null;
+
+        if (value instanceof Date)
+            return isNaN(value.getTime()) ? null : value;
+
+        if (typeof value === "number") {
+            var numericDate = new Date(value);
+            return isNaN(numericDate.getTime()) ? null : numericDate;
+        }
+
+        var formats = [];
+
+        if (meta && meta.format)
+            formats.push(meta.format);
+
+        formats = formats.concat([
+            "dd-MMM-yyyy hh:mm:ss tt",
+            "dd-MMM-yyyy h:mm:ss tt",
+            "dd-MMM-yyyy",
+            "yyyy-MM-ddTHH:mm:ss.fffZ",
+            "yyyy-MM-ddTHH:mm:ssZ",
+            "yyyy-MM-ddTHH:mm:ss",
+            "yyyy-MM-dd",
+            "MM/dd/yyyy",
+            "M/d/yyyy",
+            "HH:mm:ss",
+            "hh:mm:ss tt"
+        ]);
+
+        if (window.kendo &&
+            typeof window.kendo.parseDate === "function") {
+
+            var parsed = window.kendo.parseDate(
+                String(value),
+                formats
+            );
+
+            if (parsed && !isNaN(parsed.getTime()))
+                return parsed;
+        }
+
+        var fallback = new Date(value);
+
+        return isNaN(fallback.getTime()) ? null : fallback;
+    }
+
+    function parseBooleanValue(value) {
+        if (value === true || value === false)
+            return value;
+
+        if (typeof value === "number")
+            return value !== 0;
+
+        if (typeof value === "string") {
+            var normalized = value.trim().toLowerCase();
+
+            if (["true", "1", "yes", "y"].indexOf(normalized) >= 0)
+                return true;
+
+            if (["false", "0", "no", "n", ""].indexOf(normalized) >= 0)
+                return false;
+        }
+
+        return value;
+    }
+
     function makeColumn(meta, field) {
         var alignment =
             ["left", "center", "right"].indexOf(meta.alignment) >= 0
@@ -99,8 +180,28 @@
             }
         };
 
+        var dataType = normalizeDataType(meta.dataType);
+        var trueText = meta.trueText || "Yes";
+        var falseText = meta.falseText || "No";
+
         if (meta.format) {
             column.format = "{0:" + meta.format + "}";
+        }
+
+        // Configurable Boolean display labels.
+        if (dataType === "boolean") {
+            var booleanField = column.field;
+
+            column.template = function (item) {
+                var value = item ? item[booleanField] : null;
+
+                value = parseBooleanValue(value);
+
+                if (value === true) return trueText;
+                if (value === false) return falseText;
+
+                return value == null ? "" : String(value);
+            };
         }
 
         // Preserve application-specific Kendo options.
@@ -145,15 +246,28 @@
 
             if (!mappedField) return;
 
-            var type =
-                meta.dataType === "number" ? "number" :
-                    meta.dataType === "date" ? "date" :
-                        meta.dataType === "boolean" ? "boolean" :
-                            "string";
+            var dataType = normalizeDataType(meta.dataType);
 
-            schemaFields[mappedField] = {
-                type: type
+            var schemaField = {
+                type: dataType === "datetime" || dataType === "time"
+                    ? "date"
+                    : dataType
             };
+
+            if (
+                dataType === "date" ||
+                dataType === "datetime" ||
+                dataType === "time"
+            ) {
+                schemaField.parse = function (value) {
+                    return parseDateValue(value, meta);
+                };
+
+            } else if (dataType === "boolean") {
+                schemaField.parse = parseBooleanValue;
+            }
+
+            schemaFields[mappedField] = schemaField;
         });
 
         (fields || []).forEach(function (field) {
@@ -267,9 +381,8 @@
     }
 
     function getActualRowKey(row, source, target) {
-        if (!row || typeof row !== "object") {
+        if (!row || typeof row !== "object")
             return undefined;
-        }
 
         var keys = Object.keys(row);
         var normalizedSource = normalize(source);
@@ -296,7 +409,8 @@
         var $element = $(element);
         var existingGrid = $element.data("kendoGrid");
 
-        if (existingGrid) return existingGrid;
+        if (existingGrid)
+            return existingGrid;
 
         var payload = options.payload || {};
 
@@ -373,17 +487,14 @@
             fieldMap[source] = safeField;
 
             if (meta) {
-                if (meta.field) {
+                if (meta.field)
                     fieldMap[meta.field] = safeField;
-                }
 
-                if (meta.sourceName) {
+                if (meta.sourceName)
                     fieldMap[meta.sourceName] = safeField;
-                }
 
-                if (meta.title) {
+                if (meta.title)
                     fieldMap[meta.title] = safeField;
-                }
             }
 
             var column = meta
@@ -446,11 +557,11 @@
 
             sortable: true,
             filterable: true,
-            groupable: true,
+            groupable: false,
 
             pageable: {
                 refresh: true,
-                pageSizes: [10, 20, 50],
+                pageSizes: [10, 20, 50, 100, 250, 500],
                 buttonCount: 5
             },
 
@@ -484,7 +595,7 @@
     }
 
     var api = {
-        version: "1.1.1",
+        version: "1.2.0",
 
         findColumnMetadata: findMetadata,
 
@@ -504,7 +615,8 @@
         },
 
         applyColumnOptions: function (column, metadata) {
-            if (!column || !metadata) return column;
+            if (!column || !metadata)
+                return column;
 
             var safeField = makeSafeFieldName(
                 column.field ||

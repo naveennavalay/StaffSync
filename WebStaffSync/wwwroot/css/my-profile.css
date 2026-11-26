@@ -22,7 +22,7 @@
 .profile-tab-content { padding:23px; }
 .profile-panel[hidden] { display:none !important; }
 .profile-section-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.profile-section-heading h2 { margin:0 0 4px; color:#35465d; font:800 15px Manrope,sans-serif; }
+.profile-section-heading h2 { margin:0 0 4px; color:#7046A5; font:800 15px Manrope,sans-serif; }
 .profile-section-heading p { margin:0; color:#929eae; font-size:10px; }
 .profile-field-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; margin-bottom:17px; }
 .profile-field { min-width:0; padding:12px 13px; border:1px solid #edf0f5; border-radius:8px; background:#fbfcfe; }

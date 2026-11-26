@@ -35,18 +35,19 @@ namespace ModelStaffSync
         public bool IsFixed { get; set; }
 
         [DisplayName("Actual Amount")]
+        [GridColumn(Visible = false, Width = 200, Alignment = "right", Format = "0.00")] 
         public decimal ActualAmount { get; set; }
 
         [DisplayName("Allowance Amount")]
-        [GridColumn(Visible = true, Width = 150, Alignment = "right", Order = 3)]
+        [GridColumn(Visible = true, Width = 150, Alignment = "right", Format = "0.00", Order = 3)]
         public decimal AllowanceAmount { get; set; }
 
         [DisplayName("Deduction Amount")]
-        [GridColumn(Visible = true, Width = 150, Alignment = "right", Order = 4)]
+        [GridColumn(Visible = true, Width = 150, Alignment = "right", Format = "0.00", Order = 4)]
         public decimal DeductionAmount { get; set; }
 
         [DisplayName("Reimbursement Amount")]
-        [GridColumn(Visible = true, Width = 180, Alignment = "right", Order = 5)]
+        [GridColumn(Visible = true, Width = 180, Alignment = "right", Format = "0.00", Order = 5)]
         public decimal ReimbursmentAmount { get; set; }
 
         [GridColumn(Visible = false, Width = 200)]

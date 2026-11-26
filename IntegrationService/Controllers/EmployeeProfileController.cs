@@ -236,7 +236,7 @@ namespace IntegrationService.Controllers
                     previousExperience = experience,
                     employmentType = employment,
                     shift = shift,
-                    taxScheme = taxScheme,
+                    taxScheme = taxScheme.TaxTitle,
                     weeklyOff = weeklyOff,
                     weeklyOffHistory = weeklyOffHistory,
 

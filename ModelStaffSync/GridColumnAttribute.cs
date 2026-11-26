@@ -13,6 +13,18 @@ namespace ModelStaffSync
         public string Alignment { get; set; } = "left";
         public string Format { get; set; }
 
+        /// <summary>
+        /// Supported values: string, number, currency, amount, date, datetime,
+        /// time, and boolean.
+        /// </summary>
+        public string DataType { get; set; } = "string";
+
+        /// <summary>Text displayed for true. Defaults to Yes.</summary>
+        public string TrueText { get; set; } = "Yes";
+
+        /// <summary>Text displayed for false. Defaults to No.</summary>
+        public string FalseText { get; set; } = "No";
+
         public int Order { get; set; } = -1;
         public bool Sortable { get; set; } = true;
         public bool Filterable { get; set; } = true;

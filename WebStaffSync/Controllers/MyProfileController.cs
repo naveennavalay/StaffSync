@@ -136,7 +136,7 @@ namespace WebStaffSync.Controllers
                 StatutoryInfo = Fields(Get(root, "statutory")),
                 SalarySummary = Fields(Get(root, "salaryProfile")),
                 LeaveSummary = Fields(Get(root, "leaveSummary")),
-                FamilyMembers = Rows(Get(root, "familyMembers")),
+                FamilyMembers = FamilyMemberRows(Get(root, "familyMembers")),
                 PreviousExperience = Rows(Get(root, "previousExperience")),
                 Skills = Values(Get(root, "skills")),
                 Education = Values(Get(root, "education")),
@@ -146,7 +146,7 @@ namespace WebStaffSync.Controllers
                 SalaryComponentColumns = GridColumns(Get(root, "salaryComponentsGridColumns")),
                 FamilyMemberColumns = GridColumns(Get(root, "familyMembersGridColumns")),
                 DocumentColumns = GridColumns(Get(root, "documentsGridColumns")),
-                TaxScheme = FirstText(Get(root, "taxScheme"), "TaxSchemeName", "TaxScheme", "SchemeName") ?? Scalar(Get(root, "taxScheme")),
+                TaxScheme = FindTaxSchemeValue(root),
                 EffectiveFrom = FirstText(Get(root, "taxScheme"), "EffectDateFrom", "EffectiveFrom"),
                 WeeklyOff = FirstText(Get(root, "weeklyOff"), "WeeklyOffTitle", "WeeklyOffName", "WeeklyOff") ?? Scalar(Get(root, "weeklyOff"))
             };
@@ -156,12 +156,117 @@ namespace WebStaffSync.Controllers
             var contactPerson = Fields(Get(root, "contactPerson"), "Contact Person - ");
             model.ContactInfo.AddRange(contactPerson);
             model.SameAsCurrentAddress = "false";
-             if (model.PersonalInfo.Count == 0 && model.ProfessionalInfo.Count == 0)
+            if (model.PersonalInfo.Count == 0 && model.ProfessionalInfo.Count == 0)
                 throw new InvalidOperationException("The profile API response contained no employee or personal data.");
             return model;
         }
 
 
+
+        private static string? FindTaxSchemeValue(JsonElement root)
+        {
+            // First check the dedicated taxScheme object returned by IntegrationService.
+            var taxScheme = Get(root, "taxScheme");
+            var value = FirstText(
+                taxScheme,
+                "TaxSchemeName",
+                "TaxSchemeTitle",
+                "TaxScheme",
+                "SchemeName",
+                "SchemeTitle",
+                "Scheme"
+            );
+
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+
+            value = Scalar(taxScheme);
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+
+            // Some profile responses expose the scheme under salaryProfile
+            // or directly on the response envelope.
+            value = FirstText(
+                Get(root, "salaryProfile"),
+                "TaxSchemeName",
+                "TaxSchemeTitle",
+                "TaxScheme",
+                "SchemeName",
+                "SchemeTitle",
+                "Scheme"
+            );
+
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+
+            value = FirstText(
+                root,
+                "TaxSchemeName",
+                "TaxSchemeTitle",
+                "TaxScheme",
+                "SchemeName",
+                "SchemeTitle"
+            );
+
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+
+            // Last resort: search nested response objects for a scalar property
+            // whose name explicitly identifies it as the tax scheme.
+            return FindNestedTaxSchemeValue(root);
+        }
+
+        private static string? FindNestedTaxSchemeValue(JsonElement element)
+        {
+            if (element.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var property in element.EnumerateObject())
+                {
+                    var normalizedName = new string(
+                        property.Name.Where(char.IsLetterOrDigit).ToArray());
+
+                    if (normalizedName.Contains("taxscheme", StringComparison.OrdinalIgnoreCase) ||
+                        normalizedName.Contains("schemeName", StringComparison.OrdinalIgnoreCase) ||
+                        normalizedName.Contains("schemeTitle", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var scalarValue = Scalar(property.Value);
+                        if (!string.IsNullOrWhiteSpace(scalarValue))
+                            return scalarValue;
+
+                        if (property.Value.ValueKind == JsonValueKind.Object)
+                        {
+                            var nestedValue = FirstText(
+                                property.Value,
+                                "TaxSchemeName",
+                                "TaxSchemeTitle",
+                                "TaxScheme",
+                                "SchemeName",
+                                "SchemeTitle",
+                                "Scheme"
+                            );
+
+                            if (!string.IsNullOrWhiteSpace(nestedValue))
+                                return nestedValue;
+                        }
+                    }
+
+                    var childValue = FindNestedTaxSchemeValue(property.Value);
+                    if (!string.IsNullOrWhiteSpace(childValue))
+                        return childValue;
+                }
+            }
+            else if (element.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var item in element.EnumerateArray())
+                {
+                    var childValue = FindNestedTaxSchemeValue(item);
+                    if (!string.IsNullOrWhiteSpace(childValue))
+                        return childValue;
+                }
+            }
+
+            return null;
+        }
 
         private static bool ReadBoolean(JsonElement element, string propertyName, bool defaultValue)
         {
@@ -207,6 +312,8 @@ namespace WebStaffSync.Controllers
                     Alignment = FirstText(item, "alignment") ?? "left",
                     Format = FirstText(item, "format"),
                     DataType = FirstText(item, "dataType") ?? "string",
+                    TrueText = FirstText(item, "trueText") ?? "Yes",
+                    FalseText = FirstText(item, "falseText") ?? "No",
                     Order = ReadInt(item, "order", -1),
                     Sortable = ReadBoolean(item, "sortable", true),
                     Filterable = ReadBoolean(item, "filterable", true),
@@ -303,6 +410,75 @@ namespace WebStaffSync.Controllers
                 Label = label,
                 Value = string.IsNullOrWhiteSpace(value) ? "—" : value
             });
+        }
+
+        // Family Member API results can contain placeholder rows where all text
+        // fields are empty and boolean fields are merely their default value (false).
+        // Exclude those rows from My Profile without changing other grid collections.
+        private static List<ProfileRow> FamilyMemberRows(JsonElement element)
+        {
+            var result = new List<ProfileRow>();
+            if (element.ValueKind != JsonValueKind.Array) return result;
+
+            foreach (var item in element.EnumerateArray())
+            {
+                if (item.ValueKind != JsonValueKind.Object ||
+                    !HasFamilyMemberDetails(item))
+                    continue;
+
+                var row = new ProfileRow();
+
+                foreach (var property in item.EnumerateObject())
+                {
+                    if (ShouldHideColumn(property.Name)) continue;
+
+                    if (property.Value.ValueKind is
+                        JsonValueKind.Object or JsonValueKind.Array or JsonValueKind.Null)
+                        continue;
+
+                    row.Values[Humanize(property.Name)] =
+                        FormatValue(property.Name, property.Value);
+                }
+
+                if (row.Values.Count > 0)
+                    result.Add(row);
+            }
+
+            return result;
+        }
+
+        private static bool HasFamilyMemberDetails(JsonElement item)
+        {
+            foreach (var property in item.EnumerateObject())
+            {
+                // Database identity fields and internal flags do not make a
+                // placeholder Family Member row meaningful.
+                if (ShouldHideColumn(property.Name))
+                    continue;
+
+                var value = property.Value;
+
+                switch (value.ValueKind)
+                {
+                    case JsonValueKind.String:
+                        if (!string.IsNullOrWhiteSpace(value.GetString()))
+                            return true;
+                        break;
+
+                    case JsonValueKind.True:
+                        return true;
+
+                    case JsonValueKind.Number:
+                        if (value.TryGetDecimal(out var number) && number != 0m)
+                            return true;
+                        break;
+
+                        // false, null, undefined, objects and arrays do not by
+                        // themselves indicate that Family Member details exist.
+                }
+            }
+
+            return false;
         }
 
         private static List<ProfileRow> Rows(JsonElement element)
@@ -446,7 +622,7 @@ namespace WebStaffSync.Controllers
                 ["FamMemAge"] = "Age",
                 ["FamMemRelationship"] = "Relationship",
                 ["LastCompanyTitle"] = "Company Name",
-                ["Address"] = "Company Address",
+                ["Address"] = "Address",
                 ["StartDate"] = "Start Date",
                 ["EndDate"] = "End Date",
                 ["Comments"] = "More Details",

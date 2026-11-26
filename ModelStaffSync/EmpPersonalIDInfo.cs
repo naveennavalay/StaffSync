@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ModelStaffSync
 {
@@ -16,11 +17,11 @@ namespace ModelStaffSync
         public string FamMemName { get; set; }
 
         [DisplayName("Date Of Birth")]
-        [GridColumn(Visible = true, Width = 150, Alignment = "left", Format = "dd-MMM-yyyy")]
+        [GridColumn(Visible = true, Width = 150, Alignment = "left", DataType = "date", Format = "dd-MMM-yyyy")]
         public DateTime? FamMemDOB { get; set; }
 
         [DisplayName("Age")]
-        [GridColumn(Visible = true, Width = 100, Alignment = "right")]
+        [GridColumn(Visible = true, Width = 100, Alignment = "right", DataType = "number", Format = "0")]
         public int? FamMemAge { get; set; }
 
         [DisplayName("Relationship")]
@@ -28,31 +29,31 @@ namespace ModelStaffSync
         public string FamMemRelationship { get; set; }
 
         [DisplayName("Address 01")]
-        [GridColumn(Visible = true, Width = 220, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemAddr1 { get; set; }
 
         [DisplayName("Address 02")]
-        [GridColumn(Visible = true, Width = 220, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemAddr2 { get; set; }
 
         [DisplayName("Area")]
-        [GridColumn(Visible = true, Width = 160, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemArea { get; set; }
 
         [DisplayName("City")]
-        [GridColumn(Visible = true, Width = 140, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemCity { get; set; }
 
         [DisplayName("State")]
-        [GridColumn(Visible = true, Width = 140, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemState { get; set; }
 
         [DisplayName("PIN")]
-        [GridColumn(Visible = true, Width = 100, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemPIN { get; set; }
 
         [DisplayName("Country")]
-        [GridColumn(Visible = true, Width = 140, Alignment = "left")]
+        [GridColumn(Visible = false, Width = 100)]
         public string FamMemCountry { get; set; }
 
         [DisplayName("Contact Number")]
@@ -68,7 +69,7 @@ namespace ModelStaffSync
         public string FamMemBloodGroup { get; set; }
 
         [DisplayName("Is Insured?")]
-        [GridColumn(Visible = true, Width = 110, Alignment = "center")]
+        [GridColumn(Visible = true, Width = 110, Alignment = "center", DataType = "boolean", TrueText = "Yes", FalseText = "No")]
         public bool FamMemInsuranceEnrolled { get; set; }
 
         [DisplayName("Contact Person")]
@@ -81,5 +82,28 @@ namespace ModelStaffSync
 
         [GridColumn(Visible = false, Width = 100)]
         public int EmpID { get; set; }
+
+
+        [DisplayName("Address")]
+        [GridColumn(Visible = true, Width = 400, Alignment = "left")]
+        public string Address
+        {
+            get
+            {
+                return string.Join(", ",
+                    new[]
+                    {
+                        FamMemAddr1,
+                        FamMemAddr2,
+                        FamMemArea,
+                        FamMemCity,
+                        FamMemState,
+                        FamMemPIN,
+                        FamMemCountry
+                    }
+                    .Where(value => !string.IsNullOrWhiteSpace(value))
+                    .Select(value => value.Trim()));
+            }
+        }
     }
 }

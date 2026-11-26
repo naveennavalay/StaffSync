@@ -10,6 +10,10 @@ namespace WebStaffSync.Models
         public string? Status { get; set; }
         public string? PhotoDataUrl { get; set; }
 
+        public string DataType { get; set; } = "string";
+        public string TrueText { get; set; } = "Yes";
+        public string FalseText { get; set; } = "No";
+
         public List<ProfileField> PersonalInfo { get; set; } = new();
         public List<ProfileField> ProfessionalInfo { get; set; } = new();
         public List<ProfileField> ContactInfo { get; set; } = new();
@@ -62,7 +66,8 @@ namespace WebStaffSync.Models
         public string Alignment { get; set; } = "left";
         public string? Format { get; set; }
         public string DataType { get; set; } = "string";
-
+        public string TrueText { get; set; } = "Yes";
+        public string FalseText { get; set; } = "No";
         public int Order { get; set; } = -1;
         public bool Sortable { get; set; } = true;
         public bool Filterable { get; set; } = true;

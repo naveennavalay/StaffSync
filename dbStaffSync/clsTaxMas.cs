@@ -77,6 +77,30 @@ namespace dbStaffSync
                                             " EmpID = " + txtEmpID +
                                     " )";
 
+                strQuery = @"SELECT
+                                EmpTaxSchemeInfo.EmpTaxSchemeID,
+                                EmpTaxSchemeInfo.EmpID,
+                                EmpTaxSchemeInfo.TaxSchemeID,
+                                EmpTaxSchemeInfo.EffectiveDate,
+                                TaxSchemeInfo.TaxCode,
+                                TaxSchemeInfo.TaxTitle
+                            FROM
+                                TaxSchemeInfo
+                                INNER JOIN EmpTaxSchemeInfo ON TaxSchemeInfo.TaxSchemeID = EmpTaxSchemeInfo.TaxSchemeID
+                            WHERE
+                                (
+                                    ((EmpTaxSchemeInfo.[EmpID]) = " + txtEmpID + @")
+                                    AND (
+                                        (EmpTaxSchemeInfo.[EmpTaxSchemeID]) = (
+                                            SELECT
+                                                Max(EmpTaxSchemeID) AS MaxEmpTaxSchemeID
+                                            FROM
+                                                EmpTaxSchemeInfo
+                                            WHERE
+                                                EmpID = " + txtEmpID + @"
+                                        )
+                                    )
+                                );";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
