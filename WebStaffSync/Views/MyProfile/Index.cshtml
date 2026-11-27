@@ -71,6 +71,11 @@
             object-fit: contain;
         }
 
+        #profileTabs {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
         #profileTabs > .k-content {
             padding: 1.25rem;
         }
@@ -232,7 +237,7 @@
         }
 
         /* Explicit ListBox layout for the current Kendo theme/build.
-                                                   Some older Kendo bundles do not apply the expected flex layout. */
+                                                           Some older Kendo bundles do not apply the expected flex layout. */
         .profile-demo-card .k-listbox {
             display: flex !important;
             flex-direction: row !important;
@@ -397,10 +402,10 @@
             }
 
         /*         @@ media (max-width: 700px) {
-                                                            .profile-demo-grid {
-                                                                grid-template-columns: 1fr;
-                                                            }
-                                                        } */
+                                                                    .profile-demo-grid {
+                                                                        grid-template-columns: 1fr;
+                                                                    }
+                                                                } */
 
         /* Calm, low-contrast profile grids: soft sage/blue surfaces and readable typography. */
         .profile-workspace,
@@ -499,7 +504,7 @@
     <div>
         <div class="page-eyebrow">EMPLOYEE SELF-SERVICE</div>
         <h1>My Profile</h1>
-        <p>View your employee information maintained by your organisation.</p>
+        <p>View your information maintained by your organisation.</p>
     </div>
     <div class="profile-readonly-note"><span>✓</span> Read-only profile</div>
 </div>
@@ -1539,6 +1544,7 @@
                     if (kendo && typeof kendo.resize === "function") {
                         kendo.resize($(e.contentElement));
                     }
+                    window.requestAnimationFrame(equalizeProfileTabHeights);
                 }
             }).data("kendoTabStrip");
 
@@ -1548,8 +1554,8 @@
                 $(this).kendoGrid({
                     dataSource: { data: rows },
                     columns: [
-                        { field: "Label", title: "Attribute", width: "38%" },
-                        { field: "Value", title: "Value" }
+                        { field: "Label", title: "Particulars", width: "38%" },
+                        { field: "Value", title: "Details" }
                     ],
                     sortable: false,
                     filterable: false,
@@ -1683,6 +1689,56 @@
             }
 
 
+        // Measure all tab panels and apply the tallest content height to every tab.
+        // Hidden panels are temporarily made measurable without changing their final visibility.
+        function equalizeProfileTabHeights() {
+            var $tabStrip = $("#profileTabs");
+            var $panels = $tabStrip.children(".k-content");
+            if (!$panels.length) return;
+
+            var maximumHeight = 0;
+            var stripWidth = $tabStrip.width();
+
+            $panels.each(function () {
+                var panel = this;
+                var $panel = $(panel);
+                var original = {
+                    display: panel.style.display,
+                    position: panel.style.position,
+                    visibility: panel.style.visibility,
+                    height: panel.style.height,
+                    minHeight: panel.style.minHeight,
+                    width: panel.style.width
+                };
+
+                $panel.css({
+                    display: "block",
+                    position: "absolute",
+                    visibility: "hidden",
+                    height: "auto",
+                    minHeight: "0",
+                    width: stripWidth + "px"
+                });
+
+                if (window.kendo && typeof window.kendo.resize === "function") {
+                    window.kendo.resize($panel);
+                }
+
+                maximumHeight = Math.max(
+                    maximumHeight,
+                    panel.scrollHeight || 0,
+                    $panel.outerHeight() || 0
+                );
+
+                $panel.css(original);
+            });
+
+            if (maximumHeight > 0) {
+                $panels.css("min-height", maximumHeight + "px");
+                $tabStrip.css("--profile-tab-content-height", maximumHeight + "px");
+            }
+        }
+
         // All repeating profile grids use the shared attribute-driven initializer.
         // Each element carries its own data and metadata payload, so grids remain independent.
         if (!window.StaffSyncKendoGrid || typeof window.StaffSyncKendoGrid.initializeAll !== "function") {
@@ -1691,6 +1747,11 @@
             window.StaffSyncKendoGrid.initializeAll(".profile-records-grid");
         }
 
+        // Run after all profile grids have been initialized, then repeat on viewport changes.
+        window.requestAnimationFrame(equalizeProfileTabHeights);
+        $(window).off("resize.profileTabs").on("resize.profileTabs", function () {
+            window.requestAnimationFrame(equalizeProfileTabHeights);
+        });
 
             // Skills and qualifications are rendered as escaped, read-only tags
             // by the Razor Tags() helper. No client-side widget initialization is needed.
@@ -1701,6 +1762,7 @@
                 if (kendo && typeof kendo.resize === "function") {
                     kendo.resize($("#profileTabs"));
                 }
+                window.requestAnimationFrame(equalizeProfileTabHeights);
             }
 
         })(window.jQuery, window.kendo);

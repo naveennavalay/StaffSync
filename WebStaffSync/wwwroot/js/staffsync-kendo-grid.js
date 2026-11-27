@@ -550,7 +550,7 @@
 
                 sort: buildSort(metadata, fieldMap),
                 group: buildGroups(metadata, fieldMap),
-                pageSize: 10
+                pageSize: 50
             },
 
             columns: columns,

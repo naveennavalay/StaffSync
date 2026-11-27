@@ -311,6 +311,20 @@ namespace dbStaffSync
                                         " EmpID = " + txtEmpID + 
                                         " ORDER BY WeeklyOffID, EffectDateFrom ASC";
 
+                strQuery = @"SELECT
+                                EmpWeeklyOff.WeeklyOffID,
+                                WklyOffProfileInfo.WklyOffTitle,
+                                EmpWeeklyOff.WklyOffMasID,
+                                EmpWeeklyOff.EffectDateFrom
+                            FROM
+                                WklyOffProfileInfo
+                                INNER JOIN EmpWeeklyOff ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID
+                            WHERE
+                                (((EmpWeeklyOff.[EmpID]) = " +  txtEmpID + @"))
+                            ORDER BY
+                                EmpWeeklyOff.WeeklyOffID,
+                                EmpWeeklyOff.EffectDateFrom;";
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;

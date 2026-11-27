@@ -148,7 +148,7 @@ namespace WebStaffSync.Controllers
                 DocumentColumns = GridColumns(Get(root, "documentsGridColumns")),
                 TaxScheme = FindTaxSchemeValue(root),
                 EffectiveFrom = FirstText(Get(root, "taxScheme"), "EffectDateFrom", "EffectiveFrom"),
-                WeeklyOff = FirstText(Get(root, "weeklyOff"), "WeeklyOffTitle", "WeeklyOffName", "WeeklyOff") ?? Scalar(Get(root, "weeklyOff"))
+                WeeklyOff = FirstText(Get(root, "weeklyOff"), "WklyOffTitle", "WeeklyOffTitle", "WeeklyOffName", "WeeklyOff") ?? Scalar(Get(root, "weeklyOff"))
             };
 
             // Contact and nominee records are separate DAL results; add contact/nominee labels
@@ -160,8 +160,6 @@ namespace WebStaffSync.Controllers
                 throw new InvalidOperationException("The profile API response contained no employee or personal data.");
             return model;
         }
-
-
 
         private static string? FindTaxSchemeValue(JsonElement root)
         {
