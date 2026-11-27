@@ -1,0 +1,308 @@
+@{
+    ViewData["Title"] = "My Payslips";
+    ViewData["PageTitle"] = "My Payslips";
+    ViewData["PageDescription"] = "View your salary statements and monthly payslip history.";
+}
+
+<style>
+    .payslips-page {
+        color: #183153;
+    }
+
+    .payslips-page .page-eyebrow {
+        color: #3978ef;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+    }
+
+    .payslips-page .page-title {
+        color: #183153;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .payslips-page .page-description {
+        color: #8292aa;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .payslips-page .page-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 13px;
+        border: 1px solid #d9eee6;
+        border-radius: 9px;
+        background: #f3fbf7;
+        color: #218b6d;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .payslips-page .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #27ad85;
+    }
+
+    .payslips-page .summary-card,
+    .payslips-page .content-panel {
+        height: 100%;
+        background: #fff;
+        border: 1px solid #e4eaf3;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
+    }
+
+    .payslips-page .summary-card {
+        padding: 18px 20px;
+    }
+
+    .payslips-page .summary-label {
+        color: #8292aa;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .payslips-page .summary-value {
+        color: #24466f;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .payslips-page .summary-note {
+        color: #9aa8ba;
+        font-size: 10px;
+        margin-top: 7px;
+    }
+
+    .payslips-page .summary-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 18px;
+    }
+
+    .payslips-page .panel-heading {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .payslips-page .panel-subtitle {
+        color: #8a9ab1;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .payslips-page .data-placeholder {
+        min-height: 205px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 26px;
+    }
+
+    .payslips-page .placeholder-icon {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .payslips-page .placeholder-title {
+        color: #24466f;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .payslips-page .placeholder-text {
+        color: #8797ad;
+        font-size: 12px;
+        max-width: 480px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .payslips-page .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 12px;
+    }
+
+    .payslips-page .filter-label {
+        display: block;
+        color: #657b96;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .payslips-page .filter-control {
+        min-width: 170px;
+        min-height: 37px;
+        padding: 7px 10px;
+        border: 1px solid #dfe6ef;
+        border-radius: 7px;
+        background: #fff;
+        color: #24466f;
+        font-size: 12px;
+    }
+
+    @@media (max-width: 767px) {
+        .payslips-page .page-heading {
+            align-items: flex-start !important;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .payslips-page .filter-control {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="payslips-page">
+    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
+        <div>
+            <div class="page-eyebrow">Employee Self-Service</div>
+            <h1 class="page-title">My Payslips</h1>
+            <p class="page-description">
+                View your salary statements and monthly payslip history.
+            </p>
+        </div>
+
+        <div class="page-status">
+            <span class="status-dot"></span>
+            Salary statements
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Latest Payslip</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Most recent salary period</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▤</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Net Salary</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">As per latest payslip</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">₹</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Payslips Available</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Available salary statements</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▦</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Financial Year</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Selected salary year</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▣</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-panel mb-4">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Payslip History</h2>
+            <p class="panel-subtitle">
+                Select a financial year and month to view the corresponding salary statement.
+            </p>
+        </div>
+
+        <div class="p-4 border-bottom">
+            <div class="filter-row">
+                <div>
+                    <label class="filter-label" for="payslipFinancialYear">Financial Year</label>
+                    <select id="payslipFinancialYear" class="filter-control">
+                        <option value="">All financial years</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="filter-label" for="payslipMonth">Month</label>
+                    <select id="payslipMonth" class="filter-control">
+                        <option value="">All months</option>
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▤</div>
+            <div class="placeholder-title">Your payslips will appear here</div>
+            <p class="placeholder-text">
+                The payslip grid will show the salary period, pay date, gross earnings,
+                total deductions and net salary. The available payslip can then be
+                opened or downloaded using the existing StaffSync payroll and reporting services.
+            </p>
+        </div>
+    </section>
+</div>

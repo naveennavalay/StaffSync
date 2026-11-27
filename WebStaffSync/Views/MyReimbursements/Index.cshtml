@@ -1,0 +1,267 @@
+@{
+    ViewData["Title"] = "My Reimbursements";
+    ViewData["PageTitle"] = "My Reimbursements";
+    ViewData["PageDescription"] = "View your reimbursement claims, approval status and payment history.";
+}
+
+<style>
+    .reimbursements-page {
+        color: #183153;
+    }
+
+    .reimbursements-page .page-eyebrow {
+        color: #3978ef;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+    }
+
+    .reimbursements-page .page-title {
+        color: #183153;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .reimbursements-page .page-description {
+        color: #8292aa;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .reimbursements-page .page-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 13px;
+        border: 1px solid #d9eee6;
+        border-radius: 9px;
+        background: #f3fbf7;
+        color: #218b6d;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .reimbursements-page .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #27ad85;
+    }
+
+    .reimbursements-page .summary-card,
+    .reimbursements-page .content-panel {
+        height: 100%;
+        background: #fff;
+        border: 1px solid #e4eaf3;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
+    }
+
+    .reimbursements-page .summary-card {
+        padding: 18px 20px;
+    }
+
+    .reimbursements-page .summary-label {
+        color: #8292aa;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .reimbursements-page .summary-value {
+        color: #24466f;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .reimbursements-page .summary-note {
+        color: #9aa8ba;
+        font-size: 10px;
+        margin-top: 7px;
+    }
+
+    .reimbursements-page .summary-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 18px;
+    }
+
+    .reimbursements-page .panel-heading {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .reimbursements-page .panel-subtitle {
+        color: #8a9ab1;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .reimbursements-page .data-placeholder {
+        min-height: 205px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 26px;
+    }
+
+    .reimbursements-page .placeholder-icon {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .reimbursements-page .placeholder-title {
+        color: #24466f;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .reimbursements-page .placeholder-text {
+        color: #8797ad;
+        font-size: 12px;
+        max-width: 490px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @@media (max-width: 767px) {
+        .reimbursements-page .page-heading {
+            align-items: flex-start !important;
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+</style>
+
+<div class="reimbursements-page">
+    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
+        <div>
+            <div class="page-eyebrow">Employee Self-Service</div>
+            <h1 class="page-title">My Reimbursements</h1>
+            <p class="page-description">
+                View your reimbursement claims, approval status and payment history.
+            </p>
+        </div>
+
+        <div class="page-status">
+            <span class="status-dot"></span>
+            Reimbursement overview
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Total Claimed</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Total amount submitted</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">₹</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Pending Claims</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Awaiting review or approval</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">◷</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Approved Amount</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Amount approved for payment</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">✓</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Reimbursed Amount</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Amount paid to you</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▤</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-panel mb-4">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Reimbursement Claims</h2>
+            <p class="panel-subtitle">
+                Review the reimbursement claims submitted by you and their current status.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▤</div>
+            <div class="placeholder-title">Your reimbursement claims will appear here</div>
+            <p class="placeholder-text">
+                The claims grid will display the claim date, claim reference,
+                reimbursement category, claimed amount, approved amount and
+                approval status using your employee-specific reimbursement records.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-panel">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Reimbursement Payment History</h2>
+            <p class="panel-subtitle">
+                Review reimbursement amounts processed and paid.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▦</div>
+            <div class="placeholder-title">Payment history will appear here</div>
+            <p class="placeholder-text">
+                Payment entries will show the payment date, claim reference,
+                reimbursed amount and payment details once connected to the
+                existing StaffSync reimbursement and payroll data.
+            </p>
+        </div>
+    </section>
+</div>

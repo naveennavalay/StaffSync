@@ -1,0 +1,267 @@
+@{
+    ViewData["Title"] = "My Advances";
+    ViewData["PageTitle"] = "My Advances";
+    ViewData["PageDescription"] = "View your salary advance details, outstanding balances and repayment history.";
+}
+
+<style>
+    .advances-page {
+        color: #183153;
+    }
+
+    .advances-page .page-eyebrow {
+        color: #3978ef;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+    }
+
+    .advances-page .page-title {
+        color: #183153;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .advances-page .page-description {
+        color: #8292aa;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .advances-page .page-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 13px;
+        border: 1px solid #d9eee6;
+        border-radius: 9px;
+        background: #f3fbf7;
+        color: #218b6d;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .advances-page .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #27ad85;
+    }
+
+    .advances-page .summary-card,
+    .advances-page .content-panel {
+        height: 100%;
+        background: #fff;
+        border: 1px solid #e4eaf3;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
+    }
+
+    .advances-page .summary-card {
+        padding: 18px 20px;
+    }
+
+    .advances-page .summary-label {
+        color: #8292aa;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .advances-page .summary-value {
+        color: #24466f;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .advances-page .summary-note {
+        color: #9aa8ba;
+        font-size: 10px;
+        margin-top: 7px;
+    }
+
+    .advances-page .summary-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 18px;
+    }
+
+    .advances-page .panel-heading {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .advances-page .panel-subtitle {
+        color: #8a9ab1;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .advances-page .data-placeholder {
+        min-height: 205px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 26px;
+    }
+
+    .advances-page .placeholder-icon {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .advances-page .placeholder-title {
+        color: #24466f;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .advances-page .placeholder-text {
+        color: #8797ad;
+        font-size: 12px;
+        max-width: 480px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @@media (max-width: 767px) {
+        .advances-page .page-heading {
+            align-items: flex-start !important;
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+</style>
+
+<div class="advances-page">
+    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
+        <div>
+            <div class="page-eyebrow">Employee Self-Service</div>
+            <h1 class="page-title">My Advances</h1>
+            <p class="page-description">
+                View your salary advance details, outstanding balances and repayment history.
+            </p>
+        </div>
+
+        <div class="page-status">
+            <span class="status-dot"></span>
+            Advance overview
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Total Advances</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Total advance amount received</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">₹</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Outstanding Balance</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Amount remaining to be repaid</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">◷</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Amount Repaid</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Total repayments recorded</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">✓</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Active Advances</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Advances with pending balance</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▤</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-panel mb-4">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Advance Details</h2>
+            <p class="panel-subtitle">
+                Your advance records and current repayment position.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▤</div>
+            <div class="placeholder-title">Your advance details will appear here</div>
+            <p class="placeholder-text">
+                The advance grid will display the advance date, reference, amount,
+                repayment details, outstanding balance and current status using
+                your employee-specific advance records.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-panel">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Repayment History</h2>
+            <p class="panel-subtitle">
+                Review repayments recorded against your advances.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▦</div>
+            <div class="placeholder-title">Repayment history will appear here</div>
+            <p class="placeholder-text">
+                Repayment entries will be displayed with the repayment date,
+                advance reference, amount paid and remaining balance once connected
+                to the existing StaffSync advance and payroll data.
+            </p>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,267 @@
+@{
+    ViewData["Title"] = "My Assets";
+    ViewData["PageTitle"] = "My Assets";
+    ViewData["PageDescription"] = "View the assets assigned to you and their assignment details.";
+}
+
+<style>
+    .assets-page {
+        color: #183153;
+    }
+
+    .assets-page .page-eyebrow {
+        color: #3978ef;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+    }
+
+    .assets-page .page-title {
+        color: #183153;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .assets-page .page-description {
+        color: #8292aa;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .assets-page .page-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 13px;
+        border: 1px solid #d9eee6;
+        border-radius: 9px;
+        background: #f3fbf7;
+        color: #218b6d;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .assets-page .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #27ad85;
+    }
+
+    .assets-page .summary-card,
+    .assets-page .content-panel {
+        height: 100%;
+        background: #fff;
+        border: 1px solid #e4eaf3;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
+    }
+
+    .assets-page .summary-card {
+        padding: 18px 20px;
+    }
+
+    .assets-page .summary-label {
+        color: #8292aa;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .assets-page .summary-value {
+        color: #24466f;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    .assets-page .summary-note {
+        color: #9aa8ba;
+        font-size: 10px;
+        margin-top: 7px;
+    }
+
+    .assets-page .summary-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 18px;
+    }
+
+    .assets-page .panel-heading {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .assets-page .panel-subtitle {
+        color: #8a9ab1;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .assets-page .data-placeholder {
+        min-height: 205px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 26px;
+    }
+
+    .assets-page .placeholder-icon {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 24px;
+        margin-bottom: 14px;
+    }
+
+    .assets-page .placeholder-title {
+        color: #24466f;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .assets-page .placeholder-text {
+        color: #8797ad;
+        font-size: 12px;
+        max-width: 490px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @@media (max-width: 767px) {
+        .assets-page .page-heading {
+            align-items: flex-start !important;
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+</style>
+
+<div class="assets-page">
+    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
+        <div>
+            <div class="page-eyebrow">Employee Self-Service</div>
+            <h1 class="page-title">My Assets</h1>
+            <p class="page-description">
+                View the assets assigned to you and their assignment details.
+            </p>
+        </div>
+
+        <div class="page-status">
+            <span class="status-dot"></span>
+            Asset overview
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Total Assigned Assets</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Assets currently assigned to you</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">▣</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Active Assets</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Currently active assignments</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">✓</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Under Maintenance</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Assets marked for maintenance</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">⚙</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="summary-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="summary-label">Returned Assets</div>
+                        <div class="summary-value">—</div>
+                        <div class="summary-note">Previously returned assets</div>
+                    </div>
+                    <div class="summary-icon" aria-hidden="true">↩</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-panel mb-4">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Assigned Assets</h2>
+            <p class="panel-subtitle">
+                Details of assets currently assigned to you.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▣</div>
+            <div class="placeholder-title">Your assigned assets will appear here</div>
+            <p class="placeholder-text">
+                The assigned assets grid will display the asset code, asset name,
+                category, serial number, assignment date, condition and current status
+                using your employee-specific asset records.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-panel">
+        <div class="p-4 border-bottom">
+            <h2 class="panel-heading">Asset Assignment History</h2>
+            <p class="panel-subtitle">
+                Review assets previously assigned to you and their return details.
+            </p>
+        </div>
+
+        <div class="data-placeholder">
+            <div class="placeholder-icon" aria-hidden="true">▦</div>
+            <div class="placeholder-title">Asset history will appear here</div>
+            <p class="placeholder-text">
+                Assignment history will show the asset, assigned date, returned date
+                and assignment status once connected to the existing StaffSync
+                asset management data.
+            </p>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,158 @@
+@{
+    ViewData["Title"] = "My Attendance";
+    ViewData["PageTitle"] = "My Attendance";
+    ViewData["PageDescription"] = "View your attendance records, working hours and daily attendance status.";
+}
+
+<style>
+    .attendance-page {
+        color: #183153;
+    }
+
+    .attendance-page .page-eyebrow {
+        color: #3978ef;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 7px;
+    }
+
+    .attendance-page .page-title {
+        color: #183153;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .attendance-page .page-description {
+        color: #8292aa;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .attendance-page .attendance-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 13px;
+        border: 1px solid #d9eee6;
+        border-radius: 9px;
+        background: #f3fbf7;
+        color: #218b6d;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .attendance-page .attendance-status .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #27ad85;
+    }
+
+    .attendance-page .attendance-panel {
+        background: #fff;
+        border: 1px solid #e4eaf3;
+        border-radius: 12px;
+        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
+    }
+
+    .attendance-page .attendance-panel-heading {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 5px;
+    }
+
+    .attendance-page .attendance-panel-subtitle {
+        color: #8a9ab1;
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .attendance-page .attendance-placeholder {
+        min-height: 245px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 28px;
+    }
+
+    .attendance-page .attendance-placeholder-icon {
+        width: 58px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        background: #edf4ff;
+        color: #3978ef;
+        font-size: 25px;
+        margin-bottom: 15px;
+    }
+
+    .attendance-page .attendance-placeholder-title {
+        color: #24466f;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .attendance-page .attendance-placeholder-text {
+        color: #8797ad;
+        font-size: 12px;
+        max-width: 430px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @@media (max-width: 767px) {
+        .attendance-page .page-heading {
+            align-items: flex-start !important;
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+</style>
+
+<div class="attendance-page">
+    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
+        <div>
+            <div class="page-eyebrow">Employee Self-Service</div>
+            <h1 class="page-title">My Attendance</h1>
+            <p class="page-description">
+                View your attendance records, working hours and daily attendance status.
+            </p>
+        </div>
+
+        <div class="attendance-status">
+            <span class="status-dot"></span>
+            Attendance overview
+        </div>
+    </div>
+
+    <section class="attendance-panel mb-4">
+        <div class="p-4 border-bottom">
+            <h2 class="attendance-panel-heading">Attendance Records</h2>
+            <p class="attendance-panel-subtitle">
+                Your daily attendance details will be displayed here.
+            </p>
+        </div>
+
+        <div class="attendance-placeholder">
+            <div class="attendance-placeholder-icon" aria-hidden="true">
+                ▦
+            </div>
+            <div class="attendance-placeholder-title">Attendance page is ready</div>
+            <p class="attendance-placeholder-text">
+                The page layout is in place. Attendance records, date filters,
+                login and logout times, working hours and attendance status
+                can be connected to the existing StaffSync attendance APIs next.
+            </p>
+        </div>
+    </section>
+</div>

@@ -50,34 +50,42 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.8 20c.7-3.5 3.1-5.3 7.2-5.3s6.5 1.8 7.2 5.3"></path></svg>
                     <span>My Profile</span>
                 </a>
-                <span class="sidebar-link is-disabled" title="Attendance module will be enabled in a subsequent release">
+
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyAttendance" ? "active" : "")"
+                   asp-controller="MyAttendance" asp-action="Index" asp-route-client="@clientSlug">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17M8 13h2m4 0h2M8 16.5h2"></path></svg>
-                    <span>My Attendance</span><small>Later</small>
-                </span>
-                <span class="sidebar-link is-disabled" title="Leave module will be enabled in a subsequent release">
+                    <span>My Attendance</span>
+                </a>
+
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyLeaves" ? "active" : "")"
+                   asp-controller="MyLeaves" asp-action="Index" asp-route-client="@clientSlug">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10M8 3.5v4l-3.5 6a5.5 5.5 0 0 0 4.8 8h5.4a5.5 5.5 0 0 0 4.8-8L16 7.5v-4"></path><path d="M7 15h10"></path></svg>
-                    <span>My Leaves</span><small>Later</small>
-                </span>
+                    <span>My Leaves</span>
+                </a>
 
-                <div class="nav-caption nav-caption-spaced">PAY &amp; BENEFITS</div>
-                <span class="sidebar-link is-disabled" title="Payslips module will be enabled in a subsequent release">
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyPayslips" ? "active" : "")"
+                   asp-controller="MyPayslips" asp-action="Index" asp-route-client="@clientSlug">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h4"></path></svg>
-                    <span>My Payslips</span><small>Later</small>
-                </span>
-                <span class="sidebar-link is-disabled" title="Advances module will be enabled in a subsequent release">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5c-.7-.8-1.8-1.2-3.2-1.2-1.8 0-3 .9-3 2.2 0 3.5 6.5 1.1 6.5 4.8 0 1.4-1.3 2.4-3.3 2.4-1.5 0-2.8-.5-3.7-1.5M12 5.5v13"></path></svg>
-                    <span>My Advances</span><small>Later</small>
-                </span>
-                <span class="sidebar-link is-disabled" title="Reimbursements module will be enabled in a subsequent release">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h16v12H4zM4 10h16M8 15h3"></path><path d="M7 7.5V4.5h10v3"></path></svg>
-                    <span>Reimbursements</span><small>Later</small>
-                </span>
+                    <span>My Payslips</span>
+                </a>
 
-                <div class="nav-caption nav-caption-spaced">MY RESOURCES</div>
-                <span class="sidebar-link is-disabled" title="Assets module will be enabled in a subsequent release">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"></path></svg>
-                    <span>My Assets</span><small>Later</small>
-                </span>
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyAdvances" ? "active" : "")"
+                   asp-controller="MyAdvances" asp-action="Index" asp-route-client="@clientSlug">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h4"></path></svg>
+                    <span>My Advances</span>
+                </a>
+
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyReimbursements" ? "active" : "")"
+                   asp-controller="MyReimbursements" asp-action="Index" asp-route-client="@clientSlug">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h4"></path></svg>
+                    <span>My Reimbursements</span>
+                </a>
+
+                <a class="sidebar-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "MyAssets" ? "active" : "")"
+                   asp-controller="MyAssets" asp-action="Index" asp-route-client="@clientSlug">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h4"></path></svg>
+                    <span>My Assets</span>
+                </a>
             </nav>
 
             <div class="sidebar-bottom">
