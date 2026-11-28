@@ -21,9 +21,12 @@ namespace WebStaffSync.Models
         public string Department { get; set; } = "";
         public string Designation { get; set; } = "";
         public List<MyAttendanceDayViewModel> Days { get; set; } = new List<MyAttendanceDayViewModel>();
+        public int RegisterYear { get; set; }
+        public List<MyAttendanceYearMonthViewModel> YearlyRegister { get; set; } = new List<MyAttendanceYearMonthViewModel>();
         public List<MyAttendanceHistoryRowViewModel> MonthlyHistory { get; set; } = new List<MyAttendanceHistoryRowViewModel>();
         public MyAttendanceBehaviourSummaryViewModel Behaviour { get; set; } = new MyAttendanceBehaviourSummaryViewModel();
         public string ErrorMessage { get; set; }
+        public string YearlyRegisterWarning { get; set; }
     }
 
     public sealed class MyAttendanceDayViewModel
@@ -73,6 +76,29 @@ namespace WebStaffSync.Models
         public decimal EarlyLogoutPercent => EligibleDays == 0 ? 0 : Math.Round(EarlyLogoutDays * 100m / EligibleDays, 2);
         public decimal LateLogoutPercent => EligibleDays == 0 ? 0 : Math.Round(LateLogoutDays * 100m / EligibleDays, 2);
         public List<string> Insights { get; set; } = new List<string>();
+    }
+
+
+    public sealed class MyAttendanceYearMonthViewModel
+    {
+        public DateTime MonthDate { get; set; }
+        public string MonthName { get; set; } = "";
+        public List<MyAttendanceYearDayViewModel> Days { get; set; } = new List<MyAttendanceYearDayViewModel>();
+        public int PresentCount { get; set; }
+        public int LeaveCount { get; set; }
+        public int CancelledCount { get; set; }
+        public int RejectedCount { get; set; }
+        public int DaysInMonth { get; set; }
+        public int WeeklyOffDaysInMonth { get; set; }
+        public int WorkingDays { get; set; }
+        public decimal AttendancePercentage { get; set; }
+    }
+
+    public sealed class MyAttendanceYearDayViewModel
+    {
+        public int DayNumber { get; set; }
+        public string Status { get; set; } = "—";
+        public string StatusClass { get; set; } = "status-none";
     }
 
     public sealed class MyAttendanceDayDetailsViewModel

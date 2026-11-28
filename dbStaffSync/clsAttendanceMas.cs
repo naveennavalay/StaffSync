@@ -1,4 +1,4 @@
-﻿using ModelStaffSync;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -1142,5 +1142,65 @@ namespace dbStaffSync
             }
             return affectedRows;
         }
+
+        /// <summary>
+        /// Returns the employee's configured weekly-off day numbers from EmpnWeeklyOff.
+        /// Stored numbering is Monday=1 ... Saturday=6, Sunday=7.
+        /// </summary>
+        public List<int> GetEmployeeWeeklyOffDays(int employeeId)
+        {
+            var result = new List<int>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    //cmd.CommandText =
+                    //    "SELECT WklyOffDay " +
+                    //    "FROM EmpnWeeklyOff " +
+                    //    "WHERE EmpID = ? " +
+                    //    "ORDER BY WklyOffDay";
+
+                    cmd.CommandText = @"SELECT
+                                            WklyOffProfileDetails.WklyOffDay
+                                        FROM
+                                            (
+                                                WklyOffProfileInfo
+                                                INNER JOIN EmpWeeklyOff ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID
+                                            )
+                                            INNER JOIN WklyOffProfileDetails ON WklyOffProfileInfo.WklyOffMasID = WklyOffProfileDetails.WklyOffMasID
+                                        WHERE
+                                            (((EmpWeeklyOff.[EmpID]) = ?))
+                                        ORDER BY
+                                            WklyOffProfileDetails.WklyOffDay;";
+
+                    cmd.Parameters.Add("?", OleDbType.Integer).Value = employeeId;
+
+                    using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
+                        adapter.Fill(dt);
+                }
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["WklyOffDay"] == DBNull.Value)
+                        continue;
+
+                    int dayNumber = Convert.ToInt32(row["WklyOffDay"]);
+                    if (dayNumber >= 1 && dayNumber <= 7 && !result.Contains(dayNumber))
+                        result.Add(dayNumber);
+                }
+
+                return result;
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+        }
+
     }
 }

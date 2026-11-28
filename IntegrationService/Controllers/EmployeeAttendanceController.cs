@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -240,44 +240,56 @@ namespace IntegrationService.Controllers
                 DateTime selectedMonth = month.HasValue
                     ? new DateTime(month.Value.Year, month.Value.Month, 1)
                     : new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-                DateTime dateFrom = selectedMonth;
-                DateTime dateToExclusive = selectedMonth.AddMonths(1);
+                DateTime dateFrom = selectedMonth.Date;
+                // DAL GetEmployeeMonthlyAttendanceTotals uses an exclusive end date.
+                // Pass the first day of the following month to include every calendar day.
+                DateTime dateTo = selectedMonth.AddMonths(1).Date;
 
                 var dal = new clsAttendanceMas();
                 var monthlyRegister = dal.EmployeeSpecificMonthlyAttendanceInfo(employeeId, selectedMonth)
                     ?? new List<MonthlyAttendanceInfo>();
-                var employeeHeader = dal.GetEmployeeAttendanceHeaderInfo(employeeId);
-                if (employeeHeader != null && employeeHeader.EmpID > 0)
-                {
-                    if (monthlyRegister.Count == 0)
-                    {
-                        monthlyRegister.Add(employeeHeader);
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(monthlyRegister[0].EmpCode))
-                            monthlyRegister[0].EmpCode = employeeHeader.EmpCode;
-                        if (string.IsNullOrWhiteSpace(monthlyRegister[0].EmpName))
-                            monthlyRegister[0].EmpName = employeeHeader.EmpName;
-                    }
-                }
-                var monthlyTotals = dal.GetEmployeeMonthlyWorkingDays(
-                    employeeId, dateFrom, dateToExclusive);
-                // Read the actual daily rows as the authoritative source for each calendar cell.
+
+                // Return the actual day-level attendance rows for this specific month.
+                // The yearly WebStaffSync register calls this endpoint once per month
+                // and uses AttDate + AttStatus to populate each calendar day.
+                // MonthlyAttendanceInfo is retained for employee metadata and compatibility.
                 var dailyAttendance = dal.GetDefaultEmployeeAttendanceInfo(employeeId, selectedMonth)
                     ?? new List<EmployeeAttendanceInfo>();
+
+                var workingDays = dal.GetEmployeeMonthlyWorkingDays(employeeId, dateFrom, dateTo);
+                var presentDays = dal.getTotalPresentDays(employeeId, dateFrom, dateTo);
+                var paidLeaveDays = dal.getTotalPaidLeave(employeeId, dateFrom, dateTo);
+                var lossOfPayDays = dal.getTotalLossOfPayDays(employeeId, dateFrom, dateTo);
+                // Weekly-off lookup must not break the existing attendance response.
+                // Return the lookup result alongside the monthly data and log failures.
+                List<int> weeklyOffDays = new List<int>();
+                string weeklyOffError = null;
+                try
+                {
+                    weeklyOffDays = dal.GetEmployeeWeeklyOffDays(employeeId)
+                        ?? new List<int>();
+                }
+                catch (Exception weeklyOffException)
+                {
+                    weeklyOffError = "Weekly-off records could not be read from EmpnWeeklyOff.";
+                    System.Diagnostics.Trace.TraceError(
+                        "Weekly-off lookup failed in monthly attendance API for EmpID {0}: {1}",
+                        employeeId, weeklyOffException);
+                }
 
                 return Ok(new
                 {
                     success = true,
                     employeeId = employeeId,
                     month = selectedMonth.ToString("yyyy-MM"),
+                    weeklyOffDays = weeklyOffDays,
+                    weeklyOffError = weeklyOffError,
                     summary = new
                     {
-                        workingDays = monthlyTotals,
-                        presentDays = monthlyTotals,
-                        paidLeaveDays = monthlyTotals,
-                        lossOfPayDays = monthlyTotals
+                        workingDays = workingDays,
+                        presentDays = presentDays,
+                        paidLeaveDays = paidLeaveDays,
+                        lossOfPayDays = lossOfPayDays
                     },
                     monthlyRegister = monthlyRegister,
                     dailyAttendance = dailyAttendance
@@ -290,6 +302,7 @@ namespace IntegrationService.Controllers
                 return InternalServerError();
             }
         }
+
 
         // Read-only daily attendance details. This endpoint never updates attendance.
         [HttpGet]
@@ -307,22 +320,23 @@ namespace IntegrationService.Controllers
             {
                 DateTime selectedDate = date.Value.Date;
                 var dal = new clsAttendanceMas();
-
-                // Use the dedicated date-scoped query. It reads the attendance
-                // table directly and does not depend on the employee's latest
-                // AttID or on an inner join to the current shift assignment.
-                var clock = dal.GetEmployeeDailyAttendanceClockInfo(employeeId, selectedDate);
+                var attendance = dal.GetEmployeeSpecificDailyAttendanceInfo(employeeId, selectedDate);
+                var clockRows = dal.getDailyLoginLogoutInformation(employeeId, selectedDate);
+                var clock = clockRows == null ? null : clockRows.FirstOrDefault();
                 var leaveInformation = dal.IsEmployeeOnLeave(employeeId, selectedDate);
+                bool recordFound =
+                    (attendance != null && attendance.AttID > 0) ||
+                    (clock != null && clock.AttID > 0);
 
                 return Ok(new
                 {
                     success = true,
                     employeeId = employeeId,
                     attendanceDate = selectedDate,
-                    attendance = clock,
+                    recordFound = recordFound,
+                    attendance = attendance,
                     clock = clock,
-                    leaveInformation = leaveInformation,
-                    recordFound = clock != null && clock.AttID > 0
+                    leaveInformation = leaveInformation
                 });
             }
             catch (Exception ex)

@@ -1,4 +1,4 @@
-﻿using ModelStaffSync;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -90,12 +90,6 @@ namespace DALStaffSync
             return objReturnEmployeeAttendanceInfo;
         }
 
-
-        public MonthlyAttendanceInfo GetEmployeeAttendanceHeaderInfo(int employeeId)
-        {
-            return objAttendanceMas.GetEmployeeAttendanceHeaderInfo(employeeId);
-        }
-
         public List<MonthlyAttendanceInfo> EmployeeSpecificMonthlyAttendanceInfo(int EmpID, DateTime ReportForTheMonth)
         {
             List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = new List<MonthlyAttendanceInfo>();
@@ -139,11 +133,6 @@ namespace DALStaffSync
             objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutDefaultInformation(EmpID);
 
             return objEmployeeAttendanceClockInfo;
-        }
-
-        public EmployeeAttendanceClockInfo GetEmployeeDailyAttendanceClockInfo(int EmpID, DateTime dtDate)
-        {
-            return objAttendanceMas.GetEmployeeDailyAttendanceClockInfo(EmpID, dtDate);
         }
 
         public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
@@ -200,5 +189,11 @@ namespace DALStaffSync
             affectedRows = objAttendanceMas.UpdateDailyLogOutTime(txtEmpID, AttendanceDate, LogoutTime, TotalTime, LateLogoutTime);
             return affectedRows;
         }
+
+        public List<int> GetEmployeeWeeklyOffDays(int employeeId)
+        {
+            return objAttendanceMas.GetEmployeeWeeklyOffDays(employeeId);
+        }
+
     }
 }

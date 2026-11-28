@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -88,15 +89,33 @@ namespace WebStaffSync.Controllers
                 var root = json.RootElement;
                 EnsureSuccessfulResponse(root);
                 var summary = Get(root, "summary");
-                model.WorkingDays = GetDecimal(Get(summary, "workingDays"), "TotalDaysInMonth");
+                // EmpnWeeklyOff stores StaffSync day numbers: Monday=1 ... Sunday=7.
+                // Calculate actual working days from the calendar and the employee's
+                // configured weekly-off weekdays, not from TotalDaysInMonth.
+                var employeeWeeklyOffDays = ParseWeeklyOffDays(Get(root, "weeklyOffDays"));
+                int selectedDaysInMonth = DateTime.DaysInMonth(selectedMonth.Year, selectedMonth.Month);
+                int selectedWeeklyOffCount = CountWeeklyOffDays(
+                    selectedMonth.Year, selectedMonth.Month, employeeWeeklyOffDays);
+                model.WorkingDays = Math.Max(0, selectedDaysInMonth - selectedWeeklyOffCount);
+
+                string weeklyOffError = Text(root, "weeklyOffError");
+                if (!string.IsNullOrWhiteSpace(weeklyOffError))
+                    model.YearlyRegisterWarning = weeklyOffError;
+                else if (employeeWeeklyOffDays.Count == 0)
+                    model.YearlyRegisterWarning =
+                        "No weekly-off days were returned for this employee. Please verify EmpnWeeklyOff.";
+
                 model.PresentDays = GetDecimal(Get(summary, "presentDays"), "TotalPresent");
                 model.PaidLeaveDays = GetDecimal(Get(summary, "paidLeaveDays"), "TotalPaidLeave");
                 model.LossOfPayDays = GetDecimal(Get(summary, "lossOfPayDays"), "TotalLossOfPay");
                 MapMonthlyDays(Get(root, "monthlyRegister"), Get(root, "dailyAttendance"), selectedMonth, model);
                 model.AttendancePercentage = model.WorkingDays > 0m
-                    ? Math.Round((model.PresentDays / model.WorkingDays) * 100m, 2) : 0m;
+                    ? Math.Round((model.PresentDays / model.WorkingDays) * 100m, 2)
+                    : 0m;
 
                 await PopulateMonthlyHistoryAsync(employeeId, model, cancellationToken);
+                await PopulateYearlyRegisterAsync(
+                    employeeId, model, employeeWeeklyOffDays, cancellationToken);
                 return View(model);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
@@ -177,6 +196,190 @@ namespace WebStaffSync.Controllers
             }
         }
 
+
+        private static HashSet<DayOfWeek> ParseWeeklyOffDays(JsonElement weeklyOffDaysElement)
+        {
+            var result = new HashSet<DayOfWeek>();
+            if (weeklyOffDaysElement.ValueKind != JsonValueKind.Array)
+                return result;
+
+            foreach (var item in weeklyOffDaysElement.EnumerateArray())
+            {
+                int storedDayNumber;
+                if (item.ValueKind == JsonValueKind.Number && item.TryGetInt32(out storedDayNumber))
+                {
+                    // StaffSync numbering: Monday=1 ... Saturday=6, Sunday=7.
+                }
+                else if (item.ValueKind == JsonValueKind.String &&
+                         int.TryParse(item.GetString(), NumberStyles.Integer,
+                             CultureInfo.InvariantCulture, out storedDayNumber))
+                {
+                    // Accept numeric strings for compatibility with Access serialization.
+                }
+                else
+                {
+                    continue;
+                }
+
+                if (storedDayNumber < 1 || storedDayNumber > 7)
+                    continue;
+
+                result.Add(storedDayNumber == 7
+                    ? DayOfWeek.Sunday
+                    : (DayOfWeek)storedDayNumber);
+            }
+
+            return result;
+        }
+
+        private static int CountWeeklyOffDays(
+            int year, int monthNumber, HashSet<DayOfWeek> weeklyOffDays)
+        {
+            if (weeklyOffDays == null || weeklyOffDays.Count == 0)
+                return 0;
+
+            int daysInMonth = DateTime.DaysInMonth(year, monthNumber);
+            return Enumerable.Range(1, daysInMonth)
+                .Count(day => weeklyOffDays.Contains(
+                    new DateTime(year, monthNumber, day).DayOfWeek));
+        }
+
+        private async Task PopulateYearlyRegisterAsync(
+            int employeeId, MyAttendanceViewModel model,
+            HashSet<DayOfWeek> employeeWeeklyOffDays,
+            CancellationToken cancellationToken)
+        {
+            int year = DateTime.Today.Year;
+            model.RegisterYear = year;
+            var months = new List<MyAttendanceYearMonthViewModel>();
+
+            for (int monthNumber = 1; monthNumber <= 12; monthNumber++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var month = new DateTime(year, monthNumber, 1);
+                var monthRow = new MyAttendanceYearMonthViewModel
+                {
+                    MonthDate = month,
+                    MonthName = month.ToString("MMMM", CultureInfo.InvariantCulture)
+                };
+                int daysInMonth = DateTime.DaysInMonth(year, monthNumber);
+
+                monthRow.DaysInMonth = daysInMonth;
+
+                monthRow.WeeklyOffDaysInMonth = CountWeeklyOffDays(
+                    year, monthNumber, employeeWeeklyOffDays);
+                monthRow.WorkingDays = Math.Max(
+                    0, monthRow.DaysInMonth - monthRow.WeeklyOffDaysInMonth);
+
+                try
+                {
+                    using var response = await SendAttendanceRequest(
+                        $"api/employee-attendance/{employeeId}/month?month={month:yyyy-MM-dd}",
+                        cancellationToken);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        using var json = await JsonDocument.ParseAsync(
+                            await response.Content.ReadAsStreamAsync(cancellationToken),
+                            cancellationToken: cancellationToken);
+                        var root = json.RootElement;
+                        EnsureSuccessfulResponse(root);
+
+                        JsonElement register = Get(root, "monthlyRegister");
+                        JsonElement registerRow = register.ValueKind == JsonValueKind.Array
+                            && register.GetArrayLength() > 0 ? register[0] : default;
+
+
+                        var statusByDay = new Dictionary<int, string>();
+                        JsonElement dailyAttendance = Get(root, "dailyAttendance");
+                        if (dailyAttendance.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (var attendance in dailyAttendance.EnumerateArray())
+                            {
+                                var dateText = Text(attendance, "AttDate");
+                                if (DateTime.TryParse(dateText, CultureInfo.InvariantCulture,
+                                    DateTimeStyles.RoundtripKind, out var attendanceDate)
+                                    && attendanceDate.Year == year
+                                    && attendanceDate.Month == monthNumber)
+                                {
+                                    statusByDay[attendanceDate.Day] =
+                                        Text(attendance, "AttStatus") ?? "";
+                                }
+                            }
+                        }
+
+                        for (int dayNumber = 1; dayNumber <= 31; dayNumber++)
+                        {
+                            string raw = null;
+                            if (dayNumber <= daysInMonth)
+                            {
+                                if (statusByDay.TryGetValue(dayNumber, out var dailyStatus))
+                                    raw = dailyStatus;
+                                else if (registerRow.ValueKind == JsonValueKind.Object)
+                                    raw = Scalar(Get(registerRow, "Day" + dayNumber));
+                            }
+
+                            string status = dayNumber <= daysInMonth
+                                ? NormalizeDayStatus(raw) : "";
+                            string code = status.Trim().ToUpperInvariant();
+                            if (code == "P") monthRow.PresentCount++;
+                            else if (code == "L") monthRow.LeaveCount++;
+                            else if (code == "C") monthRow.CancelledCount++;
+                            else if (code == "R") monthRow.RejectedCount++;
+
+                            monthRow.Days.Add(new MyAttendanceYearDayViewModel
+                            {
+                                DayNumber = dayNumber,
+                                Status = dayNumber <= daysInMonth ? status : "",
+                                StatusClass = dayNumber <= daysInMonth
+                                    ? GetStatusClass(code) : "status-none"
+                            });
+                        }
+
+                        monthRow.AttendancePercentage = monthRow.WorkingDays > 0m
+                            ? Math.Round(monthRow.PresentCount * 100m / monthRow.WorkingDays, 2)
+                            : 0m;
+                    }
+                    else
+                    {
+                        _logger.LogWarning(
+                            "Yearly attendance request for employee {EmployeeId}, month {Month:yyyy-MM} returned HTTP {StatusCode}.",
+                            employeeId, month, (int)response.StatusCode);
+                        AddEmptyYearMonthDays(monthRow, daysInMonth);
+                    }
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex,
+                        "Unable to load yearly attendance for employee {EmployeeId}, month {Month:yyyy-MM}.",
+                        employeeId, month);
+                    AddEmptyYearMonthDays(monthRow, daysInMonth);
+                }
+
+                months.Add(monthRow);
+            }
+
+            model.YearlyRegister = months;
+        }
+
+        private static void AddEmptyYearMonthDays(
+            MyAttendanceYearMonthViewModel monthRow, int daysInMonth)
+        {
+            for (int dayNumber = 1; dayNumber <= 31; dayNumber++)
+            {
+                bool validDay = dayNumber <= daysInMonth;
+                monthRow.Days.Add(new MyAttendanceYearDayViewModel
+                {
+                    DayNumber = dayNumber,
+                    Status = validDay ? "—" : "",
+                    StatusClass = "status-none"
+                });
+            }
+        }
 
         private async Task PopulateMonthlyHistoryAsync(
             int employeeId, MyAttendanceViewModel model,

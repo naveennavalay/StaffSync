@@ -40,12 +40,24 @@
     .my-attendance .panel-head{padding:13px 16px;border-bottom:1px solid #e8edf4;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
     .my-attendance .panel-title{font-size:15px;font-weight:700;color:#24466f;margin:0}
     .my-attendance .register-wrap{overflow-x:auto;padding:12px}
-    .my-attendance .register{border-collapse:separate;border-spacing:0;width:100%;min-width:980px;font-size:10px;text-align:center;color:#24466f}
+    .my-attendance .register{border-collapse:separate;border-spacing:0;width:100%;min-width:1250px;table-layout:fixed;font-size:10px;text-align:center;color:#24466f}
+    .my-attendance .yearly-register .month-cell{width:105px;min-width:105px}
+    .my-attendance .yearly-register .working-days-head,
+    .my-attendance .yearly-register .working-days-cell{width:76px;min-width:76px;max-width:76px}
+    .my-attendance .yearly-register .working-days-head:nth-child(2),
+    .my-attendance .yearly-register tbody td:nth-child(2){width:64px;min-width:64px;max-width:64px}
+    .my-attendance .yearly-register .day-head,
+    .my-attendance .yearly-register .status-cell{width:30px;min-width:30px}
+    .my-attendance .yearly-register .total-head,
+    .my-attendance .yearly-register tbody td:nth-last-child(-n+5){width:42px;min-width:42px}
     .my-attendance .register th,.my-attendance .register td{border-right:1px solid #e4eaf2;border-bottom:1px solid #e4eaf2;padding:7px 4px;white-space:nowrap}
     .my-attendance .register thead th{background:#f4f7fb;color:#315579;font-weight:700;vertical-align:middle}
     .my-attendance .register thead th:first-child,.my-attendance .register tbody td:first-child{border-left:1px solid #e4eaf2}
     .my-attendance .register .employee-cell{text-align:left;min-width:175px;font-weight:700}
     .my-attendance .register .code-cell{min-width:75px}
+    .my-attendance .register .month-cell{min-width:90px;text-align:left;font-weight:700;padding-left:10px}
+    .my-attendance .yearly-register .day-head{min-width:25px}
+    .my-attendance .yearly-register .status-cell{min-width:25px;text-align:center}
     .my-attendance .register .day-head{min-width:25px;padding:5px 1px}
     .my-attendance .register .day-head strong{display:block;font-size:10px}
     .my-attendance .register .day-head small{display:block;font-size:8px;color:#8392a7;font-weight:500}
@@ -197,6 +209,50 @@
         margin-bottom:0;
     }
 
+
+    /* Show each month's actual weekday beneath its attendance status. */
+    .yearly-register .yearly-status-cell {
+        min-width: 34px;
+        height: 38px;
+        padding: 3px 2px !important;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .yearly-register .yearly-status {
+        display: block;
+        line-height: 15px;
+        font-weight: 600;
+    }
+    .yearly-register .yearly-weekday {
+        display: block;
+        font-size: 9px;
+        line-height: 11px;
+        color: #7046A5 !important;
+        opacity: 1;
+        font-weight: 600;
+    }
+
+
+
+    .my-attendance .yearly-register .working-days-head,
+    .my-attendance .yearly-register .working-days-cell {
+        min-width: 92px;
+        width: 92px;
+        max-width: 92px;
+        text-align: center;
+        white-space: normal;
+        background: #f4f0fb;
+        color: #7046A5;
+        font-weight: 700;
+        border-left: 1px solid #d9c9ee;
+        border-right: 1px solid #d9c9ee;
+    }
+    .my-attendance .yearly-register .working-days-cell {
+        background: #fbf9fe;
+        font-weight: 700;
+    }
+
 </style>
 <div class="my-attendance">
     <div class="heading">
@@ -218,19 +274,53 @@
     </div>
 
     <section class="panel mb-3">
-        <div class="panel-head"><div><h2 class="panel-title">Monthly Attendance Register</h2><div class="muted">@Model.SelectedMonth.ToString("MMMM yyyy", CultureInfo.InvariantCulture) · Employee-wise daily status</div></div><div class="muted">Scroll horizontally to view all dates</div></div>
+        <div class="panel-head"><div><h2 class="panel-title">Yearly Attendance Register</h2><div class="muted">@Model.RegisterYear · Month-wise daily attendance status</div></div><div class="muted">Scroll horizontally to view all dates</div></div>
+        @if (!string.IsNullOrWhiteSpace(Model.YearlyRegisterWarning))
+        {
+            <div class="muted" style="padding:8px 16px;color:#9a6a16">@Model.YearlyRegisterWarning</div>
+        }
         <div class="register-wrap">
-            <table class="register">
+            <table class="register yearly-register">
                 <thead><tr>
-                    <th class="code-cell" rowspan="2">Code</th><th class="employee-cell" rowspan="2">Employee</th>
-                    @foreach(var day in Model.Days){<th class="day-head @(day.Date.DayOfWeek==DayOfWeek.Sunday || day.Date.DayOfWeek==DayOfWeek.Saturday ? "weekend":"")"><strong>@day.Date.Day</strong><small>@day.Weekday</small></th>}
-                    <th class="total-head" rowspan="2">P</th><th class="total-head" rowspan="2">L</th><th class="total-head" rowspan="2">C</th><th class="total-head" rowspan="2">R</th><th class="total-head" rowspan="2">%</th>
+                    <th class="month-cell">Month</th>
+                    <th class="working-days-head">Days in<br />Month</th>
+                    <th class="working-days-head">Weekly Off<br />Days in Month</th>
+                    <th class="working-days-head">Actual<br />Working Days</th>
+                    @for (int dayNumber = 1; dayNumber <= 31; dayNumber++)
+                    {
+                        <th class="day-head"><strong>@dayNumber</strong></th>
+                    }
+                    <th class="total-head">P</th><th class="total-head">L</th><th class="total-head">C</th><th class="total-head">R</th><th class="total-head">%</th>
                 </tr></thead>
-                <tbody><tr>
-                    <td class="code-cell">@Model.EmployeeCode</td><td class="employee-cell">@Model.EmployeeName</td>
-                    @foreach(var day in Model.Days){<td class="status-cell @day.StatusClass">@day.Status</td>}
-                    <td><strong>@Model.PresentCount</strong></td><td>@Model.LeaveCount</td><td>@Model.CancelledCount</td><td>@Model.RejectedCount</td><td><strong>@Model.AttendancePercentage.ToString("0.00")%</strong></td>
-                </tr></tbody>
+                <tbody>
+                    @foreach (var monthRow in Model.YearlyRegister)
+                    {
+                        <tr>
+                            <td class="month-cell"><strong>@monthRow.MonthName</strong></td>
+                            <td class="working-days-cell"><strong>@monthRow.DaysInMonth</strong></td>
+                            <td class="working-days-cell"><strong>@monthRow.WeeklyOffDaysInMonth</strong></td>
+                            <td class="working-days-cell"><strong>@monthRow.WorkingDays</strong></td>
+                            @foreach (var day in monthRow.Days)
+                            {
+                                var hasCalendarDate = day.DayNumber > 0
+                                    && day.DayNumber <= DateTime.DaysInMonth(monthRow.MonthDate.Year, monthRow.MonthDate.Month);
+                                var weekdayName = hasCalendarDate
+                                    ? new DateTime(monthRow.MonthDate.Year, monthRow.MonthDate.Month, day.DayNumber)
+                                        .ToString("ddd", CultureInfo.InvariantCulture)
+                                    : "";
+
+                                <td class="status-cell yearly-status-cell @day.StatusClass">
+                                    <span class="yearly-status">@day.Status</span>
+                                    @if (hasCalendarDate)
+                                    {
+                                        <span class="yearly-weekday">@weekdayName</span>
+                                    }
+                                </td>
+                            }
+                            <td><strong>@monthRow.PresentCount</strong></td><td>@monthRow.LeaveCount</td><td>@monthRow.CancelledCount</td><td>@monthRow.RejectedCount</td><td><strong>@monthRow.AttendancePercentage.ToString("0.00")%</strong></td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
         <div class="legend"><span><i style="background:#31b56c"></i>Present (P)</span><span><i style="background:#4e9be6"></i>Leave (L)</span><span><i style="background:#e5a32d"></i>Cancelled (C)</span><span><i style="background:#e45454"></i>Rejected (R)</span></div>
