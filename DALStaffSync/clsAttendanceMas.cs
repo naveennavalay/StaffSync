@@ -135,6 +135,14 @@ namespace DALStaffSync
             return objEmployeeAttendanceClockInfo;
         }
 
+        /// <summary>
+        /// Retrieves the attendance clock row for one exact employee/date.
+        /// </summary>
+        public EmployeeAttendanceClockInfo GetEmployeeDailyAttendanceClockInfo(int EmpID, DateTime dtDate)
+        {
+            return objAttendanceMas.GetEmployeeDailyAttendanceClockInfo(EmpID, dtDate);
+        }
+
         public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
         {
             List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();

@@ -477,14 +477,14 @@
 
     // One selected-day record, with each attendance attribute as a Kendo column.
     const fields = [
-        { field: "AttendanceStatus", title: "Attendance Status", key: "attendanceStatus", width: 145 },
-        { field: "LoginTime", title: "Login Time", key: "loginTime", width: 125 },
-        { field: "LateLoginTime", title: "Late Login Time", key: "lateLoginTime", width: 135 },
-        { field: "LateLoginDuration", title: "Late Login Duration", key: "lateLoginDuration", width: 145 },
-        { field: "LogoutTime", title: "Logout Time", key: "logoutTime", width: 125 },
-        { field: "LateLogoutTime", title: "Late Logout Time", key: "lateLogoutTime", width: 135 },
-        { field: "LateLogoutDuration", title: "Late Logout Duration", key: "lateLogoutDuration", width: 150 },
-        { field: "TotalTime", title: "Total Time", key: "totalTime", width: 115 }
+        { field: "AttendanceStatus", title: "Attendance Status", key: "attendanceStatus", width: 65 },
+        { field: "LoginTime", title: "Login Time", key: "loginTime", width: 65 },
+        { field: "LateLoginTime", title: "Late Login Time", key: "lateLoginTime", width: 65 },
+        { field: "LateLoginDuration", title: "Late Login Duration", key: "lateLoginDuration", width: 65 },
+        { field: "LogoutTime", title: "Logout Time", key: "logoutTime", width: 65 },
+        { field: "LateLogoutTime", title: "Late Logout Time", key: "lateLogoutTime", width: 65 },
+        { field: "LateLogoutDuration", title: "Late Logout Duration", key: "lateLogoutDuration", width: 65 },
+        { field: "TotalTime", title: "Total Time", key: "totalTime", width: 65 }
         // { field: "Shift", title: "Shift", key: "shiftTitle", width: 175 },
         // { field: "ShiftLogin", title: "Shift Login", key: "shiftLoginTime", width: 125 },
         // { field: "ShiftLogout", title: "Shift Logout", key: "shiftLogoutTime", width: 125 },
@@ -570,21 +570,22 @@
         }
 
         const historyFields = [
-            { field: "Date", title: "Date", width: 115 },
+            { field: "Date", title: "Date", width: 65 },
             { field: "Weekday", title: "Day", width: 85 },
-            { field: "Status", title: "Attendance Status", width: 135 },
-            { field: "LoginTime", title: "Login Time", width: 125 },
-            { field: "EarlyLogin", title: "Early Login", width: 120 },
-            { field: "EarlyLoginPercent", title: "Early Login %", width: 115 },
-            { field: "LateLogin", title: "Late Login", width: 120 },
-            { field: "LateLoginPercent", title: "Late Login %", width: 115 },
-            { field: "LogoutTime", title: "Logout Time", width: 125 },
-            { field: "EarlyLogout", title: "Early Logout", width: 125 },
-            { field: "EarlyLogoutPercent", title: "Early Logout %", width: 120 },
-            { field: "LateLogout", title: "Late Logout", width: 120 },
-            { field: "LateLogoutPercent", title: "Late Logout %", width: 115 },
-            { field: "TotalTime", title: "Total Time", width: 115 }
+            { field: "Status", title: "Attendance Status", width: 65 },
+            { field: "LoginTime", title: "Login Time", width: 65 },
+            { field: "EarlyLogin", title: "Early Login", width: 65 },
+            //{ field: "EarlyLoginPercent", title: "Early Login %", width: 115 },
+            { field: "LateLogin", title: "Late Login", width: 65 },
+            //{ field: "LateLoginPercent", title: "Late Login %", width: 115 },
+            { field: "LogoutTime", title: "Logout Time", width: 65 },
+            { field: "EarlyLogout", title: "Early Logout", width: 65 },
+            //{ field: "EarlyLogoutPercent", title: "Early Logout %", width: 120 },
+            { field: "LateLogout", title: "Late Logout", width: 65 },
+            { field: "LateLogoutPercent", title: "Late Logout %", width: 65 },
+            { field: "TotalTime", title: "Total Time", width: 65 }
         ];
+
         const rows = (monthlyHistoryRows || []).map(item => ({
             Date: item.Date ? formatDateDDMMMYYYY(item.Date) : "—",
             Weekday: item.Weekday || "—",

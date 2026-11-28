@@ -1144,13 +1144,14 @@ namespace dbStaffSync
         }
 
         /// <summary>
-        /// Returns the employee's configured weekly-off day numbers from EmpnWeeklyOff.
-        /// Stored numbering is Monday=1 ... Saturday=6, Sunday=7.
+        /// Returns configured weekly-off day numbers for an employee.
+        /// The employee is linked to a weekly-off profile through EmpWeeklyOff;
+        /// the profile details contain WklyOffDay (Monday=1 ... Sunday=7).
         /// </summary>
         public List<int> GetEmployeeWeeklyOffDays(int employeeId)
         {
             var result = new List<int>();
-            DataTable dt = new DataTable();
+            var dt = new DataTable();
 
             try
             {
@@ -1159,25 +1160,19 @@ namespace dbStaffSync
                 using (OleDbCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    //cmd.CommandText =
-                    //    "SELECT WklyOffDay " +
-                    //    "FROM EmpnWeeklyOff " +
-                    //    "WHERE EmpID = ? " +
-                    //    "ORDER BY WklyOffDay";
-
-                    cmd.CommandText = @"SELECT
-                                            WklyOffProfileDetails.WklyOffDay
+                    cmd.CommandText = @"SELECT WklyOffProfileDetails.WklyOffDay
                                         FROM
-                                            (
-                                                WklyOffProfileInfo
-                                                INNER JOIN EmpWeeklyOff ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID
-                                            )
-                                            INNER JOIN WklyOffProfileDetails ON WklyOffProfileInfo.WklyOffMasID = WklyOffProfileDetails.WklyOffMasID
-                                        WHERE
-                                            (((EmpWeeklyOff.[EmpID]) = ?))
-                                        ORDER BY
-                                            WklyOffProfileDetails.WklyOffDay;";
+                                        (
+                                            WklyOffProfileInfo
+                                            INNER JOIN EmpWeeklyOff
+                                                ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID
+                                        )
+                                        INNER JOIN WklyOffProfileDetails
+                                            ON WklyOffProfileInfo.WklyOffMasID = WklyOffProfileDetails.WklyOffMasID
+                                        WHERE EmpWeeklyOff.EmpID = ?
+                                        ORDER BY WklyOffProfileDetails.WklyOffDay";
 
+                    // OleDb uses positional parameters.
                     cmd.Parameters.Add("?", OleDbType.Integer).Value = employeeId;
 
                     using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
@@ -1193,13 +1188,13 @@ namespace dbStaffSync
                     if (dayNumber >= 1 && dayNumber <= 7 && !result.Contains(dayNumber))
                         result.Add(dayNumber);
                 }
-
-                return result;
             }
             finally
             {
                 conn = dbStaffSync.closeDBConnection();
             }
+
+            return result;
         }
 
     }

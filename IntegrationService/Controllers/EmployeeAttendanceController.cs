@@ -271,7 +271,7 @@ namespace IntegrationService.Controllers
                 }
                 catch (Exception weeklyOffException)
                 {
-                    weeklyOffError = "Weekly-off records could not be read from EmpnWeeklyOff.";
+                    weeklyOffError = "Weekly-off records could not be read from EmpWeeklyOff.";
                     System.Diagnostics.Trace.TraceError(
                         "Weekly-off lookup failed in monthly attendance API for EmpID {0}: {1}",
                         employeeId, weeklyOffException);
@@ -320,10 +320,13 @@ namespace IntegrationService.Controllers
             {
                 DateTime selectedDate = date.Value.Date;
                 var dal = new clsAttendanceMas();
+
+                // Read the recorded clock values directly from the attendance row.
+                // Shift metadata is supplementary and must not hide saved timings.
+                var clock = dal.GetEmployeeDailyAttendanceClockInfo(employeeId, selectedDate);
                 var attendance = dal.GetEmployeeSpecificDailyAttendanceInfo(employeeId, selectedDate);
-                var clockRows = dal.getDailyLoginLogoutInformation(employeeId, selectedDate);
-                var clock = clockRows == null ? null : clockRows.FirstOrDefault();
                 var leaveInformation = dal.IsEmployeeOnLeave(employeeId, selectedDate);
+
                 bool recordFound =
                     (attendance != null && attendance.AttID > 0) ||
                     (clock != null && clock.AttID > 0);
