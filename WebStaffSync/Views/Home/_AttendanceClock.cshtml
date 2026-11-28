@@ -1,0 +1,82 @@
+@using System.Text.Json
+@{
+    var clientSlug = Convert.ToString(ViewBag.ClientSlug) ?? "";
+}
+<link rel="stylesheet" href="~/css/staffsync-attendance-clock.css" asp-append-version="true" />
+
+<section id="staffSyncAttendanceClock"
+         class="staffsync-attendance-clock"
+         data-state-url="@Url.Action("AttendanceState", "Home", new { client = clientSlug })"
+         data-login-url="@Url.Action("AttendanceLogin", "Home", new { client = clientSlug })"
+         data-logout-url="@Url.Action("AttendanceLogout", "Home", new { client = clientSlug })">
+    @Html.AntiForgeryToken()
+
+    <div class="staffsync-clock-top">
+        <div class="staffsync-clock-title">
+            <strong>My Work Station</strong>
+            <span id="staffSyncAttendanceStatus" class="staffsync-attendance-status is-logged-out">
+                <i></i><span>Checking...</span>
+            </span>
+        </div>
+
+        <div class="staffsync-clock-section">
+            <div class="staffsync-clock-section-heading">
+                <span class="staffsync-clock-icon">▣</span> Assigned Shift
+            </div>
+            <div class="staffsync-clock-info-grid staffsync-shift-info">
+                <div><small>Shift Title</small><strong id="staffSyncShiftTitle">Loading...</strong></div>
+                <div><small>Shift Login Time</small><strong id="staffSyncShiftLogin">--:--</strong></div>
+                <div><small>Shift Logout Time</small><strong id="staffSyncShiftLogout">--:--</strong></div>
+            </div>
+        </div>
+
+        <div class="staffsync-clock-section staffsync-today-section">
+            <div class="staffsync-clock-section-heading">
+                <span class="staffsync-clock-icon">◷</span> Today's Attendance
+            </div>
+            <div class="staffsync-clock-today-grid">
+                <div><small>Login Time</small><strong id="staffSyncActualLogin">Pending</strong></div>
+                <div><small>Logout Time</small><strong id="staffSyncActualLogout">Pending</strong></div>
+                <div><small>Time Difference</small><strong id="staffSyncTimeDifference">--:--:--</strong></div>
+                <div class="staffsync-timing-line"><small>Login Timing</small><strong id="staffSyncLoginTimingStatus">--</strong></div>
+                <div class="staffsync-timing-line"><small>Logout Timing</small><strong id="staffSyncLogoutTimingStatus">--</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="staffsync-shift-progress">
+        <div class="staffsync-shift-progress-center">
+            <div id="staffSyncShiftHourMarkers" class="staffsync-shift-hour-markers"></div>
+            <div class="staffsync-shift-progress-track" role="progressbar"
+                 aria-label="Shift elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="staffSyncShiftProgressFill" class="staffsync-shift-progress-fill"></div>
+                <span class="staffsync-shift-boundary-marker staffsync-shift-start-marker"></span>
+                <span class="staffsync-shift-boundary-marker staffsync-shift-end-marker"></span>
+            </div>
+        </div>
+        <div class="staffsync-shift-progress-summary">
+            <div><span>ELAPSED TIME</span><strong id="staffSyncShiftElapsed">--:--:--</strong><small id="staffSyncShiftElapsedPercent">0% elapsed</small></div>
+            <div class="staffsync-progress-remaining"><span>REMAINING TIME</span><strong id="staffSyncShiftRemaining">--:--:--</strong><small id="staffSyncShiftRemainingPercent">100% remaining</small></div>
+        </div>
+    </div>
+
+    <div class="staffsync-attendance-button-row">
+        <div class="staffsync-attendance-action-item">
+            <button id="staffSyncAttendanceLogin" class="staffsync-attendance-button staffsync-login-button" type="button" disabled>
+                <span class="staffsync-button-symbol">✓</span>
+                <span><strong>Login</strong><small>Start today's attendance</small></span>
+            </button>
+        </div>
+        <div class="staffsync-attendance-action-item">
+            <button id="staffSyncAttendanceLogout" class="staffsync-attendance-button staffsync-logout-button" type="button" disabled>
+                <span class="staffsync-button-symbol">×</span>
+                <span><strong>Logout</strong><small>End today's attendance</small></span>
+            </button>
+        </div>
+    </div>
+    <div id="staffSyncAttendanceMessage" class="staffsync-attendance-message" role="status" aria-live="polite">
+        Checking today's attendance...
+    </div>
+</section>
+
+<script src="~/js/staffsync-attendance-clock.js" asp-append-version="true"></script>

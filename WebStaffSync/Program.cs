@@ -5,7 +5,16 @@ using WebStaffSync.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+// Required by the attendance Login/Logout POST requests.
+// The JavaScript sends the antiforgery token in this header.
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "RequestVerificationToken";
+});
+
 builder.Services.AddAuthorization();
+
 builder.Services.AddHttpClient("IntegrationService", client =>
 {
     var baseUrl = builder.Configuration["IntegrationService:BaseUrl"];

@@ -396,11 +396,22 @@
     }
 
     function initialize(element, options) {
+        // The helper may be loaded before jQuery/Kendo UI by a layout bundle.
+        // Resolve the current global jQuery at call time instead of relying
+        // only on the value captured when this file was first evaluated.
+        if (typeof $ === "undefined" || !$ || !$.fn) {
+            $ = window.jQuery || window.$;
+        }
+
         if (
             !element ||
+            !$ ||
             !$.fn ||
             typeof $.fn.kendoGrid !== "function"
         ) {
+            console.error(
+                "StaffSync grid: jQuery/Kendo UI is not ready. Load jQuery first, then Kendo UI, then initialize the grid."
+            );
             return null;
         }
 

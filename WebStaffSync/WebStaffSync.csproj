@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\js\my-attendance-daily-details-grid.js" />
+  </ItemGroup>
+
 </Project>

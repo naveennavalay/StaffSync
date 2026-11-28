@@ -20,7 +20,9 @@ namespace ModelStaffSync
         public bool Success { get; set; }
         public string Status { get; set; }
         public DateTime? LoginTime { get; set; }
+        public DateTime? LateLoginTime { get; set; }
         public DateTime? LogoutTime { get; set; }
+        public DateTime? LateLogoutTime { get; set; }
         public DateTime? TotalTime { get; set; }
 
         public string Message { get; set; }
@@ -35,7 +37,9 @@ namespace ModelStaffSync
             AttDate = DateTime.Today;
             AttStatus = null;
             LoginTime = null;
+            LateLoginTime = null;
             LogoutTime = null;
+            LateLogoutTime = null;
             Success = false;
             Status = "NotLoggedIn";
             Message = string.Empty;

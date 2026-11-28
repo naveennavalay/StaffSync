@@ -152,404 +152,102 @@ namespace dbStaffSync
             return objReturnEmployeeAttendanceInfoList;
         }
 
-        public EmployeeTotalWorkingInfo GetEmployeeMonthlyWorkingDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+
+        private EmployeeTotalWorkingInfo GetEmployeeMonthlyAttendanceTotals(
+            int employeeId, DateTime dateFrom, DateTime dateToExclusive)
         {
-            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
+            var result = new EmployeeTotalWorkingInfo
+            {
+                EmpID = employeeId,
+                AttDate = dateFrom.Date,
+                TotalDaysInMonth = Math.Max(0, (dateToExclusive.Date - dateFrom.Date).Days)
+            };
+
+            DataTable attendance = new DataTable();
+            conn = dbStaffSync.openDBConnection();
 
             try
             {
-                DataTable dt = new DataTable();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText =
+                        "SELECT AttDate, AttStatus " +
+                        "FROM EmpDailyAttendanceInfo " +
+                        "WHERE EmpID = ? AND AttDate >= ? AND AttDate < ? " +
+                        "ORDER BY AttDate";
 
-                conn = dbStaffSync.openDBConnection();
+                    cmd.Parameters.Add("?", OleDbType.Integer).Value = employeeId;
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dateFrom.Date;
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dateToExclusive.Date;
 
-                string strQuery = "SELECT " + 
-                                        " EmpDailyAttendanceInfo.EmpID, " + 
-                                        " Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0)) AS TotalDaysInMonth, " + 
-                                        " Sum(IIf(AttStatus = 'Present', 1, 0)) AS PresentCount, " + 
-                                        " Sum(IIf(AttStatus = 'Leave : Full Day', 1, 0)) AS FullDayLeaveCount, " + 
-                                        " Sum(IIf(AttStatus = 'Leave : First Half', 1, 0)) AS FirstHalfLeaveCount, " + 
-                                        " Sum(IIf(AttStatus = 'Leave : Second Half', 1, 0)) AS SecondHalfLeaveCount, " + 
-                                        " FullDayLeaveCount + FirstHalfLeaveCount + SecondHalfLeaveCount AS TotalLeaveCount, " + 
-                                        " [PresentCount] - [TotalLeaveCount] AS TotalWorkedDays " + 
-                                    " FROM " + 
-                                        " EmpDailyAttendanceInfo " + 
-                                    " WHERE " + 
-                                        " ( " + 
-                                            " ( " + 
-                                                " (EmpDailyAttendanceInfo.AttDate) >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# " + 
-                                                " AND (EmpDailyAttendanceInfo.AttDate) < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# " + 
-                                            " ) " + 
-                                            " AND ((EmpDailyAttendanceInfo.EmpID) = " + txtEmpID + " ) " + 
-                                        " ) " + 
-                                    " GROUP BY " + 
-                                        " EmpDailyAttendanceInfo.EmpID, Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0));";
+                    using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
+                        adapter.Fill(attendance);
+                }
 
-                strQuery = "SELECT " +
-                                    " DateDiff(\"d\", " + "#" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth, " +
-                                    " SUM(PresentVal) AS TotalPresent, " +
-                                    " SUM(PaidLeaveVal) AS TotalPaidLeave, " +
-                                    " SUM(LOPVal) AS TotalLossOfPay, " +
-                                    " (DateDiff(\"d\", " + "#" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#)) - SUM(LOPVal) AS TotalPayableDays " +
-                                " FROM " +
-                                    " ( " +
-                                        " SELECT " +
-                                            " AttDate, " +
-                                            " IIF(AttStatus = 'Present', 1, 0) AS PresentVal, " +
-                                            " IIF( " +
-                                                " AttStatus LIKE '*Full Day*' " +
-                                                " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
-                                                " 1, " +
-                                                " IIF( " +
-                                                    " AttStatus LIKE '*First Half*' " +
-                                                    " AND AttStatus LIKE '*Second Half*' " +
-                                                    " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
-                                                    " 1, " +
-                                                    " IIF( " +
-                                                        " AttStatus LIKE '*First Half*' " +
-                                                        " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
-                                                        " 0.5, " +
-                                                        " IIF( " +
-                                                            " AttStatus LIKE '*Second Half*' " +
-                                                            " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
-                                                            " 0.5, " +
-                                                            " 0 " +
-                                                        " ) " +
-                                                    " ) " +
-                                                " ) " +
-                                            " ) AS PaidLeaveVal, " +
-                                            " IIF( " +
-                                                " AttStatus LIKE '*Full Day - Loss Of Pay*', " +
-                                                " 1, " +
-                                                " IIF( " +
-                                                    " AttStatus LIKE '*First Half - Loss Of Pay*' " +
-                                                    " AND AttStatus LIKE '*Second Half - Loss Of Pay*', " +
-                                                    " 1, " +
-                                                    " IIF( " +
-                                                        " AttStatus LIKE '*First Half - Loss Of Pay*', " +
-                                                        " 0.5, " +
-                                                        " IIF( " +
-                                                            " AttStatus LIKE '*Second Half - Loss Of Pay*', " +
-                                                            " 0.5, " +
-                                                            " 0 " +
-                                                        " ) " +
-                                                    " ) " +
-                                                " ) " +
-                                            " ) AS LOPVal " +
-                                        " FROM " +
-                                            " EmpDailyAttendanceInfo " +
-                                         " WHERE " +
-                                            " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# " +
-                                            " AND EmpID = " + txtEmpID +
-                                    ") AS X;";
+                foreach (DataRow row in attendance.Rows)
+                {
+                    string status = row["AttStatus"] == DBNull.Value
+                        ? string.Empty
+                        : Convert.ToString(row["AttStatus"]).Trim();
 
-                strQuery = "SELECT " +
-                                    "DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth," +
-                                    "SUM(PresentVal) AS TotalPresent," +
-                                    "SUM(PaidLeaveVal) AS TotalPaidLeave," +
-                                    "SUM(LOPVal) AS TotalLossOfPay," +
-                                    "(DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#)) - SUM(LOPVal) AS TotalPayableDays" +
-                                " FROM " +
-                                    "(SELECT " +
-                                            "AttDate, " +
-                                            "IIF(AttStatus = 'Present', 1, 0) AS PresentVal, " + 
-                                            "IIF(AttStatus LIKE '*Full Day*' AND AttStatus NOT LIKE '*Loss Of Pay', 1, " + 
-                                            "IIF(AttStatus LIKE '*First Half*' AND AttStatus LIKE '*Second Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 1, " + 
-                                            "IIF(AttStatus LIKE '*First Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 0.5, " + 
-                                            "IIF(AttStatus LIKE '*Second Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 0.5, 0)))) AS PaidLeaveVal, " + 
-                                            "IIF(AttStatus LIKE '*Full Day - Loss Of Pay', 1, " + 
-                                            "IIF(AttStatus LIKE '*First Half - Loss Of Pay' AND AttStatus LIKE '*Second Half - Loss Of Pay', 1, " + 
-                                            "IIF(AttStatus LIKE '*First Half - Loss Of Pay', 0.5, " + 
-                                            "IIF(AttStatus LIKE '*Second Half - Loss Of Pay', 0.5, 0)))) AS LOPVal " + 
-                                        "FROM " + 
-                                            "EmpDailyAttendanceInfo " + 
-                                        "WHERE " + 
-                                            "AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate <#" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# AND EmpID = " + txtEmpID + ")" +
-                                        " AS X;";
+                    if (status.Equals("Present", StringComparison.OrdinalIgnoreCase))
+                    {
+                        result.TotalPresent += 1m;
+                        continue;
+                    }
 
-                strQuery = "SELECT " + 
-                                " DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth, " +
-                                " SUM(IIF(AttStatus = 'Present', 1, 0)) AS TotalPresent, " +
-                                " ( " + 
-                                    " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'Full Day') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
-                                            " 1, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) + " +
-                                    " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'First Half') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Second Half') = 0 " + 
-                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
-                                            " 0.5, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) + " + 
-                                    " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'Second Half') > 0 " +
-                                            " AND InStr (1, AttStatus, 'First Half') = 0 " + 
-                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
-                                            " 0.5, " + 
-                                            " 0 " + 
-                                        " ) " +
-                                    " ) + " +
-                                    " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'First Half') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Second Half') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
-                                            " 1, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) " + 
-                                " ) AS TotalPaidLeave, " + 
-                                " ( " + 
-                                    " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'Full Day - Loss Of Pay') > 0, " + 
-                                            " 1, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) + " +
-                                " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') = 0, " + 
-                                            " 0.5, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) + " +
-                                " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'First Half - Loss Of Pay') = 0, " + 
-                                            " 0.5, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) + " +
-                                " SUM( " + 
-                                        " IIF( " + 
-                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " + 
-                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0, " + 
-                                            " 1, " + 
-                                            " 0 " + 
-                                        " ) " + 
-                                    " ) " + 
-                                " ) AS TotalLossOfPay, " + 
-                                " DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) - " +
-                                " ( " +
-                                    " SUM( " +
-                                        " IIF( " +
-                                            " InStr (1, AttStatus, 'Full Day - Loss Of Pay') > 0, " +
-                                            " 1, " +
-                                            " 0 " +
-                                        " ) " +
-                                    " ) + " +
-                                    " SUM( " +
-                                        " IIF( " +
-                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " +
-                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') = 0, " +
-                                            " 0.5, " +
-                                            " 0 " +
-                                        " ) " +
-                                    " ) + " +
-                                    "SUM( " +
-                                        " IIF( " +
-                                            " InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0 " +
-                                            " AND InStr (1, AttStatus, 'First Half - Loss Of Pay') = 0, " +
-                                            " 0.5, " +
-                                            " 0 " +
-                                        " ) " +
-                                    " ) + " +
-                                    "SUM( " +
-                                        " IIF( " +
-                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " +
-                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0, " +
-                                            " 1, " +
-                                            " 0 " +
-                                        " ) " +
-                                    " ) " +
-                                " ) AS TotalPayableDays " +
-                            " FROM " +
-                                " EmpDailyAttendanceInfo " +
-                            " WHERE " +
-                                " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate <#" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# AND EmpID = " + txtEmpID;
+                    bool isLop = status.IndexOf("Loss Of Pay", StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool fullDay = status.IndexOf("Full Day", StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool firstHalf = status.IndexOf("First Half", StringComparison.OrdinalIgnoreCase) >= 0;
+                    bool secondHalf = status.IndexOf("Second Half", StringComparison.OrdinalIgnoreCase) >= 0;
 
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
+                    decimal duration = fullDay || (firstHalf && secondHalf)
+                        ? 1m
+                        : (firstHalf || secondHalf ? 0.5m : 0m);
 
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
+                    if (isLop)
+                        result.TotalLossOfPay += duration;
+                    else
+                        result.TotalPaidLeave += duration;
+                }
 
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn = dbStaffSync.closeDBConnection();
+                result.TotalPayableDays = Math.Max(0m,
+                    result.TotalDaysInMonth - result.TotalLossOfPay);
+                return result;
             }
             finally
             {
                 conn = dbStaffSync.closeDBConnection();
             }
-
-            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
-                return objEmployeeSpecificDailyAttendanceInfo[0];
-            else
-                return new EmployeeTotalWorkingInfo();
         }
 
-        public EmployeeTotalWorkingInfo getTotalPresentDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        public EmployeeTotalWorkingInfo GetEmployeeMonthlyWorkingDays(
+            int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
         {
-            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
-
-            try
-            {
-                DataTable dt = new DataTable();
-
-                conn = dbStaffSync.openDBConnection();
-
-                string strQuery = "SELECT " + 
-                                        " SUM(IIF(AttStatus = 'Present', 1, 0)) AS TotalPresent " + 
-                                   " FROM " + 
-                                        " EmpDailyAttendanceInfo " + 
-                                   " WHERE " +
-                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" + 
-                                        " AND EmpID = " + txtEmpID;
-
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
-
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
-
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn = dbStaffSync.closeDBConnection();
-            }
-            finally
-            {
-                conn = dbStaffSync.closeDBConnection();
-            }
-
-            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
-                return objEmployeeSpecificDailyAttendanceInfo[0];
-            else
-                return new EmployeeTotalWorkingInfo();
+            return GetEmployeeMonthlyAttendanceTotals(
+                txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
         }
 
-        public EmployeeTotalWorkingInfo getTotalLossOfPayDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        public EmployeeTotalWorkingInfo getTotalPresentDays(
+            int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
         {
-            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
-
-            try
-            {
-                DataTable dt = new DataTable();
-
-                conn = dbStaffSync.openDBConnection();
-
-                string strQuery = "SELECT " + 
-                                        " SUM( " + 
-                                            " IIF(AttStatus LIKE '*Full Day - Loss Of Pay*', 1," +
-                                            " IIF(AttStatus LIKE '*First Half - Loss Of Pay*' AND AttStatus LIKE '*Second Half - Loss Of Pay*', 1," +
-                                            " IIF(AttStatus LIKE '*First Half - Loss Of Pay*', 0.5," +
-                                            " IIF(AttStatus LIKE '*Second Half - Loss Of Pay*', 0.5, 0 ))) " + 
-                                            " )" + 
-                                        " ) AS TotalLossOfPay " + 
-                                    " FROM " + 
-                                        " EmpDailyAttendanceInfo " + 
-                                   " WHERE " +
-                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" +
-                                        " AND EmpID = " + txtEmpID;
-
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
-
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
-
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn = dbStaffSync.closeDBConnection();
-            }
-            finally
-            {
-                conn = dbStaffSync.closeDBConnection();
-            }
-
-            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
-                return objEmployeeSpecificDailyAttendanceInfo[0];
-            else
-                return new EmployeeTotalWorkingInfo();
+            return GetEmployeeMonthlyAttendanceTotals(
+                txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
         }
 
-        public EmployeeTotalWorkingInfo getTotalPaidLeave(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        public EmployeeTotalWorkingInfo getTotalLossOfPayDays(
+            int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
         {
-            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
+            return GetEmployeeMonthlyAttendanceTotals(
+                txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
+        }
 
-            try
-            {
-                DataTable dt = new DataTable();
-
-                conn = dbStaffSync.openDBConnection();
-
-                string strQuery = "SELECT " +
-                                        "SUM(IIF(InStr (1, AttStatus, 'Full Day') > 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 1,0)) + " +
-                                        "SUM(IIF(InStr (1, AttStatus, 'First Half') > 0 AND InStr (1, AttStatus, 'Second Half') = 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 0.5, 0)) + " +
-                                        "SUM(IIF(InStr (1, AttStatus, 'Second Half') > 0 AND InStr (1, AttStatus, 'First Half') = 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 0.5, 0)) + " +
-                                        "SUM(IIF(InStr (1, AttStatus, 'First Half') > 0 AND InStr (1, AttStatus, 'Second Half') > 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 1, 0)) AS TotalPaidLeave " +
-                                   " FROM EmpDailyAttendanceInfo " +
-                                   " WHERE " +
-                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" +
-                                        " AND EmpID = " + txtEmpID;
-
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
-
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
-
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
-            }
-            catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                conn = dbStaffSync.closeDBConnection();
-            }
-            finally
-            {
-                conn = dbStaffSync.closeDBConnection();
-            }
-
-            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
-                return objEmployeeSpecificDailyAttendanceInfo[0];
-            else
-                return new EmployeeTotalWorkingInfo();
+        public EmployeeTotalWorkingInfo getTotalPaidLeave(
+            int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            return GetEmployeeMonthlyAttendanceTotals(
+                txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
         }
 
         public EmployeeAttendanceInfo GetEmployeeSpecificDailyAttendanceInfo(int txtEmpID, DateTime dtSelectedDate)
@@ -567,6 +265,7 @@ namespace dbStaffSync
                                         " AttDate, " +
                                         " AttStatus, " +
                                         " LeaveTRID, " +
+                                        " LeaveComments, " +
                                         " EmpMas.EmpID " +
                                   " FROM " +
                                         " EmpMas INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
@@ -600,6 +299,33 @@ namespace dbStaffSync
                 return objEmployeeSpecificDailyAttendanceInfo[0];
             else
                 return new EmployeeAttendanceInfo();
+        }
+
+
+        public MonthlyAttendanceInfo GetEmployeeAttendanceHeaderInfo(int employeeId)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "SELECT EmpID, EmpCode, EmpName FROM EmpMas WHERE EmpID = ?";
+                    cmd.Parameters.Add("?", OleDbType.Integer).Value = employeeId;
+                    using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
+                        adapter.Fill(dt);
+                }
+
+                if (dt.Rows.Count == 0) return new MonthlyAttendanceInfo();
+                string json = JsonConvert.SerializeObject(dt);
+                var rows = JsonConvert.DeserializeObject<List<MonthlyAttendanceInfo>>(json);
+                return rows == null ? new MonthlyAttendanceInfo() : rows.FirstOrDefault();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
         }
 
         public List<MonthlyAttendanceInfo> EmployeeSpecificMonthlyAttendanceInfo(int EmpID, DateTime ReportForTheMonth)
@@ -1002,6 +728,99 @@ namespace dbStaffSync
             return objEmployeeAttendanceClockInfo;
         }
 
+
+        /// <summary>
+        /// Retrieves the attendance row for one exact employee/date.
+        /// This query intentionally starts from EmpDailyAttendanceInfo so a missing
+        /// or changed shift assignment cannot hide an attendance record.
+        /// Read-only; no attendance values are inserted or updated.
+        /// </summary>
+        public EmployeeAttendanceClockInfo GetEmployeeDailyAttendanceClockInfo(int EmpID, DateTime dtDate)
+        {
+            EmployeeAttendanceClockInfo result = null;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"SELECT TOP 1
+                                            A.AttID,
+                                            A.AttDate,
+                                            A.AttStatus,
+                                            A.LeaveTRID,
+                                            A.LoginTime,
+                                            A.LateLoginTime,
+                                            A.LogoutTime,
+                                            A.LateLogoutTime,
+                                            A.TotalTime
+                                        FROM EmpDailyAttendanceInfo AS A
+                                        WHERE A.EmpID = ?
+                                          AND A.AttDate >= ?
+                                          AND A.AttDate < ?
+                                        ORDER BY A.AttID DESC";
+                    // OleDb parameters are positional; keep this order aligned with the SQL.
+                    cmd.Parameters.Add("?", OleDbType.Integer).Value = EmpID;
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dtDate.Date;
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dtDate.Date.AddDays(1);
+
+                    using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
+                        adapter.Fill(dt);
+                }
+
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    result = new EmployeeAttendanceClockInfo
+                    {
+                        AttID = row["AttID"] == DBNull.Value ? 0 : Convert.ToInt32(row["AttID"]),
+                        AttDate = row["AttDate"] == DBNull.Value ? dtDate.Date : Convert.ToDateTime(row["AttDate"]),
+                        AttStatus = row["AttStatus"] == DBNull.Value ? null : Convert.ToString(row["AttStatus"]),
+                        LoginTime = row["LoginTime"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["LoginTime"]),
+                        LateLoginTime = row["LateLoginTime"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["LateLoginTime"]),
+                        LogoutTime = row["LogoutTime"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["LogoutTime"]),
+                        LateLogoutTime = row["LateLogoutTime"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["LateLogoutTime"]),
+                        TotalTime = row["TotalTime"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["TotalTime"])
+                    };
+
+                    if (row.Table.Columns.Contains("LeaveTRID") && row["LeaveTRID"] != DBNull.Value)
+                        result.Message = Convert.ToString(row["LeaveTRID"]);
+                }
+
+                // Release the attendance query connection before the separate shift lookup.
+                conn = dbStaffSync.closeDBConnection();
+
+                // Shift information is supplementary. It must not determine whether
+                // the underlying daily attendance record is returned.
+                List<EmployeeAttendanceClockInfo> shiftRows = getDailyLoginLogoutDefaultInformation(EmpID);
+                EmployeeAttendanceClockInfo shift = shiftRows == null ? null : shiftRows.FirstOrDefault();
+                if (shift != null)
+                {
+                    if (result == null) result = new EmployeeAttendanceClockInfo();
+                    result.ShiftID = shift.ShiftID;
+                    result.ShiftTitle = shift.ShiftTitle;
+                    result.ShiftLoginTime = shift.ShiftLoginTime;
+                    result.ShiftLogoutTime = shift.ShiftLogoutTime;
+                    result.GracePeriod = shift.GracePeriod;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError(
+                    "GetEmployeeDailyAttendanceClockInfo failed for EmpID {0}, Date {1}: {2}",
+                    EmpID, dtDate, ex);
+                result = null;
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return result;
+        }
+
         public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
         {
             List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
@@ -1010,67 +829,51 @@ namespace dbStaffSync
             try
             {
                 conn = dbStaffSync.openDBConnection();
-                //DateTime.Now.Month
-                string strQuery = @"SELECT
-                                        ShiftMas.ShiftID,
-                                        ShiftMas.ShiftTitle,
-                                        Format(ShiftMas.ShiftStart, ""hh:nn:ss AM/PM"") AS ShiftLoginTime,
-                                        Format(ShiftMas.ShiftEnd, ""hh:nn:ss AM/PM"") AS ShiftLogoutTime,
-                                        Format(ShiftMas.GracePeriod, ""hh:nn:ss AM/PM"") AS GracePeriod,
-                                        EmpDailyAttendanceInfo.AttID,
-                                        EmpDailyAttendanceInfo.AttDate,
-                                        EmpDailyAttendanceInfo.AttStatus,
-                                        EmpDailyAttendanceInfo.LeaveTRID,
-                                        Format(
-                                            EmpDailyAttendanceInfo.LoginTime,
-                                            ""hh:nn:ss AM/PM""
-                                        ) AS LoginTime,
-                                        Format(
-                                            EmpDailyAttendanceInfo.LogoutTime,
-                                            ""hh:nn:ss AM/PM""
-                                        ) AS LogoutTime,
-                                        Format(
-                                            EmpDailyAttendanceInfo.TotalTime,
-                                            ""hh:nn:ss AM/PM""
-                                        ) AS TotalTime
-                                    FROM
-                                        (
-                                            ShiftMas
-                                            INNER JOIN (
-                                                EmpMas
-                                                INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
-                                            ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
-                                        )
-                                        LEFT JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
-                                    WHERE
-                                        EmpMas.EmpID = " + EmpID + @"
-                                        AND (
-                                            EmpDailyAttendanceInfo.AttID = (
-                                                SELECT
-                                                    MAX(A2.AttID)
-                                                FROM
-                                                    EmpDailyAttendanceInfo AS A2
-                                                WHERE
-                                                    A2.EmpID = EmpMas.EmpID
-                                            )
-                                            OR EmpDailyAttendanceInfo.AttID IS NULL
-                                        );";
+                using (OleDbCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"SELECT
+                                            ShiftMas.ShiftID,
+                                            ShiftMas.ShiftTitle,
+                                            ShiftMas.ShiftStart AS ShiftLoginTime,
+                                            ShiftMas.ShiftEnd AS ShiftLogoutTime,
+                                            ShiftMas.GracePeriod,
+                                            A.AttID,
+                                            A.AttDate,
+                                            A.AttStatus,
+                                            A.LeaveTRID,
+                                            A.LoginTime,
+                                            A.LateLoginTime,
+                                            A.LogoutTime,
+                                            A.LateLogoutTime,
+                                            A.TotalTime
+                                        FROM
+                                            (ShiftMas
+                                            INNER JOIN (EmpMas
+                                            INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID)
+                                            ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID)
+                                            LEFT JOIN EmpDailyAttendanceInfo AS A
+                                            ON EmpMas.EmpID = A.EmpID AND A.AttDate >= ? AND A.AttDate < ?
+                                        WHERE
+                                            EmpMas.EmpID = ?
+                                        ORDER BY A.AttID DESC";
 
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dtDate.Date;
+                    cmd.Parameters.Add("?", OleDbType.Date).Value = dtDate.Date.AddDays(1);
+                    cmd.Parameters.Add("?", OleDbType.Integer).Value = EmpID;
 
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
+                    using (OleDbDataAdapter da = new OleDbDataAdapter(cmd))
+                        da.Fill(dt);
+                }
 
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeeAttendanceClockInfo = JsonConvert.DeserializeObject<List<EmployeeAttendanceClockInfo>>(DataTableToJSon);
+                string json = JsonConvert.SerializeObject(dt);
+                objEmployeeAttendanceClockInfo =
+                    JsonConvert.DeserializeObject<List<EmployeeAttendanceClockInfo>>(json)
+                    ?? new List<EmployeeAttendanceClockInfo>();
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Keep the DAL's existing return contract; caller receives an empty list on failure.
                 conn = dbStaffSync.closeDBConnection();
             }
             finally
@@ -1080,7 +883,6 @@ namespace dbStaffSync
 
             return objEmployeeAttendanceClockInfo;
         }
-
 
         public List<IsEmployeeOnLeave> IsEmployeeOnLeave(int EmpID, DateTime dtDate)
         {

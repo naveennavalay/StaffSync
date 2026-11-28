@@ -1,158 +1,615 @@
+@model WebStaffSync.Models.MyAttendanceViewModel
+@using System.Globalization
 @{
     ViewData["Title"] = "My Attendance";
     ViewData["PageTitle"] = "My Attendance";
-    ViewData["PageDescription"] = "View your attendance records, working hours and daily attendance status.";
+    ViewData["PageDescription"] = "View your monthly attendance register and daily attendance details.";
+    var clientSlug = Convert.ToString(ViewBag.ClientSlug);
+    var firstOffset = (int)new DateTime(Model.SelectedMonth.Year, Model.SelectedMonth.Month, 1).DayOfWeek;
+    string FormatMinutes(decimal minutes)
+    {
+        var totalSeconds = (long)Math.Round(minutes * 60m, MidpointRounding.AwayFromZero);
+        var hours = totalSeconds / 3600;
+        var mins = (totalSeconds % 3600) / 60;
+        var seconds = totalSeconds % 60;
+        return $"{hours:00}:{mins:00}:{seconds:00}";
+    }
 }
-
 <style>
-    .attendance-page {
-        color: #183153;
+    .my-attendance{color:#183153;max-width:100%;}
+    .my-attendance .heading{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+    .my-attendance .eyebrow{font-size:10px;letter-spacing:1.4px;font-weight:700;color:#3978ef;text-transform:uppercase;margin-bottom:5px}
+    .my-attendance h1{font-size:26px;font-weight:700;color:#183153;margin:0 0 4px}
+    .my-attendance .muted{font-size:12px;color:#8494aa}
+    .my-attendance .panel,.my-attendance .metric{background:#fff;border:1px solid #dfe7f1;border-radius:11px;box-shadow:0 3px 14px rgba(30,55,90,.035)}
+    .my-attendance .metric-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:16px}
+    .my-attendance .metric{padding:13px 16px;min-width:0;transition:transform .18s ease,box-shadow .18s ease}
+    .my-attendance .metric:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(30,55,90,.09)}
+    .my-attendance .metric:nth-child(1){background:linear-gradient(135deg,#dceaff,#c9defb);border-color:#b7d0f4}
+    .my-attendance .metric:nth-child(2){background:linear-gradient(135deg,#d9f2e3,#c4e9d3);border-color:#a9dbbd}
+    .my-attendance .metric:nth-child(3){background:linear-gradient(135deg,#d9eff7,#c3e5f1);border-color:#abd8e8}
+    .my-attendance .metric:nth-child(4){background:linear-gradient(135deg,#ffebd2,#ffddb2);border-color:#f2c98f}
+    .my-attendance .metric:nth-child(5){background:linear-gradient(135deg,#e7ddff,#d8caff);border-color:#c7b5f3}
+    .my-attendance .metric:nth-child(1) .metric-value{color:#2863a6}
+    .my-attendance .metric:nth-child(2) .metric-value{color:#16834d}
+    .my-attendance .metric:nth-child(3) .metric-value{color:#247f9d}
+    .my-attendance .metric:nth-child(4) .metric-value{color:#b87913}
+    .my-attendance .metric:nth-child(5) .metric-value{color:#7053b5}
+    .my-attendance .metric-label{font-size:11px;color:#526984;font-weight:600;margin-bottom:6px}
+    .my-attendance .metric-value{font-size:23px;line-height:1.2;font-weight:700;color:#24466f}
+    .my-attendance .panel-head{padding:13px 16px;border-bottom:1px solid #e8edf4;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .my-attendance .panel-title{font-size:15px;font-weight:700;color:#24466f;margin:0}
+    .my-attendance .register-wrap{overflow-x:auto;padding:12px}
+    .my-attendance .register{border-collapse:separate;border-spacing:0;width:100%;min-width:980px;font-size:10px;text-align:center;color:#24466f}
+    .my-attendance .register th,.my-attendance .register td{border-right:1px solid #e4eaf2;border-bottom:1px solid #e4eaf2;padding:7px 4px;white-space:nowrap}
+    .my-attendance .register thead th{background:#f4f7fb;color:#315579;font-weight:700;vertical-align:middle}
+    .my-attendance .register thead th:first-child,.my-attendance .register tbody td:first-child{border-left:1px solid #e4eaf2}
+    .my-attendance .register .employee-cell{text-align:left;min-width:175px;font-weight:700}
+    .my-attendance .register .code-cell{min-width:75px}
+    .my-attendance .register .day-head{min-width:25px;padding:5px 1px}
+    .my-attendance .register .day-head strong{display:block;font-size:10px}
+    .my-attendance .register .day-head small{display:block;font-size:8px;color:#8392a7;font-weight:500}
+    .my-attendance .register .total-head{min-width:30px}
+    .my-attendance .register .status-cell{font-weight:700;min-width:25px}
+    .my-attendance .status-present{background:#e4f7ec;color:#16834d}
+    .my-attendance .status-leave{background:#e7f1ff;color:#2872c7}
+    .my-attendance .status-cancelled{background:#fff3dc;color:#b87913}
+    .my-attendance .status-rejected{background:#ffebeb;color:#c34444}
+    .my-attendance .status-absent{background:#fff0ef;color:#c34444}
+    .my-attendance .status-none{color:#aab5c3;background:#fbfcfd}
+    .my-attendance .weekend{background:#f1f3f6!important;color:#9aa6b5}
+    .my-attendance .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#718198;padding:0 16px 12px}
+    .my-attendance .legend span{display:inline-flex;align-items:center;gap:5px}
+    .my-attendance .legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+    .my-attendance .calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:12px}
+    .my-attendance .weekday{text-align:center;font-size:10px;font-weight:700;color:#6f829b;padding:6px 0}
+    .my-attendance .calendar-day{min-height:76px;border:1px solid #e5ebf3;border-radius:6px;background:#fff;padding:7px;text-align:left;color:#24466f;cursor:pointer}
+    .my-attendance .calendar-day:disabled{cursor:default;opacity:.75}
+    .my-attendance .calendar-day .day-no{font-size:11px;font-weight:700;display:block;margin-bottom:8px}
+    .my-attendance .calendar-day .day-state{display:inline-block;font-size:9px;font-weight:700;padding:3px 6px;border-radius:3px}
+    .my-attendance .calendar-day.selected{outline:2px solid #3978ef;background:#f3f7ff}
+    .my-attendance .details-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px}
+    .my-attendance .detail{border:1px solid #e9eef5;border-radius:7px;padding:10px}
+    .my-attendance .detail-label{font-size:10px;color:#8494aa;margin-bottom:4px}
+    .my-attendance .detail-value{font-size:12px;color:#24466f;font-weight:600;overflow-wrap:anywhere}
+    .my-attendance .attendance-view-link{font-size:12px;font-weight:700;color:#2868d7;text-decoration:none}
+    .my-attendance .attendance-view-link:hover{text-decoration:underline;color:#174da8}
+    .my-attendance .error{padding:12px;border-radius:8px;background:#fff4f4;border:1px solid #f1d1d1;color:#a33;font-size:12px}
+    @@media(max-width:900px){.my-attendance .metric-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @@media(max-width:600px){.my-attendance .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.my-attendance .details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.my-attendance .calendar-day{min-height:62px;padding:5px}}
+
+    .my-attendance #detailGrid .k-grid,.my-attendance #monthlyHistoryGrid .k-grid{border:1px solid #e4eaf2;border-radius:7px;overflow:hidden}
+    .my-attendance #monthlyHistoryGrid .k-grid-header th{background:#f4f7fb;color:#315579;font-weight:700}
+    .my-attendance #monthlyHistoryGrid .k-grid td{color:#24466f;font-size:12px;padding:8px 10px;white-space:nowrap}
+    .my-attendance .analysis-table{width:100%;border-collapse:collapse;font-size:12px;color:#24466f}
+    .my-attendance .analysis-table th,.my-attendance .analysis-table td{padding:10px 12px;border-bottom:1px solid #e8edf4;text-align:left}
+    .my-attendance .analysis-table th{background:#f4f7fb;color:#315579}
+    .my-attendance .insight-list{margin:0;padding:14px 18px 14px 34px;color:#315579;font-size:12px}
+    .my-attendance .insight-list li{margin:0 0 8px}
+    .my-attendance #detailGrid .k-grid-header th{background:#f4f7fb;color:#315579;font-weight:700}
+    .my-attendance #detailGrid .k-grid td{color:#24466f;font-size:12px;padding:9px 12px}
+    .my-attendance #detailGrid .k-grid tbody tr:hover{background:#f5f8fd}
+
+    /* Calendar day backgrounds follow the recorded attendance status.
+       These rules are intentionally after .weekend so a recorded status
+       remains visible even when it falls on a Saturday or Sunday. */
+    .my-attendance .calendar-day.status-present {
+        background: linear-gradient(135deg, #b8edcf 0%, #91dcb1 100%);
+        border-color: #65c991;
+        color: #075c35;
+    }
+    .my-attendance .calendar-day.status-leave {
+        background: linear-gradient(135deg, #c5e1ff 0%, #9acafa 100%);
+        border-color: #78b4ed;
+        color: #124f91;
+    }
+    .my-attendance .calendar-day.status-cancelled {
+        background: linear-gradient(135deg, #ffe4ae 0%, #f6ca7c 100%);
+        border-color: #e9b34d;
+        color: #805000;
+    }
+    .my-attendance .calendar-day.status-rejected,
+    .my-attendance .calendar-day.status-absent {
+        background: linear-gradient(135deg, #ffcaca 0%, #f3a2a2 100%);
+        border-color: #e77b7b;
+        color: #8e2020;
+    }
+    .my-attendance .calendar-day.status-other {
+        background: linear-gradient(135deg, #e5d5ff 0%, #cfb8f7 100%);
+        border-color: #b697eb;
+        color: #58318d;
+    }
+    .my-attendance .calendar-day.status-none {
+        background: #f0f2f5;
+        border-color: #e0e5eb;
+        color: #8492a5;
+    }
+    .my-attendance .calendar-day:not(:disabled):hover {
+        filter: brightness(.96);
+        transform: translateY(-2px);
+        transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+        box-shadow: 0 4px 10px rgba(30,55,90,.12);
+    }
+    .my-attendance .calendar-day.selected {
+        outline: 2px solid #3978ef;
+        outline-offset: -2px;
+        box-shadow: 0 3px 10px rgba(57,120,239,.18);
     }
 
-    .attendance-page .page-eyebrow {
-        color: #3978ef;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 7px;
+
+    /* History view layout: keep Kendo's scrolling area inside its own panel. */
+    .my-attendance .attendance-history-toggle {
+        display:flex;
+        justify-content:flex-end;
+        align-items:center;
+        padding:8px 4px 10px;
+    }
+    .my-attendance .attendance-view-link {
+        color:#2864d7;
+        font-weight:600;
+        text-decoration:none;
+        cursor:pointer;
+    }
+    .my-attendance .attendance-view-link:hover { text-decoration:underline; }
+    .my-attendance #monthlyHistorySection { width:100%; min-width:0; }
+    .my-attendance #monthlyHistorySection .panel { min-width:0; overflow:hidden; }
+    .my-attendance #monthlyHistoryGrid {
+        width:100%;
+        height:460px;
+        min-height:460px;
+        max-height:460px;
+        overflow:hidden;
+        box-sizing:border-box;
+    }
+    .my-attendance #monthlyHistoryGrid .k-grid {
+        width:100%;
+        height:460px !important;
+        max-height:460px !important;
+        box-sizing:border-box;
+    }
+    .my-attendance #monthlyHistoryGrid .k-grid-content {
+        height:390px !important;
+        max-height:390px !important;
+        overflow-y:auto !important;
+        overflow-x:auto !important;
+    }
+    .my-attendance #monthlyHistoryGrid .k-grid-header {
+        overflow:hidden;
+    }
+    .my-attendance #monthlyHistoryGrid table {
+        table-layout:fixed;
+    }
+    .my-attendance #monthlyHistoryGrid .k-grid-header th,
+    .my-attendance #monthlyHistoryGrid .k-grid-content td {
+        box-sizing:border-box;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    .my-attendance #monthlyHistoryGrid .k-grid-content tr {
+        height:34px;
+    }
+    .my-attendance .analysis-table-wrap {
+        width:100%;
+        overflow-x:auto;
+        clear:both;
+    }
+    .my-attendance .analysis-table {
+        margin-bottom:0;
     }
 
-    .attendance-page .page-title {
-        color: #183153;
-        font-size: 27px;
-        font-weight: 700;
-        margin: 0 0 5px;
-    }
-
-    .attendance-page .page-description {
-        color: #8292aa;
-        font-size: 13px;
-        margin: 0;
-    }
-
-    .attendance-page .attendance-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 13px;
-        border: 1px solid #d9eee6;
-        border-radius: 9px;
-        background: #f3fbf7;
-        color: #218b6d;
-        font-size: 11px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
-    .attendance-page .attendance-status .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #27ad85;
-    }
-
-    .attendance-page .attendance-panel {
-        background: #fff;
-        border: 1px solid #e4eaf3;
-        border-radius: 12px;
-        box-shadow: 0 5px 18px rgba(26, 52, 89, .035);
-    }
-
-    .attendance-page .attendance-panel-heading {
-        color: #24466f;
-        font-size: 15px;
-        font-weight: 700;
-        margin: 0 0 5px;
-    }
-
-    .attendance-page .attendance-panel-subtitle {
-        color: #8a9ab1;
-        font-size: 11px;
-        margin: 0;
-    }
-
-    .attendance-page .attendance-placeholder {
-        min-height: 245px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 28px;
-    }
-
-    .attendance-page .attendance-placeholder-icon {
-        width: 58px;
-        height: 58px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        background: #edf4ff;
-        color: #3978ef;
-        font-size: 25px;
-        margin-bottom: 15px;
-    }
-
-    .attendance-page .attendance-placeholder-title {
-        color: #24466f;
-        font-size: 15px;
-        font-weight: 700;
-        margin-bottom: 6px;
-    }
-
-    .attendance-page .attendance-placeholder-text {
-        color: #8797ad;
-        font-size: 12px;
-        max-width: 430px;
-        line-height: 1.6;
-        margin: 0;
-    }
-
-    @@media (max-width: 767px) {
-        .attendance-page .page-heading {
-            align-items: flex-start !important;
-            flex-direction: column;
-            gap: 14px;
-        }
-    }
 </style>
+<div class="my-attendance">
+    <div class="heading">
+        <div><div class="eyebrow">Employee Self-Service</div><h1>My Attendance</h1><div class="muted">@Model.EmployeeName @if(!string.IsNullOrWhiteSpace(Model.EmployeeCode)){<span> · @Model.EmployeeCode</span>}</div></div>
+        <form method="get" action="@Url.Action("Index", "MyAttendance", new { client = clientSlug })" class="d-flex align-items-center gap-2">
+            <label for="monthPicker" class="muted mb-0">Month</label>
+            <input id="monthPicker" name="month" type="month" class="form-control form-control-sm" style="width:155px" value="@Model.SelectedMonth.ToString("yyyy-MM")" />
+            <button class="btn btn-primary btn-sm" type="submit">Apply</button>
+        </form>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage)){<div class="error mb-3">@Model.ErrorMessage</div>}
 
-<div class="attendance-page">
-    <div class="d-flex justify-content-between align-items-center page-heading mb-4">
-        <div>
-            <div class="page-eyebrow">Employee Self-Service</div>
-            <h1 class="page-title">My Attendance</h1>
-            <p class="page-description">
-                View your attendance records, working hours and daily attendance status.
-            </p>
-        </div>
-
-        <div class="attendance-status">
-            <span class="status-dot"></span>
-            Attendance overview
-        </div>
+    <div class="metric-grid">
+        <div class="metric"><div class="metric-label">Working Days</div><div class="metric-value">@Model.WorkingDays.ToString("0.##")</div></div>
+        <div class="metric"><div class="metric-label">Present Days</div><div class="metric-value">@Model.PresentDays.ToString("0.##")</div></div>
+        <div class="metric"><div class="metric-label">Paid Leave</div><div class="metric-value">@Model.PaidLeaveDays.ToString("0.##")</div></div>
+        <div class="metric"><div class="metric-label">Loss of Pay</div><div class="metric-value">@Model.LossOfPayDays.ToString("0.##")</div></div>
+        <div class="metric"><div class="metric-label">Attendance %</div><div class="metric-value">@Model.AttendancePercentage.ToString("0.00")%</div></div>
     </div>
 
-    <section class="attendance-panel mb-4">
-        <div class="p-4 border-bottom">
-            <h2 class="attendance-panel-heading">Attendance Records</h2>
-            <p class="attendance-panel-subtitle">
-                Your daily attendance details will be displayed here.
-            </p>
+    <section class="panel mb-3">
+        <div class="panel-head"><div><h2 class="panel-title">Monthly Attendance Register</h2><div class="muted">@Model.SelectedMonth.ToString("MMMM yyyy", CultureInfo.InvariantCulture) · Employee-wise daily status</div></div><div class="muted">Scroll horizontally to view all dates</div></div>
+        <div class="register-wrap">
+            <table class="register">
+                <thead><tr>
+                    <th class="code-cell" rowspan="2">Code</th><th class="employee-cell" rowspan="2">Employee</th>
+                    @foreach(var day in Model.Days){<th class="day-head @(day.Date.DayOfWeek==DayOfWeek.Sunday || day.Date.DayOfWeek==DayOfWeek.Saturday ? "weekend":"")"><strong>@day.Date.Day</strong><small>@day.Weekday</small></th>}
+                    <th class="total-head" rowspan="2">P</th><th class="total-head" rowspan="2">L</th><th class="total-head" rowspan="2">C</th><th class="total-head" rowspan="2">R</th><th class="total-head" rowspan="2">%</th>
+                </tr></thead>
+                <tbody><tr>
+                    <td class="code-cell">@Model.EmployeeCode</td><td class="employee-cell">@Model.EmployeeName</td>
+                    @foreach(var day in Model.Days){<td class="status-cell @day.StatusClass">@day.Status</td>}
+                    <td><strong>@Model.PresentCount</strong></td><td>@Model.LeaveCount</td><td>@Model.CancelledCount</td><td>@Model.RejectedCount</td><td><strong>@Model.AttendancePercentage.ToString("0.00")%</strong></td>
+                </tr></tbody>
+            </table>
         </div>
+        <div class="legend"><span><i style="background:#31b56c"></i>Present (P)</span><span><i style="background:#4e9be6"></i>Leave (L)</span><span><i style="background:#e5a32d"></i>Cancelled (C)</span><span><i style="background:#e45454"></i>Rejected (R)</span></div>
+    </section>
 
-        <div class="attendance-placeholder">
-            <div class="attendance-placeholder-icon" aria-hidden="true">
-                ▦
-            </div>
-            <div class="attendance-placeholder-title">Attendance page is ready</div>
-            <p class="attendance-placeholder-text">
-                The page layout is in place. Attendance records, date filters,
-                login and logout times, working hours and attendance status
-                can be connected to the existing StaffSync attendance APIs next.
-            </p>
+    <section class="panel mb-3">
+        <div class="panel-head"><div><h2 class="panel-title">Daily Attendance Calendar</h2><div class="muted">Select a date to view the recorded attendance details</div></div><strong style="font-size:13px;color:#3978ef">@Model.SelectedMonth.ToString("MMMM yyyy", CultureInfo.InvariantCulture)</strong></div>
+        <div class="calendar">
+            @foreach(var name in new[]{"Sun","Mon","Tue","Wed","Thu","Fri","Sat"}){<div class="weekday">@name</div>}
+            @for(int i=0;i<firstOffset;i++){<div></div>}
+            @foreach(var day in Model.Days){
+                var isWeekend = day.Date.DayOfWeek == DayOfWeek.Sunday || day.Date.DayOfWeek == DayOfWeek.Saturday;
+                var isOtherStatus = day.StatusClass == "status-none"
+                    && !string.IsNullOrWhiteSpace(day.Status)
+                    && day.Status != "—";
+
+                <button type="button"
+                        class="calendar-day @day.StatusClass @(isOtherStatus ? "status-other" : "") @(isWeekend ? "weekend" : "")"
+                        data-date="@day.Date.ToString("yyyy-MM-dd")"
+                        aria-label="@day.Date.ToString("dd-MMM-yyyy") - @day.Status"
+                        title="@day.Date.ToString("dd-MMM-yyyy") - @day.Status"
+                        >
+                    <span class="day-no">@day.Date.Day</span>
+                    <span class="day-state @day.StatusClass">@day.Status</span>
+                </button>
+            }
         </div>
     </section>
+
+    <div class="attendance-history-toggle">
+        <a href="#" id="attendanceHistoryToggle" class="attendance-view-link">
+            View Daily Attendance Details - History
+        </a>
+    </div>
+
+    <section class="panel" id="dayDetailsPanel">
+        <div class="panel-head">
+            <div>
+                <h2 class="panel-title">Daily Attendance Details</h2>
+                <div class="muted" id="detailDateLabel">Loading selected date...</div>
+            </div>
+        </div>
+        <div class="daily-details-grid-wrap" style="padding:14px">
+            <div id="detailMessage" class="muted" style="padding:8px 4px">
+                Select a date from the calendar to view its attendance details.
+            </div>
+            <div id="detailGrid"></div>
+        </div>
+    </section>
+
+    <div id="monthlyHistorySection" style="display:none">
+    <section class="panel mb-3">
+        <div class="panel-head">
+            <div>
+                <h2 class="panel-title">Monthly Date-wise Attendance History</h2>
+                <div class="muted">@Model.SelectedMonth.ToString("MMMM yyyy", CultureInfo.InvariantCulture) · One row per calendar date</div>
+            </div>
+            <div class="muted">Includes recorded status and available login/logout timings</div>
+        </div>
+        <div style="padding:14px">
+            <div id="monthlyHistoryGrid"></div>
+        </div>
+    </section>
+
+    <section class="panel mb-3">
+        <div class="panel-head">
+            <div>
+                <h2 class="panel-title">Login / Logout Behaviour Matrix</h2>
+                <div class="muted">Durations are calculated using the shift assigned to each attendance date and its saved grace period.</div>
+            </div>
+        </div>
+        <div style="overflow-x:auto;padding:12px">
+            <table class="analysis-table">
+                <thead>
+                    <tr><th>Measurement</th><th>Total Duration</th><th>Days</th><th>Percentage of Present Days</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Early Login</td><td>@FormatMinutes(Model.Behaviour.EarlyLoginMinutes)</td><td>@Model.Behaviour.EarlyLoginDays</td><td>@Model.Behaviour.EarlyLoginPercent.ToString("0.00")%</td></tr>
+                    <tr><td>Late Login</td><td>@FormatMinutes(Model.Behaviour.LateLoginMinutes)</td><td>@Model.Behaviour.LateLoginDays</td><td>@Model.Behaviour.LateLoginPercent.ToString("0.00")%</td></tr>
+                    <tr><td>Early Logout</td><td>@FormatMinutes(Model.Behaviour.EarlyLogoutMinutes)</td><td>@Model.Behaviour.EarlyLogoutDays</td><td>@Model.Behaviour.EarlyLogoutPercent.ToString("0.00")%</td></tr>
+                    <tr><td>Late Logout</td><td>@FormatMinutes(Model.Behaviour.LateLogoutMinutes)</td><td>@Model.Behaviour.LateLogoutDays</td><td>@Model.Behaviour.LateLogoutPercent.ToString("0.00")%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-head"><div><h3 class="panel-title">Attendance Behaviour Insights</h3><div class="muted">Patterns identified from this month's recorded attendance</div></div></div>
+        <ul class="insight-list">
+            @foreach (var insight in Model.Behaviour.Insights) { <li>@insight</li> }
+        </ul>
+    </section>
+    </div>
 </div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.default.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.223/styles/kendo.common.min.css" />
+
+    @* Match the proven script sequence used by MyProfile. *@
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.1.223/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/js/staffsync-kendo-grid.js" asp-append-version="true"></script>
+
+    <script>
+(() => {
+    "use strict";
+
+    const buttons = Array.from(document.querySelectorAll('.my-attendance .calendar-day:not(:disabled)'));
+    const detailUrl = '@Url.Action("DayDetails", "MyAttendance", new { client = clientSlug })';
+    const gridElement = document.getElementById('detailGrid');
+    const message = document.getElementById('detailMessage');
+    const dateLabel = document.getElementById('detailDateLabel');
+    const historyGridElement = document.getElementById('monthlyHistoryGrid');
+    const monthlyHistoryRows = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MonthlyHistory));
+
+    let dailyDetailsGrid = null;
+    let latestRequest = 0;
+
+    function formatDateDDMMMYYYY(value) {
+        const raw = String(value).substring(0, 10);
+        const parts = raw.split("-");
+        if (parts.length !== 3) return raw;
+        const date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        return String(date.getDate()).padStart(2, "0") + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+    }
+
+    let isHistoryMode = false;
+
+    function setAttendanceView(showHistory) {
+        isHistoryMode = !!showHistory;
+
+        document.getElementById("dayDetailsPanel").style.display = isHistoryMode ? "none" : "";
+        document.getElementById("monthlyHistorySection").style.display = isHistoryMode ? "" : "none";
+
+        const toggle = document.getElementById("attendanceHistoryToggle");
+        toggle.textContent = isHistoryMode
+            ? "Back to Daily Attendance Details"
+            : "View Daily Attendance Details - History";
+
+        // Kendo calculates column widths while hidden. Refresh after the history
+        // panel becomes visible so headers and body columns align correctly.
+        if (isHistoryMode && window.jQuery) {
+            window.requestAnimationFrame(() => {
+                const grid = window.jQuery("#monthlyHistoryGrid").data("kendoGrid");
+                if (grid) {
+                    grid.resize();
+                    grid.refresh();
+                }
+            });
+        }
+    }
+
+    // One selected-day record, with each attendance attribute as a Kendo column.
+    const fields = [
+        { field: "AttendanceStatus", title: "Attendance Status", key: "attendanceStatus", width: 145 },
+        { field: "LoginTime", title: "Login Time", key: "loginTime", width: 125 },
+        { field: "LateLoginTime", title: "Late Login Time", key: "lateLoginTime", width: 135 },
+        { field: "LateLoginDuration", title: "Late Login Duration", key: "lateLoginDuration", width: 145 },
+        { field: "LogoutTime", title: "Logout Time", key: "logoutTime", width: 125 },
+        { field: "LateLogoutTime", title: "Late Logout Time", key: "lateLogoutTime", width: 135 },
+        { field: "LateLogoutDuration", title: "Late Logout Duration", key: "lateLogoutDuration", width: 150 },
+        { field: "TotalTime", title: "Total Time", key: "totalTime", width: 115 }
+        // { field: "Shift", title: "Shift", key: "shiftTitle", width: 175 },
+        // { field: "ShiftLogin", title: "Shift Login", key: "shiftLoginTime", width: 125 },
+        // { field: "ShiftLogout", title: "Shift Logout", key: "shiftLogoutTime", width: 125 },
+        // { field: "GracePeriod", title: "Grace Period", key: "gracePeriod", width: 125 },
+        // { field: "LeaveMode", title: "Leave Mode", key: "leaveMode", width: 115 },
+        // { field: "LeaveDuration", title: "Leave Duration", key: "leaveDuration", width: 135 },
+        // { field: "LeaveComments", title: "Leave Comments", key: "leaveComments", width: 200 }
+    ];
+
+    const gridSourceColumns = fields.map(item => item.field);
+    const kendoColumns = fields.map(item => ({
+        field: item.field,
+        title: item.title,
+        width: item.width
+    }));
+
+    function showMessage(text, isError) {
+        message.textContent = text || "";
+        message.style.display = text ? "block" : "none";
+        message.style.color = isError ? "#b42318" : "";
+    }
+
+    function makeRows(details) {
+        const row = {};
+
+        fields.forEach(item => {
+            const value = details[item.key];
+            row[item.field] =
+                value === null || value === undefined || String(value).trim() === ""
+                    ? "—"
+                    : String(value);
+        });
+
+        // Kendo receives one record. Each attendance attribute is a column.
+        return [row];
+    }
+
+    function renderGrid(rows) {
+        const helper = window.StaffSyncKendoGrid;
+
+        if (!helper || typeof helper.initialize !== "function") {
+            showMessage("StaffSync generic Kendo Grid helper was not found. Check the staffsync-kendo-grid.js script reference.", true);
+            return false;
+        }
+
+        if (!dailyDetailsGrid) {
+            dailyDetailsGrid = helper.initialize(gridElement, {
+                data: rows,
+                columns: gridSourceColumns,
+                gridOptions: {
+                    columns: kendoColumns,
+                    sortable: false,
+                    filterable: false,
+                    groupable: false,
+                    pageable: false,
+                    reorderable: false,
+                    resizable: true,
+                    scrollable: true,
+                    noRecords: {
+                        template: "No attendance details are available for this date."
+                    }
+                }
+            });
+
+            if (!dailyDetailsGrid) {
+                showMessage("Kendo Grid could not initialize. Confirm jQuery loads before Kendo UI, and Kendo UI loads before the StaffSync grid helper.", true);
+                return false;
+            }
+
+            return true;
+        }
+
+        dailyDetailsGrid.dataSource.data(rows);
+        dailyDetailsGrid.refresh();
+        return true;
+    }
+
+    function initializeMonthlyHistoryGrid() {
+        const helper = window.StaffSyncKendoGrid;
+        if (!helper || typeof helper.initialize !== "function" || !historyGridElement) {
+            if (historyGridElement) historyGridElement.textContent = "Monthly attendance grid could not be initialized. Check the StaffSync generic Kendo Grid helper.";
+            return;
+        }
+
+        const historyFields = [
+            { field: "Date", title: "Date", width: 115 },
+            { field: "Weekday", title: "Day", width: 85 },
+            { field: "Status", title: "Attendance Status", width: 135 },
+            { field: "LoginTime", title: "Login Time", width: 125 },
+            { field: "EarlyLogin", title: "Early Login", width: 120 },
+            { field: "EarlyLoginPercent", title: "Early Login %", width: 115 },
+            { field: "LateLogin", title: "Late Login", width: 120 },
+            { field: "LateLoginPercent", title: "Late Login %", width: 115 },
+            { field: "LogoutTime", title: "Logout Time", width: 125 },
+            { field: "EarlyLogout", title: "Early Logout", width: 125 },
+            { field: "EarlyLogoutPercent", title: "Early Logout %", width: 120 },
+            { field: "LateLogout", title: "Late Logout", width: 120 },
+            { field: "LateLogoutPercent", title: "Late Logout %", width: 115 },
+            { field: "TotalTime", title: "Total Time", width: 115 }
+        ];
+        const rows = (monthlyHistoryRows || []).map(item => ({
+            Date: item.Date ? formatDateDDMMMYYYY(item.Date) : "—",
+            Weekday: item.Weekday || "—",
+            Status: item.Status || "—",
+            LoginTime: item.LoginTime || "—",
+            EarlyLogin: item.EarlyLogin || "—",
+            EarlyLoginPercent: item.Status === "P" ? Number(item.EarlyLoginPercent || 0).toFixed(2) + "%" : "—",
+            LateLogin: item.LateLogin || "—",
+            LateLoginPercent: item.Status === "P" ? Number(item.LateLoginPercent || 0).toFixed(2) + "%" : "—",
+            LogoutTime: item.LogoutTime || "—",
+            EarlyLogout: item.EarlyLogout || "—",
+            EarlyLogoutPercent: item.Status === "P" ? Number(item.EarlyLogoutPercent || 0).toFixed(2) + "%" : "—",
+            LateLogout: item.LateLogout || "—",
+            LateLogoutPercent: item.Status === "P" ? Number(item.LateLogoutPercent || 0).toFixed(2) + "%" : "—",
+            TotalTime: item.TotalTime || "—"
+        }));
+
+        helper.initialize(historyGridElement, {
+            data: rows,
+            columns: historyFields.map(x => x.field),
+            gridOptions: {
+                columns: historyFields,
+                sortable: true,
+                filterable: true,
+                groupable: false,
+                pageable: false,
+                height: 460,
+                resizable: true,
+                scrollable: true,
+                noRecords: { template: "No attendance history is available for this month." }
+            }
+        });
+    }
+
+    async function loadDailyDetails(date) {
+        const requestId = ++latestRequest;
+        dateLabel.textContent = "Details for " + formatDateDDMMMYYYY(date);
+        showMessage("Loading attendance details…", false);
+
+        if (dailyDetailsGrid) {
+            dailyDetailsGrid.dataSource.data([]);
+            dailyDetailsGrid.refresh();
+        }
+
+        try {
+            const separator = detailUrl.includes("?") ? "&" : "?";
+            const requestUrl = detailUrl + separator + "date=" + encodeURIComponent(date);
+            const response = await fetch(requestUrl, {
+                method: "GET",
+                cache: "no-store",
+                credentials: "same-origin",
+                headers: { "Accept": "application/json" }
+            });
+
+            const responseText = await response.text();
+            let payload;
+            try {
+                payload = JSON.parse(responseText);
+            } catch {
+                throw new Error("The attendance details endpoint did not return JSON (HTTP " + response.status + ").");
+            }
+
+            if (requestId !== latestRequest) return;
+
+            if (!response.ok || !payload || payload.success !== true || !payload.details) {
+                throw new Error((payload && payload.message) || "No daily attendance details were returned (HTTP " + response.status + ").");
+            }
+
+            if (renderGrid(makeRows(payload.details))) {
+                showMessage("", false);
+            }
+        } catch (error) {
+            if (requestId !== latestRequest) return;
+            showMessage(error.message || "Unable to load daily attendance details.", true);
+        }
+    }
+
+    initializeMonthlyHistoryGrid();
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            buttons.forEach(item => item.classList.remove("selected"));
+            button.classList.add("selected");
+            setAttendanceView(false);
+            loadDailyDetails(button.dataset.date);
+        });
+    });
+
+    document.getElementById("attendanceHistoryToggle").addEventListener("click", event => {
+        event.preventDefault();
+        setAttendanceView(!isHistoryMode);
+    });
+
+    setAttendanceView(false);
+
+    // Default selection: today for the current month; otherwise first recorded
+    // date, falling back to the first date in the selected month.
+    const today = new Date();
+    const currentMonthDate = today.getFullYear() + "-" +
+        String(today.getMonth() + 1).padStart(2, "0") + "-" +
+        String(today.getDate()).padStart(2, "0");
+    let initialButton = buttons.find(x => x.dataset.date === currentMonthDate);
+    if (!initialButton) initialButton = buttons.find(x => {
+        const state = x.querySelector(".day-state");
+        return state && !["—", "O", ""].includes(state.textContent.trim());
+    });
+    if (!initialButton) initialButton = buttons[0];
+
+    if (initialButton) {
+        buttons.forEach(item => item.classList.remove("selected"));
+        initialButton.classList.add("selected");
+        loadDailyDetails(initialButton.dataset.date);
+    } else {
+        showMessage("No calendar dates are available for this month.", false);
+    }
+})();
+    </script>
+}
